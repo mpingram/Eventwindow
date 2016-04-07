@@ -5,15 +5,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
+/**
+ * Route Imports
+ */
+var signup = require('./routes/signup');
 
 var app = express();
 
 app.use(favicon(path.join(__dirname,'dist','favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 
 /// error handlers
@@ -21,6 +26,7 @@ app.use(cookieParser());
 /**
  * Development Settings
  */
+
 if (app.get('env') === 'development') {
 	// This will change in production since we'll be using the dist folder
 	// This covers serving up the index page
@@ -57,5 +63,10 @@ if (app.get('env') === 'production') {
 	});
 }
 
+/**
+ * Routes
+ */
+app.use('/signup',signup);
 
+console.log("App running in " +  app.settings.env + " mode...");
 module.exports = app;
