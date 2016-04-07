@@ -1,0 +1,1 @@
+mongod --dbpath data\db\ --logpath data\logs\mongodb.log --logappend

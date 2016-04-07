@@ -6,12 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-/**
- * Route Imports
- */
-var signup = require('./routes/signup');
+var routes = require('./router/index');
 
 var app = express();
 
@@ -63,10 +58,15 @@ if (app.get('env') === 'production') {
 	});
 }
 
+
 /**
  * Routes
  */
-app.use('/signup',signup);
+var router=require('./router')(app);
+// error handling
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+});
 
 console.log("App running in " +  app.settings.env + " mode...");
 module.exports = app;

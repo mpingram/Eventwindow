@@ -56,7 +56,7 @@ angular.module('clientApp') // make sure this is set to whatever it is in your c
 			});
 
 			request.error(function(data) {
-                console.log(data.msg)
+                console.log(data.msg);
 			});
 
 		};
