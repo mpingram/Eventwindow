@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 
-/// error handlers
 
 /**
  * Development Settings
@@ -63,6 +62,7 @@ if (app.get('env') === 'production') {
  * Routes
  */
 var router=require('./router')(app);
+
 // error handling
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
