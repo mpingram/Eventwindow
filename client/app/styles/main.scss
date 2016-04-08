@@ -4,6 +4,8 @@
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 @import "partials/signup";
+@import "partials/dashboard";
+@import "partials/eventpage";
 
 .browsehappy {
   margin: 4em 0;
@@ -69,6 +71,11 @@ body {
   }
 }
 
+.icon {
+    width:1em;
+    height:1em;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
@@ -91,3 +98,4 @@ body {
     border-bottom: 0;
   }
 }
+

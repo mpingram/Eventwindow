@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name clientApp
+ * @name em_App
  * @description
- * # clientApp
+ * # Event manager: manage events.
  *
  * Main module of the application.
  */
 angular
-  .module('clientApp', [
+  .module('em_App', [
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -22,14 +22,9 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/dashboard.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
       })
       .when('/signup', {
         templateUrl: 'views/signup.html',

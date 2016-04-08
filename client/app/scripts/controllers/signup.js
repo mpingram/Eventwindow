@@ -1,13 +1,13 @@
 'use strict';
 /**
  * @ngdoc function
- * @name clientApp.controller:SignupCtrl
+ * @name em_App.controller:SignupCtrl
  * @description
  * # SignupCtrl
- * Controller of the clientApp
+ * Controller of the event_manager signup page
  */
 
-angular.module('clientApp') // make sure this is set to whatever it is in your client/scripts/app.js
+angular.module('em_App') // make sure this is set to whatever it is in your client/scripts/app.js
 	.controller('SignupCtrl', function ($scope, $http) { // note the added $http depedency
 		
 		// Here we're creating some local references
