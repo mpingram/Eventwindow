@@ -22,35 +22,20 @@
     <![endif]-->
 
     <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">Event Manager</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Dashboard</a></li>
-              <li><a ng-href="#/">Create an Event</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="navbar" role="navigation">
+                <a class="sr-only" href="#pgcontent">Toggle navigation</a>
+                <a class="navbar-brand" href="#/">Event Manager</a>
+                <ul class="navbar-links">
+                    <li class="active"><a href="#/">Dashboard</a></li>
+                    <li><a ng-href="#/">Create an Event</a></li>
+                </ul>
     </div>
-
-    <div class="container">
-    <div ng-view=""></div>
     </div>
-
+    
+    <div class="container" ng-view="">
+      <!-- views go here -->
+    </div>
+      
     <div class="footer">
       <div class="container">
           <i class='fa fa-bullhorn'></i> <span> event manager: manage events</span>
