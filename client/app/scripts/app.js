@@ -37,10 +37,3 @@ angular
   });
 
 
-// where do i stick this?
-//does jquery even work here? Guess we'll find out
-$(document).ready(function(){
-    $('calendar').fullCalendar({
-        // options and callbacks go here
-    });
-});

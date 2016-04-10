@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
   <head>
@@ -32,12 +32,12 @@
     </div>
     </div>
     
-    <div class="container clear" ng-view="">
+    <div class="content" ng-view="">
       <!-- views go here -->
     </div>
       
     <div class="footer clear">
-      <div class="container">
+      <div class="footer-content">
           <i class='fa fa-bullhorn'></i> <span> event manager: manage events</span>
       </div>
     </div>
@@ -57,8 +57,8 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -67,6 +67,7 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
