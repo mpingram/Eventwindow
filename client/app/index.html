@@ -21,22 +21,22 @@
       <p class="browsehappy">You are using an outdated browser. Some of the content on this website (and many others!) may not display properly. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="header">
+    <div class="header clear">
     <div class="navbar" role="navigation">
                 <a class="sr-only" href="#pgcontent">Toggle navigation</a>
                 <a class="navbar-brand" href="#/">Event Manager</a>
-                <ul class="navbar-links">
-                    <li class="active"><a href="#/">Dashboard</a></li>
-                    <li><a ng-href="#/">Create an Event</a></li>
-                </ul>
+                <div class="navbar-links">
+                    <a class="active" href="#/">Dashboard</a>
+                    <a ng-href="#/">Create an Event</a>
+                </div>
     </div>
     </div>
     
-    <div class="container" ng-view="">
+    <div class="container clear" ng-view="">
       <!-- views go here -->
     </div>
       
-    <div class="footer">
+    <div class="footer clear">
       <div class="container">
           <i class='fa fa-bullhorn'></i> <span> event manager: manage events</span>
       </div>

@@ -15,12 +15,23 @@ $gray:                   lighten($gray-base, 33.5%) !default; // #555
 $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
-$brand-primary:         #404040 !default;
-$brand-success:         #04BF9D !default;
-$brand-info:            #34D0CA !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #F53D54 !default;
-$brand-dark:    #404040 !default;
+$brand-primary:         #277A96;
+$brand-secondary:       #707D84;
+$brand-bg:              #FFFAFF;
+$brand-success:         #04BF9D; 
+$brand-highlight:       #277a96;
+$brand-info:            #ed4912;
+$brand-warning:         #f0ad4e; 
+$brand-danger:          #F53D54; 
+$brand-dark:    #404040;
+
+/* Coolors Exported Palette - coolors.co/cca9a9-ed4912-707d84-fffaff-277a96 */
+
+$color1: #cca9a9; //rgba(204, 169, 169, 100)
+$color2: #ed4912; //rgba(237, 73, 18, 100)
+$color3: #707d84; //rgba(112, 125, 132, 100)
+$color4: #fffaff; //rgba(255, 250, 255, 100)
+$color5: #277a96; //rgba(39, 122, 150, 100)
 
 
 //== Scaffolding
