@@ -9,7 +9,7 @@
 
 angular.module('em_App') // make sure this is set to whatever it is in your client/scripts/app.js
 	.controller('SignupCtrl', function ($scope, $http) { // note the added $http depedency
-		
+		console.log('test');
 		// Here we're creating some local references
 		// so that we don't have to type $scope every
 		// damn time

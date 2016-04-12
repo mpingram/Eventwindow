@@ -10,16 +10,21 @@
 angular.module('em_App')
   .controller('DashboardCtrl', function ($http, $scope) {
     
-    angular.element(document).ready(function () {    
-        $scope.events = $http({
+    function updateUpcomingEvents() {
+        $http({
             method: 'GET',
             url: '/dash-events-upcoming'+$.now() +'.json'
         }).then(function successCallback(res) {
-            console.log(res);
+            $scope.Events = res.data;
+            console.debug(res);
             
         }, function errorCallback(res){
             console.log(res);
         });
+    }
+    
+    angular.element(document).ready(function () {    
+        updateUpcomingEvents();
     });
 });
 

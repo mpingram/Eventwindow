@@ -3,11 +3,14 @@
     
   <h4 class='head event-list-header'>Upcoming Events</h4>
     
-  <div ng-controller='DashboardCtrl'>
+  <div>
       
     <ul>
-        <li ng-repeat='event in upcomingEvents'>
+        <li ng-repeat='event in Events'>
              test: {{event.name}}
+        </li>
+        <li ng-repeat='event in Events'>
+             number: {{event.test}}
         </li>
     </ul>
       

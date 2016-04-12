@@ -13,6 +13,10 @@ router.get('/', function(req,res) {
         {
             name:'bar',
             test:10
+        },
+        {
+            name:'baz',
+            test:11
         }
     ]);
 });
