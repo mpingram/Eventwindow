@@ -7,7 +7,7 @@ var db = require('../../database');
 var Users = db.users;
 
 // POST /signup route
-router.post('/', (req,res) => {
+router.post('/', function (req,res) {
     
     // posted information from angular
     var body = req.body;
