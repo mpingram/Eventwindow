@@ -13,7 +13,7 @@ angular.module('em_App')
     function updateUpcomingEvents() {
         $http({
             method: 'GET',
-            url: '/dash-events-upcoming'+$.now() +'.json'
+            url: '/dash-events-upcoming'+ $.now() +'.json'
         }).then(function successCallback(res) {
             $scope.Events = res.data;
             console.debug(res);
