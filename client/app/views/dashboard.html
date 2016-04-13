@@ -1,10 +1,7 @@
-<div class="dashboard-container">
-<div class='box event-list'>
-    
-  <h4 class='head event-list-header'>Upcoming Events</h4>
-    
-  <div>
-      
+
+<div class='box event-list-box'>
+  <header class='dash-header'>Upcoming Events</header>
+  <div class="event-list-container">
     <ul>
         <li ng-repeat='event in Events'>
              test: {{event.name}}
@@ -19,11 +16,10 @@
 
 
 <div class='box schedule'>
-    <h4 class='head event-list-header'>O, Calendar</h4>
+    <header class='dash-header'>O, Calendar</header>
     <div id='calendar'></div>
 </div>
 
 <div class='box month-calendar'>
     
 
-</div>
