@@ -26,6 +26,17 @@ angular.module('em_App')
     angular.element(document).ready(function () {    
         updateUpcomingEvents();
     });
+
+
+    // for debugging list of events, can safely delete
+    $scope.range = function(min, max, step) {
+        step = step || 1;
+        var input = [];
+        for (var i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
 });
 
 

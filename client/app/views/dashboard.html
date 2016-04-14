@@ -3,12 +3,25 @@
   <header class='dash-header'>Upcoming Events</header>
   <div class="event-list-container">
     <ul>
-        <li ng-repeat='event in Events'>
+        <span class='event-list-date-divider'><i class='fa fa-caret-square-o-down'/> 04/15/2016</span>
+        <li class='event-list-item' ng-repeat='i in range(1,10)'>
+            <span class="ename">SSA 501-{{i}}</span><br><span class="eorganizer">Time Hacker</span>
+        </li> 
+        <span class='event-list-date-divider'><i class='fa fa-caret-square-o-down'/> 04/16/2016</span>
+        <li class='event-list-item' ng-repeat='i in range(1,10)'>
+            <span class="ename">SSA 501-{{i}}</span><br><span class="eorganizer">Time Hacker</span>
+        </li> 
+        <li class='event-list-item'>
+            bar
+        </li> 
+        <li class='event-list-item'>
+            baz
+        </li> 
+
+        <li class='event-list-item' ng-repeat='event in Events'>
              test: {{event.name}}
         </li>
-        <li ng-repeat='event in Events'>
-             number: {{event.test}}
-        </li>
+
     </ul>
       
   </div>
@@ -21,5 +34,3 @@
 </div>
 
 <div class='box month-calendar'>
-    
-
