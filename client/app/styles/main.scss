@@ -36,6 +36,8 @@ body {
     padding: 0;
     margin: 0;
 
+    // display: flex;  // <--- solve this problem when u care
+
 
 }
 /* side spacing for mobile first views */
@@ -123,16 +125,28 @@ a {
 .footer {
     font-size: 85%;
     color: #666;
-    height:50px;
+    height: 5%;
     width: 100%;
-    position: fixed;
+    position: relative;
     bottom: 0px;
     border-top: 1px solid #EEE;
-    padding: 10px;
+    padding: 5px 10px;
+    margin-top: 2px;
 }
 .footer-content {
     padding-left: 2%;
 }
+
+
+.content{
+    padding: 0 1em 1em;
+    height: 87%;
+    display: -webkit-flex;
+    display: flex;
+    overflow: hidden;
+
+}
+
 
 
 .icon {

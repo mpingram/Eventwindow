@@ -3,10 +3,7 @@ $col-event-class: #ed4912;
 .dashboard-container{  // defunct, replaced by 'content' tag
 }
 
-.content{
-    padding: 0 1em 1em;
-    height: 80%;
-}
+
 
 .event-list-box {
 	display: -webkit-flex; 
@@ -15,7 +12,7 @@ $col-event-class: #ed4912;
 	flex-direction: column;
 	-webkit-justify-content: flex-start;
 	justify-content: flex-start;
-    width: 22%;
+	flex-grow: 1;
     height: 100%;
 
 }
@@ -32,12 +29,12 @@ $col-event-class: #ed4912;
     background-color: lighten($brand-bg, 5%);
 }
 
-.event-list-container{
+.event-list{
 
 	width: auto;
 	height: 90%;
 	margin: 2% 1% 2% 2%;
-	border: 2px groove #9DBCC9;
+	border: 2px groove #9BCC9;
 	border-radius: 4px;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -49,15 +46,13 @@ $col-event-class: #ed4912;
 }
 
 
-
-
-
 .event-list-item {
 	height: 2.7em;
 	margin-bottom: 2px;
 	padding: 1%;
 	background-color: $brand-bg;
-	border-left: 0.3em solid $col-event-class;
+	border-left: 0.4em solid $col-event-class;
+	border-radius: 2px;
 
 
 
@@ -88,28 +83,72 @@ $col-event-class: #ed4912;
 }
 
 
-.schedule-container {
+.schedule-box {
+
+
 	display: -webkit-flex; 
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-direction: column;
 	-webkit-justify-content: flex-start;
 	justify-content: flex-start;
+	webkit-align-items: stretch;
+	align-items: stretch;
+	webkit-align-content: stretch;
+	align-content: stretch;
+	flex-grow: 2;
+
     width: 60%;
     height: 100%;
+    overflow: hidden;
 }
 
 .schedule{
 	width: auto;
-	height: 90%;
-	margin: 1% 0.5% 1%;
-	border: 1px solid #9DBCC9;
-	border-radius: 4px;
+	height: 100%;
+	margin: 1px 0.5 0 0;
+
 	background-color: #FFF;
+	display: -webkit-flex;
+	display: flex;
+	overflow-x: scroll; // how do I do this w/o always displaying the scroll bar? - mayb using a breakpoiny
 }
 
+.space{
 
-.month-calendar {
-    width: 15%;
-    height: 100%;
+	border-right: 1px solid #9DBCC9;
+	border-top: none;
+	border-bottom: none;
+	border-radius: 1px;
+	width: 7%;  	// width: (100/numrooms)%;
+	display: -webkit-flex; 
+	display: flex;
+	webkit-justify-content: center;
+	justify-content: center;
+	webkit-align-items: flex-start;
+	align-items: flex-start;
+
+
+}
+
+.space-header{
+	display: -webkit-flex; 
+	display: flex;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+
+	webkit-justify-content: center;
+	justify-content: center;
+	webkit-align-items: center;
+	align-items: center;
+
+
+	flex: 1 0 auto;
+
+	text-align: center;
+	//height: 30px;
+	font-size: 85%;
+	color: #555;
+	padding: 1px 2px;
+	border-bottom: 1px solid #9DBCC9;
 }
