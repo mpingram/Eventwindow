@@ -10,21 +10,11 @@
 angular.module('em_App')
   .controller('DashboardCtrl', function ($http, $scope) {
     
-    function updateUpcomingEvents() {
-        $http({
-            method: 'GET',
-            url: '/dash-events-upcoming.json'
-        }).then(function successCallback(res) {
-            $scope.Events = res.data;
-            console.debug(res);
-            
-        }, function errorCallback(res){
-            console.log(res);
-        });
-    }
+    
+    // TEMPORARY: test data for calendar. Better way to initialize?
     
     angular.element(document).ready(function () {    
-        updateUpcomingEvents();
+
         $('#calendar').fullCalendar({
             defaultView: 'resourceDay',
             resources: [
@@ -46,10 +36,9 @@ angular.module('em_App')
                 {'id':'WSSC 052','name':'WSSC 052'},
                 {'id':'WSSC 071','name':'WSSC 071'},
                 {'id':'CHAS','name':'CHAS'}
-                ]
+            ]
         });
     });
-
 
     // for debugging list of events, can safely delete
     $scope.range = function(min, max, step) {
