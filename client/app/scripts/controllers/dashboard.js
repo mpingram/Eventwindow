@@ -13,7 +13,7 @@ angular.module('em_App')
     function updateUpcomingEvents() {
         $http({
             method: 'GET',
-            url: '/dash-events-upcoming'+ $.now() +'.json'
+            url: '/dash-events-upcoming.json'
         }).then(function successCallback(res) {
             $scope.Events = res.data;
             console.debug(res);
@@ -25,6 +25,29 @@ angular.module('em_App')
     
     angular.element(document).ready(function () {    
         updateUpcomingEvents();
+        $('#calendar').fullCalendar({
+            defaultView: 'resourceDay',
+            resources: [
+                {'id':'EI','name':'EI'},
+                {'id':'EII', 'name':'EII'},
+                {'id':'EIII', 'name':'EIII'},
+                {'id':'EIV','name':'EIV'},
+                {'id':'WIa','name':'WIa'},
+                {'id':'WIb','name':'WIb'},
+                {'id':'WII','name':'WII'},
+                {'id':'WIII','name':'WIII'},
+                {'id':'WIV','name':'WIV'},
+                {'id':'Lobby','name':'Lobby'},
+                {'id':'Library','name':'Library'},
+                {'id':'120','name':'120'},
+                {'id':'129','name':'129'},
+                {'id':'BW11','name':'BW11'},
+                {'id':'BE07','name':'BE07'},
+                {'id':'WSSC 052','name':'WSSC 052'},
+                {'id':'WSSC 071','name':'WSSC 071'},
+                {'id':'CHAS','name':'CHAS'}
+                ]
+        });
     });
 
 

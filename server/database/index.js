@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 var UserModel = require('./schemas/users');
-var EventsModel = require('./schemas/events');
+var EventModel = require('./schemas/events');
 
 // Connections
 var developmentDb = 'mongodb://localhost/test';
@@ -38,4 +38,4 @@ db.once('open', function callback () {
 });
 
 exports.users = UserModel;
-exports.Events = EventsModel;
+exports.Events = EventModel;
