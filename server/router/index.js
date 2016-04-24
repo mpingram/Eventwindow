@@ -1,11 +1,23 @@
+var express=require('express');
+var moment = require('moment');
+var db = require('../database');
+var Events = db.Events;
 
 
-/**
- * Index of all routes
- */
 
-module.exports = function (app) {
+module.exports=function(app){
+	app.get('/api/events', function(req,res){
+	var upcomingEvents = [{
+		'name':'Foo',
+		'organizer':'Bar'
+		},
+		{
+		'name':'Baz',
+		'organizer':'Sprong'
+	}];
 
-    app.use('/signup', require('./routes/signup'));
-    app.use('/api', require('./routes/api'));
-};
+    res.status(200).json([
+        JSON.stringify(upcomingEvents)
+    	]);
+	});
+}
