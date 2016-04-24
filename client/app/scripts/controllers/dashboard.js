@@ -13,7 +13,7 @@ angular.module('em_App')
     function updateUpcomingEvents() {
         $http({
             method: 'GET',
-            url: '/dash-events-upcoming.json'
+            url: 'users'
         }).then(function successCallback(res) {
             $scope.Events = res.data;
             console.debug(res);
@@ -23,8 +23,13 @@ angular.module('em_App')
         });
     }
     
-    angular.element(document).ready(function () {    
+    angular.element(document).ready(function () { 
+
         updateUpcomingEvents();
+
+
+
+
         $('#calendar').fullCalendar({
             defaultView: 'resourceDay',
             resources: [
