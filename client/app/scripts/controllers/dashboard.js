@@ -8,8 +8,8 @@
  * Controller of the event_manager dashboard.
  */
 angular.module('em_App')
-  .controller('DashboardCtrl', function ($http, $scope) {
-    
+  .controller('DashboardCtrl', function ($http, $scope, Event) {
+    /*
     function updateUpcomingEvents() {
         $http({
             method: 'GET',
@@ -21,14 +21,12 @@ angular.module('em_App')
         }, function errorCallback(res){
             console.log(res);
         });
-    }
-    
+    }*/
     angular.element(document).ready(function () { 
 
-        updateUpcomingEvents();
-
-
-
+        // TEST
+        $scope.events = Event.query();
+        console.log($scope.events);
 
         $('#calendar').fullCalendar({
             defaultView: 'resourceDay',
