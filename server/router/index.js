@@ -1,12 +1,13 @@
-var express=require('express');
-var moment = require('moment');
-var db = require('../database');
-var Events = db.Events;
-
-
 
 module.exports=function(app){
-	app.get('/api/events', function(req,res){
+
+	// TEST: trying to see if I can get this to work
+	// outside of the index router file.
+
+	app.use('/api', require('./routes/api.js'));
+
+	// old code
+	/*app.get('/api/events', function(req,res){
 	var upcomingEvents = [{
 		'name':'Foo',
 		'organizer':'Bar'
@@ -20,4 +21,6 @@ module.exports=function(app){
         JSON.stringify(upcomingEvents)
     	]);
 	});
+	*/
+
 }
