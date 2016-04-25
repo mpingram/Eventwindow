@@ -1,7 +1,6 @@
 var db = require('/server/database');
 
-db.Events.insert(
-	{
+var testData = [{
 		name: "SSA 401",
 		organizer: "Tim Hecker",
 		timeStart: 1,
@@ -25,6 +24,7 @@ db.Events.insert(
 		organizer: "Tim Hecker",
 		timeStart: 29000,
 		timeEnd: 2
-	}
-);
+	}];
+
+db.Events.insert(testData);
 
