@@ -3,16 +3,19 @@ var app = express();
 var router = express.Router();
 
 var db = require('../../database');
-var Events = db.Events;
+//var Events = db.Events;
 
 
 router.get('/', function(req,res) {
 
 	console.log('im trying');
-	console.log(Events.findOne({}, {name:1}).forEach('printjson'));
 
-    var upcomingEventsCursor = Events.find( {}, {name:1, organizer:1,timeStart:1, timeEnd:1} ).limit(50).sort({timeStart:1});
-    var upcomingEvents = upcomingEventsCursor.forEach(printjson);
+    var upcomingEvents = db.Events.find( {}, {_id:1, name:1, organizer:1,timeStart:1, timeEnd:1} )/*.toArray()*/;
+    console.log('...');
+
+
+    //var upcomingEvents = upcomingEventsCursor.toArray();
+    console.log('am i really trying?');
 
     console.log(upcomingEvents);
 	
@@ -26,6 +29,7 @@ router.get('/', function(req,res) {
 	    	'organizer':'Sprong'
     }];
 	*/
+	
     res.status(200).json([
         JSON.stringify(upcomingEvents)
     ]);

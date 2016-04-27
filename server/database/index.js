@@ -37,7 +37,6 @@ db.once('open', function callback () {
   console.log('Database connection successfully opened at ' + usedDb);
 });
 
-var Events = EventModel;
-module.exports = Events;
+
 exports.users = UserModel;
 exports.Events = EventModel;
