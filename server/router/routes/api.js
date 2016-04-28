@@ -13,26 +13,13 @@ router.get('/', function(req,res) {
 
 	Events.find(function(err, events){
 		if(err) console.log(err);
-		upcomingEvents=JSON.stringify(events);
-		/*
-		upcomingEvents = `[
-			{
-				'foo':'bar',
-				'baz':'sproing'
-			},
-			{
-				'foo':'bear',
-				'baz':'sprooooiiiinnng'
-			}
-		]`;
-		*/
-		console.log(upcomingEvents);
-	})
-	.then(
+
 		res.status('200')
-			.header('Content-Type','text/plain')
-			.send("[{}]")
-	);
+			.header('Content-Type','application/json')
+			.json(events);
+
+		console.log(events);
+	});
 });
 
 module.exports=router;

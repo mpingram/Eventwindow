@@ -8,7 +8,7 @@
  * Controller of the event_manager dashboard.
  */
 angular.module('em_App')
-  .controller('DashboardCtrl', function ($http, $scope, Event) {
+  .controller('DashboardCtrl', function ($http, $scope) {
     /*
     function updateUpcomingEvents() {
         $http({
@@ -24,8 +24,26 @@ angular.module('em_App')
     }*/
     angular.element(document).ready(function () { 
 
-        $scope.events = Event.query();
-        console.log($scope.events);
+        function getEvents(timeStart, timeEnd) {
+            var requestUrl = 'api/events?timestart='+timeStart+'&timeend='+timeEnd;
+            $http({
+                method: 'GET',
+                url: requestUrl
+
+            }).then(function successCallback(res) {
+                console.log(res.data);
+                if(res.data === ''){
+                    console.error('res.data is empty');
+                }
+                $scope.Events = res.data;
+                console.log($scope.Events[0]);
+
+            }, function errorCallback(res) {
+                console.debug(res);
+            });
+        }
+
+        getEvents($.now(),$.now());
 
         $('#calendar').fullCalendar({
             defaultView: 'resourceDay',
