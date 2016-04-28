@@ -5,7 +5,7 @@ var router = express.Router();
 var db = require('../../database');
 var Events = db.Events;
 
-// asynchronity is going to kill me
+
 
 router.get('/', function(req,res) {
 

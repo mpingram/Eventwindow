@@ -9,19 +9,7 @@
  */
 angular.module('em_App')
   .controller('DashboardCtrl', function ($http, $scope) {
-    /*
-    function updateUpcomingEvents() {
-        $http({
-            method: 'GET',
-            url: 'users'
-        }).then(function successCallback(res) {
-            $scope.Events = res.data;
-            console.debug(res);
-            
-        }, function errorCallback(res){
-            console.log(res);
-        });
-    }*/
+
     angular.element(document).ready(function () { 
 
         function getEvents(timeStart, timeEnd) {
@@ -72,6 +60,7 @@ angular.module('em_App')
 
 
     // for debugging list of events, can safely delete
+    // ... once you have the actual data u know
     $scope.range = function(min, max, step) {
         step = step || 1;
         var input = [];

@@ -1,5 +1,31 @@
 TODO:
 
+4/27/16
+ok first off i wanna say UR AJAX CALL IS FUNCTIONAL IN THE MOST BASIC SENSE. SLAY, GIRL.
+
+now:
+- need to adjust fullcalendar styling / get rid of all day events
+- worth picking through the source code too, for things to change - week enumeration, for example
+
+- i really need better data in my db to wire up the ajax call properly... 
+- let's draft a more inclusive mongoose schema, and then fill it with a hearty amount of test events.
+
+- what else do I need to have a dash prototype?
+	* functional CRUD ~ we're close
+	* goodlooking frontend ~ ugh
+	* solution to the list/calendar integration problem ~ gonna be hard. but what hasn't been?
+	* jquery ui datepicker - it looks from the fc source there's direct integration for this
+	* second view?
+
+
+
+
+
+
+
+
+
+4/04/16 (??)
 - stick in second fullcalendar
 - modify fc options to format properly
 - modify fc css for nice looking.
@@ -18,3 +44,4 @@ This could be a fun problem - and defo something to keep a hold of if you nail i
 - anyway THEN using the new style resources get started on the EVENT PAGE. KEEP MODULARITY IN MIND SON.
 
 - 
+
