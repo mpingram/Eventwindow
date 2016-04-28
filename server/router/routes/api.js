@@ -3,38 +3,36 @@ var app = express();
 var router = express.Router();
 
 var db = require('../../database');
-//var Events = db.Events;
+var Events = db.Events;
 
+// asynchronity is going to kill me
 
 router.get('/', function(req,res) {
 
-	console.log('im trying');
+	var upcomingEvents;
 
-    var upcomingEvents = db.Events.find( {}, {_id:1, name:1, organizer:1,timeStart:1, timeEnd:1} )/*.toArray()*/;
-    console.log('...');
-
-
-    //var upcomingEvents = upcomingEventsCursor.toArray();
-    console.log('am i really trying?');
-
-    console.log(upcomingEvents);
-	
-	/*
-	var upcomingEvents = [{
-	    	'name':'Foo',
-	    	'organizer':'Bar'
-	    },
-	    {
-	    	'name':'Baz',
-	    	'organizer':'Sprong'
-    }];
-	*/
-	
-    res.status(200).json([
-        JSON.stringify(upcomingEvents)
-    ]);
-
-
+	Events.find(function(err, events){
+		if(err) console.log(err);
+		upcomingEvents=JSON.stringify(events);
+		/*
+		upcomingEvents = `[
+			{
+				'foo':'bar',
+				'baz':'sproing'
+			},
+			{
+				'foo':'bear',
+				'baz':'sprooooiiiinnng'
+			}
+		]`;
+		*/
+		console.log(upcomingEvents);
+	})
+	.then(
+		res.status('200')
+			.header('Content-Type','text/plain')
+			.send("[{}]")
+	);
 });
 
 module.exports=router;

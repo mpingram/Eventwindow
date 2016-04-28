@@ -24,7 +24,6 @@ angular.module('em_App')
     }*/
     angular.element(document).ready(function () { 
 
-        // TEST
         $scope.events = Event.query();
         console.log($scope.events);
 
@@ -49,7 +48,7 @@ angular.module('em_App')
                 {'id':'WSSC 052','name':'WSSC 052'},
                 {'id':'WSSC 071','name':'WSSC 071'},
                 {'id':'CHAS','name':'CHAS'}
-                ]
+            ]
         });
     });
 

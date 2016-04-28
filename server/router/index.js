@@ -1,5 +1,5 @@
 
 module.exports=function(app){
 
-	app.use('/api', require('./routes/api - DEBUG.js'));
+	app.use('/api/events*', require('./routes/api.js'));
 }
