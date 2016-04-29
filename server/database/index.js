@@ -7,7 +7,7 @@ var EventModel = require('./schemas/events');
 
 // Connections
 var developmentDb = 'mongodb://localhost/test';
-var productionDb = 'urlToYourProductionMongoDb'; // REPLACE WITH REAL DEAL URL WHEN THAT APPLIES
+var productionDb = 'urlToYourProductionMongoDb'; // TODO: replace with real url when available
 var usedDb;
 
 // If we're in development...
