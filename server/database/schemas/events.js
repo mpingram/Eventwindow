@@ -69,8 +69,10 @@ var eventSchema = new Schema({
 */
 });
 
-
+// the mongoDb collection associated with the Event model
 var collectionName = 'events';
+
+// creating the constructor for new events.
 var Event = mongoose.model('Event', eventSchema, collectionName);
 
 module.exports = Event;

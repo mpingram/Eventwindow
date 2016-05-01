@@ -2,8 +2,8 @@
  * Our Database Interface
  */
 var mongoose = require('mongoose');
-var UserModel = require('./schemas/users');
-var EventModel = require('./schemas/events');
+var userModel = require('./schemas/users');
+var eventModel = require('./schemas/events');
 
 // Connections
 var developmentDb = 'mongodb://localhost/test';
@@ -38,5 +38,4 @@ db.once('open', function callback () {
 });
 
 
-exports.users = UserModel;
-exports.Events = EventModel;
+exports.events = eventModel;
