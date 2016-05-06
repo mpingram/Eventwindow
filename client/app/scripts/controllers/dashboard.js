@@ -28,37 +28,32 @@
   */
 
 angular.module('em_App')
-  .controller('DashboardCtrl', function ($http, $scope) {
+	// debug: if code doesn't work, getEvents service is the problem
+  .controller('DashboardCtrl', function ($scope, getEvents) {
 
-    angular.element(document).ready(function () { 
 
-        function getEvents(timeStart, timeEnd) {
+  	$scope.events = [];
+  	// ok game plan: we call api for single event + buffer of server-defined length;
+  	// 
+  	// quick notes on search bar behavior: 
+  	// 			- searches through buffer and then submits server search request
+  	// 			- filters buffer events through angular data binding, for fashion souls
+  	// 			
+  	// 			- IF no matches in buffer, submit search request
+  	// 					- this means that if multiple matches in buffer, search ends at end of buffer.
+  	// 			- search request is GET api/events/search?param="string"
+  	// 			- db returns all matches, user then filters through them
+  	// 			- 
 
-            var requestUrl = 'api/events?timestart='+timeStart+'&timeend='+timeEnd;
+    angular.element(document).ready( function () { 
 
-            $http({
-                method: 'GET',
-                url: requestUrl
 
-            }).then(function successCallback(res) {
-
-                // debug
-                console.log(res.data);
-
-                // severely limiting way of doing this.
-                // maybe better to initialize calendar
-                // with the results of this ajax call?
-                $scope.Events = res.data;
-
-            }, function errorCallback(res) {
-                console.debug(res);
-            });
-        }
-
+    	// aquires json event data from server.
         // TODO: code which calls this method from start of today to end of today.
-        getEvents( $.now() , $.now() );
+        $scope.events.concat( getEvents( $.now() , true) );
 
         // TODO: format events properly for fullcalendar display and for list inclusion.
+        // TODO: move to services / elsewhere
         $('#calendar').fullCalendar({
             defaultView: 'resourceDay',
             resources: [
@@ -85,6 +80,8 @@ angular.module('em_App')
     });
 
 
+
+    // debug
     // for debugging list of events, can safely delete
     // ... once you have the actual data u know
     $scope.range = function(min, max, step) {

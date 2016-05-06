@@ -24,8 +24,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"EI"
-				,	"timeStart":		new Date("2016-04-28T09:00:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T11:50:00-05:00")
+				,	"start":		new Date("2016-04-28T09:00:00-05:00")
+				,	"end":			new Date("2016-04-28T11:50:00-05:00")
 				, 	"numAttending": 	35
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -55,8 +55,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"WII"
-				,	"timeStart":		new Date("2016-04-28T09:00:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T11:50:00-05:00")
+				,	"start":		new Date("2016-04-28T09:00:00-05:00")
+				,	"end":			new Date("2016-04-28T11:50:00-05:00")
 				, 	"numAttending": 	6
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -86,8 +86,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"EII"
-				,	"timeStart":		new Date("2016-04-28T09:00:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T11:50:00-05:00")
+				,	"start":		new Date("2016-04-28T09:00:00-05:00")
+				,	"end":			new Date("2016-04-28T11:50:00-05:00")
 				, 	"numAttending": 	8
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -117,8 +117,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"EIII"
-				,	"timeStart":		new Date("2016-04-28T09:00:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T11:50:00-05:00")
+				,	"start":		new Date("2016-04-28T09:00:00-05:00")
+				,	"end":			new Date("2016-04-28T11:50:00-05:00")
 				, 	"numAttending": 	34
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -148,8 +148,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"WIb"
-				,	"timeStart":		new Date("2016-04-28T09:00:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T11:50:00-05:00")
+				,	"start":		new Date("2016-04-28T09:00:00-05:00")
+				,	"end":			new Date("2016-04-28T11:50:00-05:00")
 				, 	"numAttending": 	60
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -179,8 +179,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"WIII"
-				,	"timeStart":		new Date("2016-04-28T13:30:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T16:20:00-05:00")
+				,	"start":		new Date("2016-04-28T13:30:00-05:00")
+				,	"end":			new Date("2016-04-28T16:20:00-05:00")
 				, 	"numAttending": 	30
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -210,8 +210,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"WIab"
-				,	"timeStart":		new Date("2016-04-28T13:30:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T16:20:00-05:00")
+				,	"start":		new Date("2016-04-28T13:30:00-05:00")
+				,	"end":			new Date("2016-04-28T16:20:00-05:00")
 				, 	"numAttending": 	45
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -242,8 +242,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"EIV"
-				,	"timeStart":		new Date("2016-04-28T13:30:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T16:20:00-05:00")
+				,	"start":		new Date("2016-04-28T13:30:00-05:00")
+				,	"end":			new Date("2016-04-28T16:20:00-05:00")
 				, 	"numAttending": 	26
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -273,8 +273,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"EIII"
-				,	"timeStart":		new Date("2016-04-28T13:30:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T16:20:00-05:00")
+				,	"start":		new Date("2016-04-28T13:30:00-05:00")
+				,	"end":			new Date("2016-04-28T16:20:00-05:00")
 				, 	"numAttending": 	30
 				,	"approved": 		true
 				,	"approver": 		"jssnyder"
@@ -305,8 +305,8 @@ var batch = [
 	,	"roomObj": [
 			{
 					"room": 			"WIV"
-				,	"timeStart":		new Date("2016-04-28T13:30:00-05:00")
-				,	"timeEnd":			new Date("2016-04-28T16:20:00-05:00")
+				,	"start":		new Date("2016-04-28T13:30:00-05:00")
+				,	"end":			new Date("2016-04-28T16:20:00-05:00")
 				, 	"subEventName": 	"Job Search"
 				, 	"numAttending": 	26
 				,	"approved": 		true
@@ -317,8 +317,8 @@ var batch = [
 			}
 		,	{
 					"room": 			"Lobby"
-				,	"timeStart":		new Date("2016-04-30T09:00:00-05:00")
-				,	"timeEnd":			new Date("2016-04-30T15:30:00-05:00")
+				,	"start":		new Date("2016-04-30T09:00:00-05:00")
+				,	"end":			new Date("2016-04-30T15:30:00-05:00")
 				, 	"subEventName": 	"Career Talk"
 				, 	"numAttending": 	100
 				,	"approved": 		true
