@@ -18,44 +18,68 @@ emDashServices.factory('fc', function() {
 	// all copies of repeating event. (which would each have a unique mongodb id).
 	// --- fc will be reinitialized on page load - so a hash may not be necessary?
 	//
-	// DEBUG: consequence of this being inside fc is that fc will need to be injected
-	// whenever you need to format data for fc. That sounds like it should be fine, right?
 	fcService.format = function( dbData ){
-		var fcData = {};
 
-		// getting id
-		if (dbData.repeating === true){
-			// TODO: implement!
-			// DEBUG: this might be a terrible idea
-			//fcData.id = dbData.repeatingID;
-			fcData.id = dbData._id;
+		var fcData;
+
+		// helper function which formats one entry at a time
+		var formatOne = function(data){
+			var output = {};
+
+			// getting id
+			if (data.repeating === true){
+				// TODO: implement!
+				// DEBUG: this might be a terrible idea
+				//fcData.id = dbData.repeatingID;
+				output.id = data._id;
+
+			} else {
+				output.id = data._id;
+			}
+
+			// DEBUG: is this how jack did it?
+			output.title = 	data.eventName + '\n' + data.organizer;
+
+			// DEBUG: u silly goose, that's not how the data is formatted
+			// DEBUG: PATCH JOB.
+			// can we modify the fullcalendar source code to allow it to support
+			// multi-room events without fuss? (ie, like 'resources' but with ability to specify different times)
+			output.start = 	data.roomObj[0].timeStart;
+			output.end =	data.roomObj[0].timeEnd;
+			output.resources = data.roomObj[0].room;
+
+			// DEBUG: alternately, respond to onclick event hook
+			output.url = 	'events/' + data._id;
+
+			return output; 
+		};
+
+		if (Array.isArray(dbData)){
+			fcData = [];
+
+			for (var i=0; i<dbData.length; i++){
+
+				fcData.push( formatOne(dbData[i]));
+			}
+
+			return fcData;
+
+		} else if (typeof dbData === 'object'){
+
+			return formatOne(dbData);
 
 		} else {
-			fcData.id = dbData._id;
+
+			throw 'fc.format was fed the wrong thing';
 		}
-
-		// DEBUG: is this how jack did it?
-		fcData.title = 	dbData.name + "\n" + dbData.organizer;
-
-		fcData.start = 	dbData.start;
-		fcData.end =	dbData.end;
-
-		// DEBUG: alternately, respond to onclick event hook
-		fcData.url = 	'events/' + dbData._id;
-
-		return fcData;
 	};
 
 	// initializes fullcalendar with further specific parameters
 	// function takes a string argument indicating name of set of specific parameters
-	fcService.initialize = function( eventBuffer, parameterSet ){
-
+	// TODO: separate initialization and event population, to take advantage of the a in ajax, u silly gosling
+	fcService.initialize = function( eventsData, parameterSet ){
+		// initializes empty fullcalendar instance
 		var that = this;
-
-		// DEBUG:
-		// woah woah woah now, this won't work cowboy. Need to iterate over object the way format is wired rn.
-		// OR JUST SYNCHRONIZE THE DATABASE AND THE FULLCALENDAR VIEW. UGHHHHHHHHH
-		//eventBuffer = this.format(eventBuffer);
 
 		// stores custom parameters to pass to fullcalendar
 		// common params
@@ -81,13 +105,37 @@ emDashServices.factory('fc', function() {
 	                {'id':'WSSC 071',   'name':'WSSC 071'},
 	                {'id':'CHAS',       'name':'CHAS'}
 	        ],
-
+	  
 	        minTime: '07:00:00',
 	        maxTime: '20:00:00',
-
 	        // TODO: fix this bs
 	        // should function here handle logic that if events aren't in eventbuffer, pull data from server?
-	        events: [ that.format(eventBuffer[0]) ]
+	        // will not work if passed non-array events,
+	        // but that should never happen.
+	        events: that.format(eventsData)
+	        /*
+	        events: [
+		        {
+		            title  : 'event1',
+		            start  : '2016-05-06',
+		            resources: 'EI'
+		        },
+		        {
+		            title  : 'event2',
+		            start  : '2016-05-06',
+		            end    : '2016-05-07',
+		            resources: 'EII'
+		        },
+		        {
+		            title  : 'event3',
+		            start  : '2016-05-06T12:30:00',
+		            end    : '2016-05-06T15:00:00',
+		            allDay : false, // will make the time show
+		            resources: 'EIII'
+		        }
+
+    		]
+    		*/
 	        
 
 
@@ -102,10 +150,22 @@ emDashServices.factory('fc', function() {
 
 		}
 
-
+		// DEBUG: TODO: moment.zone, apparently in use by fullcalendar fork, is deprecated
+		// and will need to be edited in the source code.
 		$('#calendar').fullCalendar(params);
 	};
 
+	fcService.populate = function( eventsData ){
+
+		eventsData = this.format(eventsData);
+
+		// how do we modify fullcalendar once it's initialized?
+		$('#calendar').fullCalendar({
+
+		});
+
+
+	};
 
 	return fcService;
 
@@ -121,12 +181,8 @@ emDashServices.factory('getEvents', ['$http',
 
 	function($http){
 
+		// debug: mecessary?
 		return function(date, bufferFlag, callback){
-
-			// DEBUG:
-			// ASYNCHRONITYYYYYYYYYYYYYYYYYYYY MY ENEMY
-			var output;
-
 			var requestUrl = 'api/events/' + date;
             // if server should return not only that day's events
             /// but also a buffer of the upcoming events
@@ -140,18 +196,13 @@ emDashServices.factory('getEvents', ['$http',
 
             }).then(function successCallback(res) {
 
-                // debug
-                // console.log(res.data);
-                console.log('success');
                 callback(res.data);
-                return res.data;
+                //return res.data;
 
             }, function errorCallback(res) {
                 console.debug(res);
                 return 'Response failed!';
             });
-
-			console.log(output);
 		};
 
 }]);
