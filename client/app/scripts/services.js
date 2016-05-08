@@ -37,15 +37,14 @@ emDashServices.factory('fc', function() {
 				output.id = data._id;
 			}
 
-			// DEBUG: is this how jack did it?
 			output.title = 	data.eventName + '\n' + data.organizer;
 
 			// DEBUG: u silly goose, that's not how the data is formatted
 			// DEBUG: PATCH JOB.
 			// can we modify the fullcalendar source code to allow it to support
 			// multi-room events without fuss? (ie, like 'resources' but with ability to specify different times)
-			output.start = 	data.roomObj[0].timeStart;
-			output.end =	data.roomObj[0].timeEnd;
+			output.start = 	moment(data.roomObj[0].timeStart);
+			output.end =	moment(data.roomObj[0].timeEnd);
 			output.resources = data.roomObj[0].room;
 
 			// DEBUG: alternately, respond to onclick event hook
@@ -128,15 +127,15 @@ emDashServices.factory('fc', function() {
 		        },
 		        {
 		            title  : 'event3',
-		            start  : '2016-05-06T12:30:00',
-		            end    : '2016-05-06T15:00:00',
+		            start  : '2016-05-06T12:30:00-05:00',
+		            end    : '2016-05-06T15:00:00-05:00',
 		            allDay : false, // will make the time show
 		            resources: 'EIII'
 		        }
 
     		]
-    		*/
-	        
+    		
+	        */
 
 
 		};

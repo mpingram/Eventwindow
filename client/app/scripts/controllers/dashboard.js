@@ -25,21 +25,21 @@ angular.module('em_App')
   	// 			- db returns all matches, user then filters through them with |<||>|
   	// 			- don't forget about repeating events!
 
+    // will hold event buffer(s).
     $scope.events = [];
 
     angular.element(document).ready( function () { 
 
     	// aquires json event data from server.
-    	// debug: reminder: don't forget about asynchronity, it'll bite ya
-    	// debug: good idea to initialize fullcalendar at the end of the async chain?
-    	// no! it isn't!
-    	// U can do this.
         getEvents( $.now(), true, function(data){
 
         	$scope.events = $scope.events.concat(data);
         	console.log(fc.format($scope.events));
+
+          // is there a way to add events after initialization?
+          // TODO: look into the source code.
         	fc.initialize($scope.events, 'dash');
-        	// TODO: organize this more intelligently with async in mind.
+
         });
 
     });
