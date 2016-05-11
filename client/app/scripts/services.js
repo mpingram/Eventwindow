@@ -23,6 +23,7 @@ emDashServices.factory('fc', function() {
 		var fcData;
 
 		// helper function which formats one entry at a time
+		// TODO: handle multiroom events
 		var formatOne = function(data){
 			var output = {};
 
@@ -43,15 +44,15 @@ emDashServices.factory('fc', function() {
 			// DEBUG: PATCH JOB.
 			// can we modify the fullcalendar source code to allow it to support
 			// multi-room events without fuss? (ie, like 'resources' but with ability to specify different times)
-			output.start = 	moment(data.roomObj[0].timeStart);
-			output.end =	moment(data.roomObj[0].timeEnd);
-			output.resources = data.roomObj[0].room;
-
-			// DEBUG: alternately, respond to onclick event hook
-			output.url = 	'events/' + data._id;
+			output.start = 	moment(data.roomObject[0].start);
+			output.end =	moment(data.roomObject[0].end);
+			output.resources = data.roomObject[0].room;
 
 			return output; 
 		};
+
+
+
 
 		if (Array.isArray(dbData)){
 			fcData = [];
@@ -75,7 +76,7 @@ emDashServices.factory('fc', function() {
 
 	// initializes fullcalendar with further specific parameters
 	// function takes a string argument indicating name of set of specific parameters
-	// TODO: separate initialization and event population, to take advantage of the a in ajax, u silly gosling
+	// TODO: separate initialization and event population, to take advantage of the a in ajax.
 	fcService.initialize = function( eventsData, parameterSet ){
 		// initializes empty fullcalendar instance
 		var that = this;
@@ -107,35 +108,8 @@ emDashServices.factory('fc', function() {
 	  
 	        minTime: '07:00:00',
 	        maxTime: '20:00:00',
-	        // TODO: fix this bs
-	        // should function here handle logic that if events aren't in eventbuffer, pull data from server?
-	        // will not work if passed non-array events,
-	        // but that should never happen.
-	        events: that.format(eventsData)
-	        /*
-	        events: [
-		        {
-		            title  : 'event1',
-		            start  : '2016-05-06',
-		            resources: 'EI'
-		        },
-		        {
-		            title  : 'event2',
-		            start  : '2016-05-06',
-		            end    : '2016-05-07',
-		            resources: 'EII'
-		        },
-		        {
-		            title  : 'event3',
-		            start  : '2016-05-06T12:30:00-05:00',
-		            end    : '2016-05-06T15:00:00-05:00',
-		            allDay : false, // will make the time show
-		            resources: 'EIII'
-		        }
 
-    		]
-    		
-	        */
+	        events: that.format(eventsData)
 
 
 		};
@@ -146,24 +120,17 @@ emDashServices.factory('fc', function() {
 			// set resource view
 			params.defaultView = 'resourceDay';
 
+			// respond to user click event
+			params.eventClick = function(event){
+
+				console.log(event.id);
+
+			};
+
 
 		}
 
-		// DEBUG: TODO: moment.zone, apparently in use by fullcalendar fork, is deprecated
-		// and will need to be edited in the source code.
 		$('#calendar').fullCalendar(params);
-	};
-
-	fcService.populate = function( eventsData ){
-
-		eventsData = this.format(eventsData);
-
-		// how do we modify fullcalendar once it's initialized?
-		$('#calendar').fullCalendar({
-
-		});
-
-
 	};
 
 	return fcService;
@@ -174,20 +141,15 @@ emDashServices.factory('fc', function() {
 
 // factory for funtion used by dashboard to acquire events
 // created function takes two inputs:
-// @param string date - ISO 8601 compliant string
+// @param string date - (DEBUG:) ISO 8601 compliant string
 // @param boolean bufferFlag - true if server should return events from upcoming days
 emDashServices.factory('getEvents', ['$http', 
 
 	function($http){
 
-		// debug: mecessary?
-		return function(date, bufferFlag, callback){
-			var requestUrl = 'api/events/' + date;
-            // if server should return not only that day's events
-            /// but also a buffer of the upcoming events
-            if (bufferFlag) {
-            	requestUrl += '?buffer=true';
-            }
+		return function(startDate, endDate, callback){
+			var requestUrl = 'api/events?start=' + startDate + '&end=' + endDate;
+
 
             $http({
                 method: 'GET',
@@ -196,7 +158,6 @@ emDashServices.factory('getEvents', ['$http',
             }).then(function successCallback(res) {
 
                 callback(res.data);
-                //return res.data;
 
             }, function errorCallback(res) {
                 console.debug(res);

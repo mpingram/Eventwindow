@@ -25,19 +25,28 @@ angular.module('em_App')
   	// 			- db returns all matches, user then filters through them with |<||>|
   	// 			- don't forget about repeating events!
 
-    // will hold event buffer(s).
+    // holds event buffer(s).
     $scope.events = [];
 
+
+    // aquiring json event data from server.
     angular.element(document).ready( function () { 
 
-    	// aquires json event data from server.
-        getEvents( $.now(), true, function(data){
 
+        var now = moment();
+        // sends GET request for events with query strings of unix timestamp values, ie format('X') 
+        getEvents(now.format('X'), now.add(30, 'days').format('X'), function(data){
+
+          // stores session-specific local copy of event buffer
         	$scope.events = $scope.events.concat(data);
-        	console.log(fc.format($scope.events));
+          console.log($scope.events);
 
           // is there a way to add events after initialization?
           // TODO: look into the source code.
+          // looks like ajax call within fc events object is how they handle it.
+          // consider formatting events on server/db side in a more fc-friendly way?
+          // OR do we modify fc to expect data in our event format?
+          // fun either way!
         	fc.initialize($scope.events, 'dash');
 
         });

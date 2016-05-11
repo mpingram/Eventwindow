@@ -1,6 +1,6 @@
 // batch-add-events.js
 var MongoClient = require("mongodb").MongoClient;
-var ObjectID = require("mongodb").ObjectID;
+var moment = require("moment");
 var url = "mongodb://localhost/test";
 
 
@@ -21,7 +21,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"EI"
 				,	"start":		new Date("2016-04-28T09:00:00-05:00")
@@ -52,7 +52,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"WII"
 				,	"start":		new Date("2016-04-28T09:00:00-05:00")
@@ -83,7 +83,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"EII"
 				,	"start":		new Date("2016-04-28T09:00:00-05:00")
@@ -114,7 +114,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"EIII"
 				,	"start":		new Date("2016-04-28T09:00:00-05:00")
@@ -145,7 +145,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"WIb"
 				,	"start":		new Date("2016-04-28T09:00:00-05:00")
@@ -176,10 +176,10 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"WIII"
-				,	"start":		new Date("2016-04-28T13:30:00-05:00")
+				,	"start":		new Date("2016-04-27T13:30:00-05:00")
 				,	"end":			new Date("2016-04-28T16:20:00-05:00")
 				, 	"numAttending": 	30
 				,	"approved": 		true
@@ -207,7 +207,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"WIab"
 				,	"start":		new Date("2016-04-28T13:30:00-05:00")
@@ -239,7 +239,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"EIV"
 				,	"start":		new Date("2016-04-28T13:30:00-05:00")
@@ -270,7 +270,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"EIII"
 				,	"start":		new Date("2016-04-28T13:30:00-05:00")
@@ -302,7 +302,7 @@ var batch = [
 	, 	"log": 				""
 
 
-	,	"roomObj": [
+	,	"roomObject": [
 			{
 					"room": 			"WIV"
 				,	"start":		new Date("2016-04-28T13:30:00-05:00")
@@ -317,8 +317,8 @@ var batch = [
 			}
 		,	{
 					"room": 			"Lobby"
-				,	"start":		new Date("2016-04-30T09:00:00-05:00")
-				,	"end":			new Date("2016-04-30T15:30:00-05:00")
+				,	"start":			new Date("2016-04-30T09:00:00-05:00")
+				,	"end":				new Date("2016-04-30T15:30:00-05:00")
 				, 	"subEventName": 	"Career Talk"
 				, 	"numAttending": 	100
 				,	"approved": 		true
@@ -333,6 +333,38 @@ var batch = [
 
 ];
 
+
+var calcEventStart = function(events){
+
+	for (var i=0;i<events.length;i++){
+
+		var earliest = undefined;
+
+		for (var k=0; k < events[i].roomObject.length; k++){
+
+			var thisRoom = events[i].roomObject[k];
+
+			if (earliest === undefined ||  moment(thisRoom.start).isBefore(earliest) ){
+
+
+				earliest = moment(thisRoom.start);
+
+			}
+
+		}
+
+		// defines eventStart property as a ISO 8601 string
+		events[i].eventStart = moment(earliest).format();
+	}
+
+	return events;
+
+};
+
+batch = calcEventStart(batch);
+
+console.log(batch);
+
 MongoClient.connect(url, function(err, db){
 	if (err) {
 		console.log(err);
@@ -342,7 +374,7 @@ MongoClient.connect(url, function(err, db){
 		if (err){
 			console.log(err);
 		}
-		console.log("batch inserted successfully dork. Uhh take a look\n\n\n" + result);
+		console.log("batch inserted successfully");
 	});
 	
 });
