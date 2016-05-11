@@ -17,6 +17,7 @@ router.get('/', function(req,res) {
 	endDate = endDate.startOf('day');
 
 
+
 	// TODO: implement reverse search (endDate comes before startdate)
 	// helper function which searches the db for our event data
 	var findEvents = function(start, end, callback){
@@ -42,7 +43,7 @@ router.get('/', function(req,res) {
 
 	} else {
 
-		events.find( {} , {}, {'sort':'eventStart'}, function(err, upcomingEvents) {
+		events.find( {'eventStart': { '$gte': startDate.format(), '$lte': endDate.format() } } , {}, {'sort':'eventStart'}, function(err, upcomingEvents) {
 
 			if(err) {
 				console.log(err);

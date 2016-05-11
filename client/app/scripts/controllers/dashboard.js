@@ -51,6 +51,15 @@ angular.module('em_App')
 
         });
 
+
+
+        // DEBUG: test
+        // U really should do unit tests you know
+        var testDay = moment('04 27 2016', 'MM-DD-YYYY');
+        getEvents( testDay.format('X'), testDay.add(5, 'days').format('X'), function(data) {
+          console.log(data);
+        });
+
     });
 
 
