@@ -32,8 +32,9 @@ angular.module('em_App')
     // aquiring json event data from server.
     angular.element(document).ready( function () { 
 
-
-        var now = moment();
+        // debug
+        //var now = moment();
+        var now = moment('04 27 2016', 'MM-DD-YYYY');
         // sends GET request for events with query strings of unix timestamp values, ie format('X') 
         getEvents(now.format('X'), now.add(30, 'days').format('X'), function(data){
 
@@ -49,15 +50,6 @@ angular.module('em_App')
           // fun either way!
         	fc.initialize($scope.events, 'dash');
 
-        });
-
-
-
-        // DEBUG: test
-        // U really should do unit tests you know
-        var testDay = moment('04 27 2016', 'MM-DD-YYYY');
-        getEvents( testDay.format('X'), testDay.add(5, 'days').format('X'), function(data) {
-          console.log(data);
         });
 
     });

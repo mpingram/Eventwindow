@@ -6,18 +6,9 @@
     <ul>
 
         <span class='event-list-date-divider'><i class='fa fa-caret-square-o-down'/> 04/15/2016</span>
-        <li class='event-list-item' ng-repeat='i in range(1,10)'>
-            <span class="ename">SSA 501-{{i}}</span><br><span class="eorganizer">Time Hacker</span>
+        <li class='event-list-item' ng-repeat='event in events'>
+            <span class="ename">{{event.eventName}}</span><br><span class="eorganizer">{{event.organizer}}</span>
         </li> 
-        <span class='event-list-date-divider'><i class='fa fa-caret-square-o-down'/> 04/16/2016</span>
-        <li class='event-list-item' ng-repeat='i in range(1,10)'>
-            <span class="ename">SSA 501-{{i}}</span><br><span class="eorganizer">Time Hacker</span>
-        </li> 
-
-        <li class='event-list-item' ng-repeat='event in Events'>
-             test: {{event.name}}
-        </li>
-
     </ul>
   </div>
 </div>
