@@ -1,0 +1,15 @@
+<div id='event._id'>
+
+
+	<span class='ename'>{{event.eventName}}</span><br>
+	<span class='eorganizer'>{{event.organizer}}</span>
+
+	<ul> 
+		<li class='room-list-item' ng-repeat='room in event.roomObject'>
+				
+				<span class='rname'>{{room.room}}</span>
+		</li>
+
+	</ul>
+
+</div>

@@ -55,7 +55,24 @@ angular.module('em_App')
     });
 
 
+    $('.event-list-item').on('click', function(){
 
+        // TODO: implement dropdown menu functionality
+        // TOOD: move to directive.
+        // debug: not working.
+        console.log('workd');
+
+    });
+
+
+
+
+
+    // debug
+    $scope.test = function(){
+      console.log('test');
+    };
+    
     // debug
     // for debugging list of events, can safely delete
     // ... once you have the actual data, u know

@@ -1,7 +1,5 @@
 'use strict';
 
-
-// DEBUG: if using resource, need to add 'ngResource' back to dependencies
 var emDashServices = angular.module('emDashServices', []);
 
 
