@@ -1,0 +1,22 @@
+<li>
+	<!-- DEBUG: how to close other boxes on click? -->
+
+	<div class='event-list-item' id='event._id' ng-click='clicked = !clicked'>
+
+		<span class='ename'>{{event.eventName}}</span><br>
+		<span class='eorganizer'>{{event.organizer}}</span>
+
+	</div>
+
+
+	<ul class='event-room-dropdown' ng-show='clicked'> 
+		<li class='room-list-item' ng-repeat='room in event.roomObject'>
+				<span class='rname'>{{room.room}}</span>
+		</li>
+
+	</ul>
+
+
+
+
+</li>

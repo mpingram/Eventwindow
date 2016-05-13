@@ -40,30 +40,28 @@ $col-event-class: #ed4912;
 	overflow-x: hidden;
 	background-color: #FFF;
 
-	.event-list-item:hover{
-		background-color: darken($brand-bg, 5%);
-	}
+	//position: relative;
+
 }
 
-.room-list-item{
-	display: none,
-}
 
 
 .event-list-item {
-	height: 2.7em;
+
+	//height: 2.7em;
+
 	margin-bottom: 2px;
 	padding: 1%;
 	background-color: $brand-bg;
 	border-left: 0.4em solid $col-event-class;
 	border-radius: 2px;
-
+	position: relative;
 
 
 	.ename, .eorganizer, .etime{
 	
-	// uh?	
-	
+		// uh?	
+
 	}
 
 	.ename{
@@ -79,6 +77,18 @@ $col-event-class: #ed4912;
 	.etime{
 
 	}
+
+	// debug: angular animations go here
+}
+
+.event-list-item:hover {
+		background-color: darken($brand-bg, 5%);
+	}
+
+
+.event-room-dropdown {
+
+
 }
 
 .event-list-date-divider{

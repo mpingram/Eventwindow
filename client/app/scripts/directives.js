@@ -4,22 +4,17 @@ var emDashDirectives = angular.module('emDashDirectives', []);
 
 
 // slide down room list on event list click event
-emDashDirectives.directive('emEventListItem', [ function(){
+emDashDirectives.directive('emEventListItem', [ '$animate', function($animate){
 
 	return {
 
-		restrict: 'AE',
-		replace: 'false',
-		templateUrl: 'views/partials/event_list_item.html',
+		replace: 'true',
+		templateUrl: 'views/partials/event_list_item_partial.html',
 		link: function(scope, elem, attrs){
 
 			elem.bind('click', function(){
-				elem.css('background-color', 'white');
-			});
-
-			elem.bind('mouseover', function(){
-				elem.css('cursor', 'pointer');
-
+				// debug: V-- right?
+				// elem ng-model clicked = ! elem ng-model clicked
 			});
 		}
 	};

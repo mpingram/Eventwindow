@@ -13,6 +13,8 @@ angular.module('em_App')
 
   .controller('DashboardCtrl', function ($scope, getEvents, fc) {
 
+    $scope.clicked = false;
+
 	// ok game plan: we call api for single event + buffer of server-defined length;
   	// 
   	// quick notes on search bar behavior: 
