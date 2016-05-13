@@ -12,9 +12,9 @@ emDashDirectives.directive('emEventListItem', [ '$animate', function($animate){
 		templateUrl: 'views/partials/event_list_item_partial.html',
 		link: function(scope, elem, attrs){
 
-			elem.bind('click', function(){
-				// debug: V-- right?
-				// elem ng-model clicked = ! elem ng-model clicked
+			elem.bind('click', function(){ // function(eventId){
+				// logic to open only one dropdown at a time?
+				// scroll to li#event._id
 			});
 		}
 	};

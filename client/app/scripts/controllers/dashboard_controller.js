@@ -9,32 +9,37 @@
  **/
 
 
+/* ok game plan: we call api for single event + buffer of server-defined length;
+    // 
+    // quick notes on search bar behavior: 
+    //      - searches through buffer and then submits server search request
+    //      - filters buffer events through angular data binding, for fashion souls
+    //      
+    //      - IF no matches in buffer, submit search request
+    //          - this means that if multiple matches in buffer, search ends at end of buffer.
+    //      - search request is GET api/events/search?param="string"
+    //      - db returns all matches, user then filters through them with |<||>|
+    //      - don't forget about repeating events!
+*/
+
+
 angular.module('em_App')
 
   .controller('DashboardCtrl', function ($scope, getEvents, fc) {
 
-    $scope.clicked = false;
-
-	// ok game plan: we call api for single event + buffer of server-defined length;
-  	// 
-  	// quick notes on search bar behavior: 
-  	// 			- searches through buffer and then submits server search request
-  	// 			- filters buffer events through angular data binding, for fashion souls
-  	// 			
-  	// 			- IF no matches in buffer, submit search request
-  	// 					- this means that if multiple matches in buffer, search ends at end of buffer.
-  	// 			- search request is GET api/events/search?param="string"
-  	// 			- db returns all matches, user then filters through them with |<||>|
-  	// 			- don't forget about repeating events!
 
     // holds event buffer(s).
     $scope.events = [];
 
+    // moment wrapper for use in formatting time for user display
+    $scope.format = function(time, formatString){
+        return moment(time).format(formatString);
+    }
 
     // aquiring json event data from server.
     angular.element(document).ready( function () { 
 
-        // debug
+        // debug: test dates are set to match apr 28 2016 data
         //var now = moment();
         var now = moment('04 27 2016', 'MM-DD-YYYY');
         // sends GET request for events with query strings of unix timestamp values, ie format('X') 

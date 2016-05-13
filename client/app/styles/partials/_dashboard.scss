@@ -1,22 +1,9 @@
+// DEBUG: move to _variables.scss
 $col-event-class: #ed4912;
 
-.dashboard-container{  // defunct, replaced by 'content' tag
-}
 
-
-
-.event-list-box {
-	display: -webkit-flex; 
-	display: flex;
-	-webkit-flex-direction: column;
-	flex-direction: column;
-	-webkit-justify-content: flex-start;
-	justify-content: flex-start;
-	flex-grow: 1;
-    height: 100%;
-
-}
-
+// HEADER
+// -------------------
 .dash-header {
 	font-family: $font-family-serif;
     padding: 5px 5px;
@@ -29,6 +16,25 @@ $col-event-class: #ed4912;
     background-color: lighten($brand-bg, 5%);
 }
 
+
+
+// LIST
+// --------------------------------
+
+.event-list-box {
+	display: -webkit-flex; 
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+	-webkit-flex-grow: 1;
+	flex-grow: 1;
+    height: 100%;
+
+}
+
+
 .event-list{
 
 	width: auto;
@@ -40,29 +46,23 @@ $col-event-class: #ed4912;
 	overflow-x: hidden;
 	background-color: #FFF;
 
-	//position: relative;
-
 }
 
+
+.event-list-item-container{
+	width: 100%;
+}
 
 
 .event-list-item {
 
-	//height: 2.7em;
-
+	width: 100%;
 	margin-bottom: 2px;
 	padding: 1%;
 	background-color: $brand-bg;
 	border-left: 0.4em solid $col-event-class;
 	border-radius: 2px;
-	position: relative;
 
-
-	.ename, .eorganizer, .etime{
-	
-		// uh?	
-
-	}
 
 	.ename{
 		font-size: 90%;
@@ -73,32 +73,73 @@ $col-event-class: #ed4912;
 		color: #777;
 		font-style: italic;
 	}
-
-	.etime{
-
-	}
-
-	// debug: angular animations go here
 }
 
 .event-list-item:hover {
-		background-color: darken($brand-bg, 5%);
-	}
+	background-color: darken($brand-bg, 5%);
+}
 
 
-.event-room-dropdown {
+// room list dropdown animation
+
+.event-room-dropdown.ng-hide-add, .event-room-dropdown.ng-hide-remove {
+
+	transition: all linear 0.5s;
+
+}
+
+.event-room-dropdown.ng-hide {
 
 
 }
 
-.event-list-date-divider{
-	font-family: $font-family-serif;
-	padding-left: 1em;
+
+// end room list dropdown animation
+
+
+.room-list-item {
+
+	font-size: 80%;
+	padding: 2px 0 0 1em;
+	border-top: 1px solid $gray-lighter;
+	overflow-x: hidden;
+
+	position: relative;
+	height: 5em;
+}
+
+.room-text-wrapper {
+
+	position: absolute;
+	width: 90%;
+
+}
+
+.room-list-text {
+
+	color: darken($brand-bg, 50%);
+
 }
 
 
+.room-list-field {
+
+	color: $gray;
+	font-weight: bold;
+
+}
+
+
+.rl-field-time {
+
+	text-align: right;
+	font-weight: normal;
+}
+
+
+// FULLCALENDAR
+// ------------------------
 .schedule-box {
-
 
 	display: -webkit-flex; 
 	display: flex;
@@ -110,7 +151,10 @@ $col-event-class: #ed4912;
 	align-items: stretch;
 	webkit-align-content: stretch;
 	align-content: stretch;
+	-webkit-flex-grow: 2;
 	flex-grow: 2;
+	-webkit-flex-shrink: 0;
+	flex-shrink: 0;
 
     width: 60%;
     height: 100%;
@@ -125,7 +169,7 @@ $col-event-class: #ed4912;
 	background-color: #FFF;
 	display: -webkit-flex;
 	display: flex;
-	overflow-x: scroll; // how do I do this w/o always displaying the scroll bar? - mayb using a breakpoiny
+	overflow-x: scroll; // how do I do this w/o always displaying the scroll bar? - mayb using a breakpoint
 }
 
 .space{
@@ -134,7 +178,6 @@ $col-event-class: #ed4912;
 	border-top: none;
 	border-bottom: none;
 	border-radius: 1px;
-	width: 7%;  	// width: (100/numrooms)%;
 	display: -webkit-flex; 
 	display: flex;
 	webkit-justify-content: center;
@@ -145,7 +188,8 @@ $col-event-class: #ed4912;
 
 }
 
-.space-header{
+.space-header {
+
 	display: -webkit-flex; 
 	display: flex;
 	flex-direction: row;

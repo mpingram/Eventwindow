@@ -11,9 +11,15 @@
 
 	<ul class='event-room-dropdown' ng-show='clicked'> 
 		<li class='room-list-item' ng-repeat='room in event.roomObject'>
-				<span class='rname'>{{room.room}}</span>
-		</li>
 
+			<div class='event-room-text-wrapper'>
+
+				<span class='room-list-text rl-text-room'>Room:</span> <span class='room-list-field rl-field-room'>{{room.room}}</span>
+				<div class='room-list-field rl-field-time'>{{format(room.start, 'LT')}} - {{format(room.end, 'LT')}}</div>
+
+			</div>
+
+		</li>
 	</ul>
 
 
