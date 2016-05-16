@@ -19,7 +19,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'emDashServices',
-    'emDashDirectives'
+    'emDashDirectives',
+    'emDashAnimations'
   ])
   .config(function ($routeProvider) {
     $routeProvider

@@ -18,7 +18,7 @@ $col-event-class: #ed4912;
 
 
 
-// LIST
+// Event List
 // --------------------------------
 
 .event-list-box {
@@ -80,21 +80,6 @@ $col-event-class: #ed4912;
 }
 
 
-// room list dropdown animation
-
-.event-room-dropdown.ng-hide-add, .event-room-dropdown.ng-hide-remove {
-
-	transition: all linear 0.5s;
-
-}
-
-.event-room-dropdown.ng-hide {
-
-
-}
-
-
-// end room list dropdown animation
 
 
 .room-list-item {
@@ -112,13 +97,11 @@ $col-event-class: #ed4912;
 
 	position: absolute;
 	width: 90%;
-
 }
 
 .room-list-text {
 
 	color: darken($brand-bg, 50%);
-
 }
 
 
@@ -126,7 +109,6 @@ $col-event-class: #ed4912;
 
 	color: $gray;
 	font-weight: bold;
-
 }
 
 
@@ -137,8 +119,15 @@ $col-event-class: #ed4912;
 }
 
 
-// FULLCALENDAR
+
+
+
+// Fullcalendar
 // ------------------------
+// TODO: move fc default styles here? Or what?
+// TODO: figure out fc styling ugh
+
+
 .schedule-box {
 
 	display: -webkit-flex; 
