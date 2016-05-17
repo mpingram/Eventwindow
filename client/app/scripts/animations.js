@@ -10,14 +10,14 @@ emDashAnimations.animation('.em-slide-down', [ function(){
 	return {
 
 		enter: function(element, doneFn){
-			jQuery(element).hide().slideDown(300, doneFn);
+			jQuery(element).hide().slideDown(250, doneFn);
 			// TODO: onDone call scroll to li#event._id
 			// or is there a better place for it considering we need to also close other li's?
 
 		},
 
 		leave: function(element, doneFn){
-			jQuery(element).show().slideUp(200, doneFn);
+			jQuery(element).show().slideUp(180, doneFn);
 
 		}
 

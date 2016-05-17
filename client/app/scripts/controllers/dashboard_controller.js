@@ -28,13 +28,12 @@ angular.module('em_App')
   .controller('DashboardCtrl', function ($scope, getEvents, fc) {
 
 
+
+
+
+
     // holds event buffer(s).
     $scope.events = [];
-
-    // moment wrapper for use in formatting time for user display
-    $scope.format = function(time, formatString){
-        return moment(time).format(formatString);
-    }
 
     // aquiring json event data from server.
     angular.element(document).ready( function () { 
@@ -62,23 +61,27 @@ angular.module('em_App')
     });
 
 
-    $('.event-list-item').on('click', function(){
 
-        // TODO: implement dropdown menu functionality
-        // TOOD: move to directive.
-        // debug: not working.
-        console.log('workd');
-
-    });
-
-
-
-
-
-    // debug
-    $scope.test = function(){
-      console.log('test');
+        // moment wrapper for use in formatting time for user display
+    $scope.format = function(time, formatString){
+        return moment(time).format(formatString);
     };
+
+
+
+    // room list dropdown
+    // --------------------
+
+    // determines whether roomlist is dropped down or not
+    // global to all room lists
+    $scope.roomClick = false;
+
+
+    $scope.closeRoomLists = function(){
+        $scope.roomClick = false;
+    };
+
+
     
     // debug
     // for debugging list of events, can safely delete

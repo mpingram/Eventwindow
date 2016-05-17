@@ -2,18 +2,21 @@
 <!-- Event List -->
 
 <div class='box event-list-box'>
+
   <header class='dash-header'>Events</header>
 
   <div class="event-list">
     <ul>
 
-        <!-- TODO: add spans for each day -->
+        <!-- TODO: add spans for each day - will require reorganizing ng-repeat call  -->
         <span class='event-list-date-divider'><i class='fa fa-caret-square-o-down'/> 04/15/2016 </span>
 
+        <!-- TODO: event in events won't cut it - see above -->
         <li class='event-list-item-container' ng-repeat='event in events' data-em-event-list-item></li>
 
     </ul>
   </div>
+
 </div>
 
 

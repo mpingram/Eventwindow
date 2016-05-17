@@ -1,15 +1,16 @@
 <li>
-	<!-- DEBUG: how to close other boxes on click? -->
 
-	<div class='event-list-item' id='event._id' ng-click='clicked = !clicked'>
+	<!-- TODO?: replace ng-click with custom directive? -->
+	<div class='event-list-item' id='event._id'>
 
 		<span class='ename'>{{event.eventName}}</span><br>
 		<span class='eorganizer'>{{event.organizer}}</span>
+		<span> roomclick == {{roomClick}}</span>
 
 	</div>
+	<span> roomclick == {{roomClick}} </span>
 
-
-	<ul class='event-room-dropdown em-slide-down' ng-if='clicked'> 
+	<ul class='event-room-dropdown em-slide-down' ng-if='roomClick'> 
 		<li class='room-list-item' ng-repeat='room in event.roomObject'>
 
 			<div class='event-room-text-wrapper'>

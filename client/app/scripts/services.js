@@ -137,7 +137,7 @@ emDashServices.factory('fc', function() {
 
 
 
-// factory for funtion used by dashboard to acquire events
+// factory for function used by dashboard to acquire events
 // created function takes two inputs:
 // @param string date - (DEBUG:) ISO 8601 compliant string
 // @param boolean bufferFlag - true if server should return events from upcoming days
