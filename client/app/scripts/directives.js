@@ -3,7 +3,24 @@
 var emDashDirectives = angular.module('emDashDirectives', []);
 
 
-// slide down room list on event list click event
+
+// constructs the event list, handles collapsing days
+emDashDirectives.directive('emEventList', [function(){
+
+	return {
+		replace: 'true',
+		templateUrl: 'views/partials/event_list_partial.html',
+		scope: false,
+
+		link: function(scope, elem, attrs){
+		}
+
+	};
+}]);
+
+
+
+// represents one event in the event list
 emDashDirectives.directive('emEventListItem', [ function(){
 
 	return {
@@ -20,43 +37,8 @@ emDashDirectives.directive('emEventListItem', [ function(){
 
 			});
 		}
-		
-		
 	};
 }]);
 
 
 
-
-/*
-
-emDashDirectives.directive('emEventClick', [ function(){
-	// utilize controller which shares scope with.... 
-	// a different directive which drops down the list? 
-	// Essentially just a wrapper for ng-if?
-	return {
-
-		link: function(scope, elem, attrs){
-			elem.bind('click', function(){
-				// DEBUG: call function defined in $scope? ...then would we even need the directive?
-				// close other open room lists
-				// 	scope.clicked affects this local scope value,
-				//	while $scope's closeRoomLists function affects
-				// 	all scopes' clicked values.
-				if(scope.roomClick) {
-					scope.closeRoomLists();
-				}
-				// open current room list
-				scope.roomClick = !scope.roomClick;
-				console.log(scope.roomClick);
-				// scroll to current room list
-
-				// move to first calendar day of list
-
-				// highlight events on calendar (jquery selector -> css?)
-			});
-		}
-	};
-}]);
-
-*/
