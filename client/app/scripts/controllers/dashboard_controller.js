@@ -72,11 +72,21 @@ angular.module('em_App')
     // room list dropdown
     // --------------------
 
-    // determines whether roomlist is dropped down or not
-    // global to all room lists
-    $scope.roomClick = false;
 
+    // stores state of room
+    //$scope.localRoomClick = false;
+    // due to a nuance of scope inheritance,
+    // storing variables inside an obj allows them
+    // to be written to from child scopes.
+    $scope.globalClickEvents = {
+        roomClick: false
+    };
+    $scope.$watch('globalClickEvents.roomClick',
+        function(newVal, oldVal){
+            $scope.globalClickEvents.roomClick = false;
+        });
 
+    // debug: unncessary?
     $scope.closeRoomLists = function(){
         $scope.roomClick = false;
     };

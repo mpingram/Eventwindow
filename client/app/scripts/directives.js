@@ -5,17 +5,14 @@ var emDashDirectives = angular.module('emDashDirectives', []);
 
 
 // constructs the event list, handles collapsing days
-emDashDirectives.directive('emEventList', [function(){
+emDashDirectives.directive('emEventList', [ function(){
 
 	return {
 		replace: 'true',
 		templateUrl: 'views/partials/event_list_partial.html',
-		scope: false,
-
-		link: function(scope, elem, attrs){
-		}
 
 	};
+
 }]);
 
 
@@ -29,14 +26,16 @@ emDashDirectives.directive('emEventListItem', [ function(){
 		templateUrl: 'views/partials/event_list_item_partial.html',
 		scope: true,
 
-		
-		link: function(scope, elem, attrs){
-			elem.children('div.event-list-item').bind('click', function(){
-				scope.roomClick = !scope.roomClick;
-				console.log(scope.roomClick);
+		controller: ['$scope' , function($scope){
 
-			});
-		}
+			$scope.localRoomClick = $scope.globalClickEvents.roomClick;
+
+			$scope.eventClick = function(){
+				$scope.globalClickEvents.roomClick = false;
+				$scope.localRoomClick = !$scope.localRoomClick;
+			};
+
+		}]
 	};
 }]);
 

@@ -1,16 +1,15 @@
 <li>
 
 	<!-- TODO?: replace ng-click with custom directive? -->
-	<div class='event-list-item' id='event._id'>
+	<div class='event-list-item' id='event._id' ng-click='eventClick()'>
 
 		<span class='ename'>{{event.eventName}}</span><br>
 		<span class='eorganizer'>{{event.organizer}}</span>
-		<span> roomclick == {{roomClick}}</span>
 
 	</div>
-	<span> roomclick == {{roomClick}} </span>
+	<span> roomclick == {{localRoomClick}} </span>
 
-	<ul class='event-room-dropdown em-slide-down' ng-if='roomClick'> 
+	<ul class='event-room-dropdown em-slide-down' ng-if='localRoomClick'> 
 		<li class='room-list-item' ng-repeat='room in event.roomObject'>
 
 			<div class='event-room-text-wrapper'>
