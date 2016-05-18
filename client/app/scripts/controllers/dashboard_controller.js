@@ -42,7 +42,7 @@ angular.module('em_App')
 
 
 
-    // moment wrapper for use in formatting time for user display
+    // moment wrapper for use in view
     $scope.format = function(time, formatString){
         return moment(time).format(formatString);
     };
@@ -55,9 +55,9 @@ angular.module('em_App')
 
     // stores active (selected) event's id,
     // for list and calendar access.
-    // due to a nuance of scope inheritance,
-    // variables inside an object can be read
-    // and written to across all scopes.
+    // Due to a nuance of angular's scope inheritance,
+    // variables inside an outer scope's object can be
+    // written to from child scopes.
     $scope.activeEventIds = {
         curr: null,
         prev: null

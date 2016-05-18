@@ -1,7 +1,6 @@
 <li>
 
-	<!-- TODO?: replace ng-click with custom directive? -->
-	<div class='event-list-item' id='event._id' ng-click='eventClick(event)'>
+	<div class='event-list-item' id='event._id' ng-click='eventClick()'>
 
 		<span class='ename'>{{event.eventName}}</span><br>
 		<span class='eorganizer'>{{event.organizer}}</span>
@@ -14,6 +13,7 @@
 			<div class='event-room-text-wrapper'>
 
 				<span class='room-list-text rl-text-room'>Room:</span> <span class='room-list-field rl-field-room'>{{room.room}}</span>
+				<!-- TODO: handle this formatting in directive -->
 				<div class='room-list-field rl-field-time'>{{format(room.start, 'LT')}} - {{format(room.end, 'LT')}}</div>
 
 			</div>
