@@ -8,29 +8,9 @@
  * Controller of the event_manager dashboard.
  **/
 
-
-/* ok game plan: we call api for single event + buffer of server-defined length;
-    // 
-    // quick notes on search bar behavior: 
-    //      - searches through buffer and then submits server search request
-    //      - filters buffer events through angular data binding, for fashion souls
-    //      
-    //      - IF no matches in buffer, submit search request
-    //          - this means that if multiple matches in buffer, search ends at end of buffer.
-    //      - search request is GET api/events/search?param="string"
-    //      - db returns all matches, user then filters through them with |<||>|
-    //      - don't forget about repeating events!
-*/
-
-
 angular.module('em_App')
 
   .controller('DashboardCtrl', function ($scope, getEvents, fc) {
-
-
-
-
-
 
     // holds event buffer(s).
     $scope.events = [];
@@ -45,8 +25,8 @@ angular.module('em_App')
         getEvents(now.format('X'), now.add(30, 'days').format('X'), function(data){
 
           // stores session-specific local copy of event buffer
-        	$scope.events = $scope.events.concat(data);
-          console.log($scope.events);
+        $scope.events = $scope.events.concat(data);
+        console.log($scope.events);
 
           // is there a way to add events after initialization?
           // TODO: look into the source code.
@@ -54,7 +34,7 @@ angular.module('em_App')
           // consider formatting events on server/db side in a more fc-friendly way?
           // OR do we modify fc to expect data in our event format?
           // fun either way!
-        	fc.initialize($scope.events, 'dash');
+        fc.initialize($scope.events, 'dash');
 
         });
 
@@ -62,7 +42,7 @@ angular.module('em_App')
 
 
 
-        // moment wrapper for use in formatting time for user display
+    // moment wrapper for use in formatting time for user display
     $scope.format = function(time, formatString){
         return moment(time).format(formatString);
     };
@@ -79,31 +59,17 @@ angular.module('em_App')
     // storing variables inside an obj allows them
     // to be written to from child scopes.
     $scope.globalClickEvents = {
-        roomClick: false
+        roomClick: true
     };
-    $scope.$watch('globalClickEvents.roomClick',
-        function(newVal, oldVal){
-            $scope.globalClickEvents.roomClick = false;
-        });
+    $scope.$watch('globalClickEvents', function(newVal, oldVal){
+        $scope.globalClickEvents.roomClick = newVal;
+    });
 
     // debug: unncessary?
     $scope.closeRoomLists = function(){
-        $scope.roomClick = false;
+        $scope.globalClickEvents.roomClick = false;
     };
 
-
-    
-    // debug
-    // for debugging list of events, can safely delete
-    // ... once you have the actual data, u know
-    $scope.range = function(min, max, step) {
-        step = step || 1;
-        var input = [];
-        for (var i = min; i <= max; i += step) {
-            input.push(i);
-        }
-        return input;
-    };
 });
 
 

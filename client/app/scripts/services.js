@@ -107,7 +107,8 @@ emDashServices.factory('fc', function() {
 	        minTime: '07:00:00',
 	        maxTime: '20:00:00',
 
-	        events: that.format(eventsData)
+	        events: that.format(eventsData),
+	        allDaySlot: false,
 
 
 		};

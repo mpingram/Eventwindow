@@ -17,7 +17,7 @@ emDashAnimations.animation('.em-slide-down', [ function(){
 		},
 
 		leave: function(element, doneFn){
-			jQuery(element).show().slideUp(180, doneFn);
+			jQuery(element).show().slideUp(200, doneFn);
 
 		}
 
