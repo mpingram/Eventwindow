@@ -31,21 +31,12 @@ emDashDirectives.directive('emEventListItem', [ function(){
 			$scope.localRoomClick = false;
 
 			$scope.eventClick = function(emEvent){
-				// update: should use ng-switch to show/hide instead of all this logic?
-				// on click, expression tied to ng-switch set to $scope.event._id
-				// and this box becomes the active class.
-				console.log($scope.event._id);
-				$scope.activeEventIds.curr = $scope.event._id;
 
-
-				/*
-				// debug: not work
-				//$scope.globalClickEvents.roomClick = !$scope.globalClickEvents.roomClick;
-				if ($scope.localRoomClick === true){
-					$scope.closeRoomLists();
+				if($scope.activeEventIds.curr !== $scope.event._id){
+					$scope.activeEventIds.curr = $scope.event._id;
+				} else {
+					$scope.activeEventIds.curr = null;
 				}
-				$scope.localRoomClick = !$scope.localRoomClick;
-				*/
 
 				// Tell fullcalendar to display day of event.
 				// DEBUG: acts as though roomObj is sorted with first event in 0 index.

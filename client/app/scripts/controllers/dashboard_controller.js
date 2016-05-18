@@ -63,24 +63,6 @@ angular.module('em_App')
         prev: null
     };
 
-
-    // stores state of room
-    //$scope.localRoomClick = false;
-    // due to a nuance of scope inheritance,
-    // storing variables inside an obj allows them
-    // to be written to from child scopes.
-    $scope.globalClickEvents = {
-        roomClick: true
-    };
-    $scope.$watch('globalClickEvents', function(newVal, oldVal){
-        $scope.globalClickEvents.roomClick = newVal;
-    });
-
-    // debug: unncessary?
-    $scope.closeRoomLists = function(){
-        $scope.globalClickEvents.roomClick = false;
-    };
-
 });
 
 

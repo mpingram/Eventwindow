@@ -8,7 +8,7 @@
 
 	</div>
 
-	<ul class='event-room-dropdown em-slide-down' ng-switch-when='{{event._id}}'> 
+	<ul class='event-room-dropdown em-slide-down' ng-if='activeEventIds.curr === event._id'> 
 		<li class='room-list-item' ng-repeat='room in event.roomObject'>
 
 			<div class='event-room-text-wrapper'>
