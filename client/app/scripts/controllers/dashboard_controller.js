@@ -53,6 +53,17 @@ angular.module('em_App')
     // --------------------
 
 
+    // stores active (selected) event's id,
+    // for list and calendar access.
+    // due to a nuance of scope inheritance,
+    // variables inside an object can be read
+    // and written to across all scopes.
+    $scope.activeEventIds = {
+        curr: null,
+        prev: null
+    };
+
+
     // stores state of room
     //$scope.localRoomClick = false;
     // due to a nuance of scope inheritance,
