@@ -10,7 +10,6 @@ emDashDirectives.directive('emEventList', [ function(){
 	return {
 		replace: 'true',
 		templateUrl: 'views/partials/event_list_partial.html',
-
 	};
 
 }]);
@@ -31,14 +30,18 @@ emDashDirectives.directive('emEventListItem', [ function(){
 			scope.eventClick = function(){
 
 				// stores array of all room objects associated with event
-				var eventRooms = jQuery('#calendar').fullCalendar('clientEvents', [scope.event._id]);
+				var eventRooms = jQuery('#calendar').fullCalendar('clientEvents', scope.event._id);
 
 				// switches on active event, visible on emDashController's scope.
 				if (scope.activeEventIds.curr !== scope.event._id){
+
 					// scrolls element into view
 					// TODO: write custom ver, or use plugin, with smooth scrolling.
+					// DEBUG: commented out below
 					//elem[0].scrollIntoView({behavior: 'smooth', block: 'start'});
+
 					scope.activeEventIds.curr = scope.event._id;
+
 
 					// tells fullcalendar to display active event's day 
 					// DEBUG: acts as though roomObj is sorted with first event in 0 index.
@@ -49,8 +52,8 @@ emDashDirectives.directive('emEventListItem', [ function(){
 					// agh think of a better name than 'rooms'
 					// DEBUG: changing class after render? You silly goose!
 					// -- more evidence for moving this to a service?
-					
 					for (var i=0;i<eventRooms.length;i++){
+						// DEBUG: watch out 
 						eventRooms[i].className.push('selected');
 						jQuery('#calendar').fullCalendar('renderEvent', eventRooms[i]);
 					}
@@ -61,7 +64,10 @@ emDashDirectives.directive('emEventListItem', [ function(){
 					scope.activeEventIds.curr = null;
 
 
+
 					// DEBUG: NAAAH, only applies when event is clicked closed.
+					// also doesn't get rid of the 'selected' class.
+					//
 					// besides, this is horrific
 					for (var k=0;k<eventRooms.length;k++){
 						if( eventRooms[k].className[ eventRooms[k].className.length-1 ] === 'selected' ){
@@ -71,44 +77,12 @@ emDashDirectives.directive('emEventListItem', [ function(){
 					}
 				}
 
-
-
 				// now, highlight the rooms in fullCalendar
 				// todo: How do we do this The Angular Way(tm)?
+
 			};
 
 		}
-
-
-
-		// TODO:
-		// this can now safely be a link fn again
-		// phew
-
-		/*
-		controller: ['$scope' , function($scope){
-
-			$scope.eventClick = function(){
-
-				if($scope.activeEventIds.curr !== $scope.event._id){
-					$scope.activeEventIds.curr = $scope.event._id;
-				} else {
-					$scope.activeEventIds.curr = null;
-				}
-
-				// Tell fullcalendar to display day of event.
-				
-				// TODO: implement separate click for each room/each day?
-				jQuery('#calendar').fullCalendar('gotoDate', $scope.event.roomObject[0].start);
-				// fullcalendar should load the events for this day...
-				// then, highlight fc events
-				// ... jqueryyyyyyy i want to so baaad
-				// ok 
-
-			};
-	
-		}]
-		*/
 	};
 }]);
 

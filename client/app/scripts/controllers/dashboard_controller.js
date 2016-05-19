@@ -63,6 +63,16 @@ angular.module('em_App')
         prev: null
     };
 
+    // $scope watch activeEventIds to transfer curr to prev?
+    // will require copying object... but that shouldn't be the end of the world.
+    // DEBUG: be advised you can probably shave some of the burden off your
+    // $scope.$watch cycle by finding a different way about this.
+    $scope.$watch($scope.activeEventIds, function(newVal, oldVal){
+        $scope.activeEventIds.curr = newVal;
+        $scope.activeEventIds.prev = oldVal;
+        console.log($scope.activeEventIds);
+    }, true);
+
 });
 
 

@@ -1,26 +1,27 @@
 // batch-add-events.js
 var MongoClient = require("mongodb").MongoClient;
+var moment = require("moment");
 //var ObjectID = require("mongodb").ObjectID;
 var url = "mongodb://localhost/test";
 
 var EventGenerator = require("./event_generator");
 
 // executing event generator 
-var genStart = new Date("Thu, 01 May 2016 09:00:00 CDT");
-var genEnd = new Date("Thu, 01 Aug 2016 15:00:00 CDT");
+var genStart = moment("2016-05-01", "YYYY-MM-DD");
+var genEnd = moment("2016-08-01", "YYYY-MM-DD");
 var eventGen = new EventGenerator();
-var batch = eventGen.run(genStart, genEnd);
+var events = eventGen.run(genStart, genEnd);
 
 MongoClient.connect(url, function(err, db){
 	if (err) {
 		console.log(err);
 	}
 	console.log("connected to server...");
-	db.collection("events").insert(batch, function(err, result){
+	db.collection("foo").insert(events, function(err, result){
 		if (err){
 			console.log(err);
 		}
-		console.log("batch inserted successfully dork. Uhh take a look\n\n\n" + result);
+		console.log("batch inserted successfully dork.");
 	});
 	
 });

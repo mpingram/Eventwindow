@@ -42,6 +42,7 @@ router.get('/', function(req,res) {
 			.send('Invalid query format.');
 
 	} else {
+		// DEBUG: events.find( {'roomObject[0].start': { '$gte': startDate.format(), '$lte': endDate.format() } } , {}, {'sort':'roomObject[0].start'}, function(err, upcomingEvents) {
 
 		events.find( {'eventStart': { '$gte': startDate.format(), '$lte': endDate.format() } } , {}, {'sort':'eventStart'}, function(err, upcomingEvents) {
 

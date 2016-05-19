@@ -6,22 +6,18 @@
 		<span class='eorganizer'>{{event.organizer}}</span>
 
 	</div>
-
-	<ul class='event-room-dropdown em-slide-down' ng-if='activeEventIds.curr === event._id'> 
+	<ul class='event-room-dropdown em-slide-down' ng-if='activeEventIds.curr === event._id'>
 		<li class='room-list-item' ng-repeat='room in event.roomObject'>
 
 			<div class='event-room-text-wrapper'>
 
 				<span class='room-list-text rl-text-room'>Room:</span> <span class='room-list-field rl-field-room'>{{room.room}}</span>
-				<!-- TODO: handle this formatting in directive -->
 				<div class='room-list-field rl-field-time'>{{format(room.start, 'LT')}} - {{format(room.end, 'LT')}}</div>
 
 			</div>
 
 		</li>
 	</ul>
-
-
 
 
 </li>

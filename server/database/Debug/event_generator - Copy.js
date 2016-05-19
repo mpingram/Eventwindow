@@ -19,9 +19,6 @@ var EventGenerator = function(){
 	this.eventTypePool = ['Class', 'Meeting', 'Internal Event', 'External Event'];
 	
 	this.roomSetupPool = ['U-shape', 'Hollow Square', 'Classroom', 'Lecture', 'Default'];	
-
-	// keeps track of which rooms are in use for each timeslot.
-	this.usedRooms = [];
 };
 
 EventGenerator.prototype.chooseOne = function(arr){
@@ -88,107 +85,130 @@ EventGenerator.prototype.genName = function(type){
 	}
 };
 
+// TODO: clean up / fix
+EventGenerator.prototype.genRoomObject = function(usedRooms){
 
-EventGenerator.prototype.genRoomObject = function(start, end){
+	usedRooms = usedRooms || [];
 	
 	var that = this;
-	var roomObject = [];
-
-	var numRooms;
-	this.randBool(1) ? numRooms = 2 : numRooms = 1;
-
-
-	for (var i=0; i<numRooms; i++){
-		var thisRoomObj;
-		var room;
-
-		// randomly assign room and make sure it hasn't already been used
-		// DEBUG: I got rid of the 'randomly'
-		//do {
-			room = this.chooseOne(this.roomPool);
-		// if room is in usedRooms, do again
-		//} while (this.usedRooms.indexOf(room) !== -1);
+	var output = [];
+	var room;
+	
+	// creates one room obj, with a 10% chance of creating another each iteration.
+	do {
 		
-		thisRoomObj = {
-				room: 					room,
-				start: 					start.format('X'),
-				end: 					end.format('X'),
+		// randomly assign room and make sure it hasn't already been used (in case of multiroom events)
+		do {
+			// assign room
+			room = this.chooseOne(this.roomPool);
+
+		// if room is in usedRooms (index is not -1), do again
+		// if room isn't in usedRooms, loop terminates and we continue
+		} while (usedRooms.indexOf(room) !== -1);
+		
+		
+		// pushes room obj to output array
+		output.push(
+			{
+				room: 					that.chooseOne(that.roomPool),
 				numAttending: 			Math.random()*100 | 0,
 				approver:				that.genName(),
 				roomSetup: 				that.chooseOne(that.roomSetupPool)
-		};
-
+			}
+			
+		);
+		
 		// add room to usedRooms, it's been compromised
-		this.usedRooms.push(room);
-		roomObject.push(thisRoomObj);
-	}
-
-	return roomObject;	
+		usedRooms.push(room);
+		
+	// 10% chance of generating another room object
+	} while(this.randBool(1) === true);
+	
+	// return array of all rooms
+	return output;	
 };
 
-// TODO: check against data client is expecting
-EventGenerator.prototype.generateOne = function(start, end){
+// TOOD: check against data client is expecting
+EventGenerator.prototype.generate = function(){
 
 	var e = {};
 
 	e.eventName = 			this.genName('event');
 	e.eventType = 			this.chooseOne(this.eventTypePool);
 	e.repeating = 			this.randBool(7);
+	e.multiroom = 			this.randBool(1);
 	e.organizer = 			this.genName();
 	e.organizerEmail = 		this.genEmail(e.organizer);
 	e.creator = 			this.genName();
 	e.creatorEmail = 		this.genEmail(e.creator);
 
+	e.eventStart = 			null;
 	
-	e.roomObject = 			this.genRoomObject(start, end);
-
-	// checking for multiple rooms
-	if (e.roomObject.length > 1){
-		e.multiroom = true;
-	} else {
-		e.multiroom = false;
-	}
 	return e;
 };
 
-
-EventGenerator.prototype.generateTimeSlot = function(start, end){
-
-	var timeSlot = [];
-
-	for (var i=0; i<this.roomPool.length-2; i++){
-
-		timeSlot.push(this.generateOne(start, end));
-
-	}
-
-	return timeSlot;
-};
-
-
-EventGenerator.prototype.run = function(startDate, endDate) {
-	// TODO: implement check against used rooms for each timeslot.
+// TODO: fix
+EventGenerator.prototype.run= function(startDate, endDate) {
 	// Main entry point for program.
 	// ============================
+	
+	// parameter initialization
+	// --------------------------
+	
+	startDate = startDate || moment();
+
+	if (!endDate){
+		endDate = moment(startDate);
+		endDate.add(2, 'months');
+	}
 
 	var output = [];
 	
-	// for each day between startDate and endDate
-	for (var i = startDate; i <= endDate ; i.add(1, 'days') ){
-
-		// morning timeslot
-		var morningStart 	= i.hours(9);
-		var morningEnd 		= i.hours(12);
-		output = output.concat(this.generateTimeSlot(morningStart, morningEnd));
-
-		// afternoon timeslot
-		var eveningStart 	= i.hour(1);
-		var eveningEnd 		= i.hour(5);
-		output = output.concat(this.generateTimeSlot(eveningStart, eveningEnd));
-
+	// for loop increments date by 5 hours
+	for (var i = moment(startDate); i < endDate; i.add(5, 'hours') ) {
+		
+		// first timeslot
+		// -----------------------------
+		var start = moment(i);
+		var end = moment(i).add(3, 'hours');
+		
+		// stores rooms in use for each timeslot
+		var usedRooms = [];
+		
+		// generating events for first timeslot
+		do {
+			
+			var event = this.generate();
+			
+			event.roomObject = this.genRoomObject();
+			
+			for (var k = 0; k < event.roomObject.length; k++){
+				
+				// set each room obj's start and end timegen
+				event.roomObject[k].start = start;
+				event.roomObject[k].end = end;
+				
+				var counter = 0;
+				// if there are collisions, try again and increment the collision counter
+				while (usedRooms.indexOf (event.roomObject[k].room) !== -1 && counter < 50){
+					
+					event.roomObject[k].room = this.chooseOne(this.roomPool);
+					counter++;
+					
+				}
+				
+				
+				// remember which rooms have been used
+				usedRooms.push(event.roomObject[k].room);
+			}
+			
+			// add event to final array 
+			output.push(event);
+			
+		// repeat for however long
+		} while( this.randBool(9.5));
 	}
-	
-	console.log(output);
+
 	return output;
 };
 

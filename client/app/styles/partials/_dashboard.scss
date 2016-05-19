@@ -62,16 +62,19 @@ $col-event-class: #ed4912;
 	background-color: $brand-bg;
 	border-left: 0.4em solid $col-event-class;
 	border-radius: 2px;
+	cusor: default;
 
 
 	.ename{
 		font-size: 90%;
+		cursor: default;
 	}
 
 	.eorganizer{
 		font-size: 85%;
 		color: #777;
 		font-style: italic;
+		cursor: default;
 	}
 }
 

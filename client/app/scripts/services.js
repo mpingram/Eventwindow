@@ -2,10 +2,8 @@
 
 var emDashServices = angular.module('emDashServices', []);
 
-
-
 // factory for fullcalendar initialization with default parameters for dashboard
-emDashServices.factory('fc', function() {
+emDashServices.factory('fc', [function() {
 
 	// service instance to be returned
 	var fcService = {};
@@ -134,14 +132,66 @@ emDashServices.factory('fc', function() {
 
 	return fcService;
 
-});
+}]);
 
+emDashServices.factory('highlightEvent', [function(){
+
+	var output = {};
+
+	output.select = function(eventId, calendarId){
+
+		// shorthand for jQuery fullcalendar call 
+		var fc = jQuery(calendarId).fullCalendar;
+
+		// array of fc event objects matching id 
+		// -- ie all rooms associated with the event
+		var eventRooms = fc('clientEvents', eventId);
+
+		// making sure eventRooms is sorted in order of start time
+		if (eventRooms.length > 1){
+			eventRooms.sort(function(a, b){
+				if (a.start > b.start) {
+					return 1;
+				} else if (a.start < b.start){
+					return -1;
+				} else {
+					return 0;
+				}
+			});
+		}
+
+		// tell fc to go to day of event
+		fc('gotoDate', eventRooms[0].start);
+
+		// TODO: this is where we should implement the logic to deal
+		// with corner cases (eg, multiroom events which span multiple days,
+		// multiroom repeating events. Although maybe the server will handle
+		// that one.)
+
+		// change 'selected' class on all selected eventRooms.
+		for (var i=0;i<eventRooms.length;i++){
+			// className[1] is reserved for 'selected' class.
+			// className[0] (to be) reserved for type ['class', 'externalevent', what have ye]
+			eventRooms[i].className[1] = 'selected';
+			// rerender the event with the new styling
+			fc('renderEvent', eventRooms[i]);
+		}
+
+		// TODO: how do we unselect events? do we need to call angular in to watch the class??
+		// i can use that $scope.activeEventIds.prev property i was so smart to make...
+		// is that fragile? It shouldn't be, bc it selects by element id.... 
+	};
+
+	output.unselect = function(eventId, calendarId){
+		
+	};
+
+	return output;
+}]);
 
 
 // factory for function used by dashboard to acquire events
-emDashServices.factory('getEvents', ['$http', 
-
-	function($http){
+emDashServices.factory('getEvents', ['$http', function($http){
 
 		return function(startDate, endDate, callback){
 			var requestUrl = 'api/events?start=' + startDate + '&end=' + endDate;
