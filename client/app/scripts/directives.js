@@ -32,7 +32,7 @@ emDashDirectives.directive('emEventListItem', [ 'highlightEvent', function(highl
 		link: function(scope, elem, attrs){
 
 
-
+			/*
 			scope.eventClick = function(event){
 
 				// switches on active event, visible on emDashController's scope.
@@ -59,6 +59,7 @@ emDashDirectives.directive('emEventListItem', [ 'highlightEvent', function(highl
 
 				}
 			};// scope.eventClick
+			*/
 		} // link
 	}; // factory 
 }]); // emEventListItem

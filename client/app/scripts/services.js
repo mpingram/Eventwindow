@@ -2,7 +2,7 @@
 
 var emDashServices = angular.module('emDashServices', []);
 
-// factory for fullcalendar initialization with default parameters for dashboard
+// fullcalendar initialization with default parameters for dashboard
 emDashServices.factory('fc', [function() {
 
 	// service instance to be returned
@@ -131,18 +131,16 @@ emDashServices.factory('fc', [function() {
 	};
 
 	return fcService;
-
 }]);
 
-emDashServices.factory('highlightEvent', [function(){
-
-	var output = {};
+// handles logic for selecting events in list and calendar
+// TODO: figure out how to integrate with emDashController.
+emDashServices.factory('eventClick', [function(){
 
 	// fullcalendar jQuery element
 	var fc = jQuery('#calendar');
 
-	output.selectEvent = function(eventId){
-
+	var selectEvent = function(eventId){
 
 		// array of fc event objects matching id 
 		// -- ie all rooms associated with the event
@@ -181,10 +179,10 @@ emDashServices.factory('highlightEvent', [function(){
 		// TODO: how do we unselect events? do we need to call angular in to watch the class??
 		// i can use that $scope.activeEventIds.prev property i was so smart to make...
 		// is that fragile? It shouldn't be, bc it selects by element id.... 
-	};
+	}; // selectEvent
 
-	output.unselectEvent = function(eventId){
-		
+	var unselectEvent = function(eventId){
+
 		var eventRooms = fc.fullCalendar('clientEvents', eventId);
 		for (var i=0;i<eventRooms.length;i++){
 			// className[1] is reserved for 'selected' class.
@@ -193,12 +191,35 @@ emDashServices.factory('highlightEvent', [function(){
 			// rerender the event with the new styling
 			fc.fullCalendar('renderEvent', eventRooms[i]._id);
 		}
+	};	// unselectEvent
 
-	};
+	return function(eventId){
 
-	return output;
+		// switches on active event, visible on emDashController's scope.
+		if (scope.activeEventIds.curr !== eventId){
+
+			// scrolls element into view
+			// TODO: write custom ver, or use plugin, with smooth scrolling.
+			// DEBUG: commented out below
+			// elem[0].scrollIntoView({behavior: 'smooth', block: 'start'});
+
+			scope.activeEventIds.curr = eventId;
+			console.log(scope.activeEventIds.curr);
+
+			selectEvent(eventId);
+
+			if (scope.activeEventIds.prev !== undefined){
+				unselectEvent(scope.activeEventIds.prev);
+			}
+
+		} else {
+
+			scope.activeEventIds.curr = undefined;
+			unselectEvent(eventId);
+
+		}
+	}; // function
 }]);
-
 
 // factory for function used by dashboard to acquire events
 emDashServices.factory('getEvents', ['$http', function($http){
@@ -220,6 +241,5 @@ emDashServices.factory('getEvents', ['$http', function($http){
                 return 'Response failed!';
             });
 		};
-
 }]);
 
