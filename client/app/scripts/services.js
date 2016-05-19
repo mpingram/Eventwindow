@@ -138,14 +138,15 @@ emDashServices.factory('highlightEvent', [function(){
 
 	var output = {};
 
-	output.select = function(eventId, calendarId){
+	// fullcalendar jQuery element
+	var fc = jQuery('#calendar');
 
-		// shorthand for jQuery fullcalendar call 
-		var fc = jQuery(calendarId).fullCalendar;
+	output.selectEvent = function(eventId){
+
 
 		// array of fc event objects matching id 
 		// -- ie all rooms associated with the event
-		var eventRooms = fc('clientEvents', eventId);
+		var eventRooms = fc.fullCalendar('clientEvents', eventId);
 
 		// making sure eventRooms is sorted in order of start time
 		if (eventRooms.length > 1){
@@ -161,7 +162,7 @@ emDashServices.factory('highlightEvent', [function(){
 		}
 
 		// tell fc to go to day of event
-		fc('gotoDate', eventRooms[0].start);
+		fc.fullCalendar('gotoDate', eventRooms[0].start);
 
 		// TODO: this is where we should implement the logic to deal
 		// with corner cases (eg, multiroom events which span multiple days,
@@ -174,7 +175,7 @@ emDashServices.factory('highlightEvent', [function(){
 			// className[0] (to be) reserved for type ['class', 'externalevent', what have ye]
 			eventRooms[i].className[1] = 'selected';
 			// rerender the event with the new styling
-			fc('renderEvent', eventRooms[i]);
+			fc.fullCalendar('renderEvent', eventRooms[i]._id);
 		}
 
 		// TODO: how do we unselect events? do we need to call angular in to watch the class??
@@ -182,8 +183,17 @@ emDashServices.factory('highlightEvent', [function(){
 		// is that fragile? It shouldn't be, bc it selects by element id.... 
 	};
 
-	output.unselect = function(eventId, calendarId){
+	output.unselectEvent = function(eventId){
 		
+		var eventRooms = fc.fullCalendar('clientEvents', eventId);
+		for (var i=0;i<eventRooms.length;i++){
+			// className[1] is reserved for 'selected' class.
+			// className[0] (to be) reserved for type ['class', 'externalevent', what have ye]
+			eventRooms[i].className[1] = undefined;
+			// rerender the event with the new styling
+			fc.fullCalendar('renderEvent', eventRooms[i]._id);
+		}
+
 	};
 
 	return output;
