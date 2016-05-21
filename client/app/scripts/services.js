@@ -3,7 +3,7 @@
 var emDashServices = angular.module('emDashServices', []);
 
 // fullcalendar initialization with default parameters for dashboard
-emDashServices.factory('fc', [function() {
+emDashServices.factory('fc', [ function() {
 
 	// service instance to be returned
 	var fcService = {};
@@ -133,9 +133,28 @@ emDashServices.factory('fc', [function() {
 	return fcService;
 }]);
 
+
+// service which handles communicating data between controllers.
+// TODO: implement
+emDashServices.factory('shared', [ function(){
+
+	var shared = {};
+
+	shared.activeEvent = undefined;
+
+	shared.prevEvent = undefined;
+
+	return shared;
+
+}]);
+
+
 // handles logic for selecting events in list and calendar
 // TODO: figure out how to integrate with emDashController.
-emDashServices.factory('eventClick', [function(){
+// TODO: UPDATE: going to move the eventClick() TO the controller,
+// then use messaging services defined here to solve the $scope
+// tennis problem
+emDashServices.factory('eventClick', ['shared', function(shared){
 
 	// fullcalendar jQuery element
 	var fc = jQuery('#calendar');
@@ -175,11 +194,7 @@ emDashServices.factory('eventClick', [function(){
 			// rerender the event with the new styling
 			fc.fullCalendar('renderEvent', eventRooms[i]._id);
 		}
-
-		// TODO: how do we unselect events? do we need to call angular in to watch the class??
-		// i can use that $scope.activeEventIds.prev property i was so smart to make...
-		// is that fragile? It shouldn't be, bc it selects by element id.... 
-	}; // selectEvent
+	}; 
 
 	var unselectEvent = function(eventId){
 
@@ -191,30 +206,30 @@ emDashServices.factory('eventClick', [function(){
 			// rerender the event with the new styling
 			fc.fullCalendar('renderEvent', eventRooms[i]._id);
 		}
-	};	// unselectEvent
+	};	
 
 	return function(eventId){
 
-		// switches on active event, visible on emDashController's scope.
-		if (scope.activeEventIds.curr !== eventId){
+		// switches on active event
+		if (shared.activeEvent !== eventId){
 
-			// scrolls element into view
+			// scroll associated list element into view
 			// TODO: write custom ver, or use plugin, with smooth scrolling.
-			// DEBUG: commented out below
-			// elem[0].scrollIntoView({behavior: 'smooth', block: 'start'});
 
-			scope.activeEventIds.curr = eventId;
-			console.log(scope.activeEventIds.curr);
+			shared.activeEvent = eventId;
+			console.log(shared.activeEvent);
+			console.log(shared.prevEvent);
 
+			// highlight event in fullcalendar
 			selectEvent(eventId);
 
-			if (scope.activeEventIds.prev !== undefined){
-				unselectEvent(scope.activeEventIds.prev);
+			if (shared.prevEvent !== undefined){
+				unselectEvent(shared.prevEvent);
 			}
 
 		} else {
 
-			scope.activeEventIds.curr = undefined;
+			shared.activeEvent = undefined;
 			unselectEvent(eventId);
 
 		}

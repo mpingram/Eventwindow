@@ -1,12 +1,12 @@
 <li>
 
-	<div class='event-list-item' id='event._id' ng-click='eventClick()'>
+	<div class='event-list-item' id='event._id' ng-click='eventClick(event._id)'>
 
 		<span class='ename'>{{event.eventName}}</span><br>
 		<span class='eorganizer'>{{event.organizer}}</span>
 
 	</div>
-	<ul class='event-room-dropdown em-slide-down' ng-if='activeEventIds.curr === event._id'>
+	<ul class='event-room-dropdown em-slide-down' ng-if='shared.activeEvent.value === event._id'>
 		<li class='room-list-item' ng-repeat='room in event.roomObject'>
 
 			<div class='event-room-text-wrapper'>
