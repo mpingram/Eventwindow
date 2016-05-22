@@ -2,12 +2,12 @@
  * Our Database Interface
  */
 var mongoose = require('mongoose');
-var UserModel = require('./schemas/users');
-var EventModel = require('./schemas/events');
+var userModel = require('./schemas/users');
+var eventModel = require('./schemas/events');
 
 // Connections
 var developmentDb = 'mongodb://localhost/test';
-var productionDb = 'urlToYourProductionMongoDb'; // REPLACE WITH REAL DEAL URL WHEN THAT APPLIES
+var productionDb = 'urlToYourProductionMongoDb'; // TODO: replace with real url when available
 var usedDb;
 
 // If we're in development...
@@ -37,5 +37,5 @@ db.once('open', function callback () {
   console.log('Database connection successfully opened at ' + usedDb);
 });
 
-exports.users = UserModel;
-exports.Events = EventModel;
+
+exports.events = eventModel;

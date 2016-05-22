@@ -1,5 +1,6 @@
 {
   "bitwise": true,
+  "indent": 1,
   "jquery": true,
   "browser": true,
   "curly": true,
