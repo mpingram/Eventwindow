@@ -63,10 +63,6 @@ if (app.get('env') === 'production') {
  */
 var router=require('./router')(app);
 
-// error handling
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-});
 
 console.log("App running in " +  app.settings.env + " mode...");
 module.exports = app;
