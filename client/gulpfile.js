@@ -1,5 +1,6 @@
 'use strict';
 
+const autoprefixer = require('autoprefixer');
 const browserSync = require('browser-sync');
 const del = require('del');
 const gulp = require('gulp');
@@ -12,7 +13,6 @@ const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
 const useref = require('gulp-useref');
 const runSequence = require('run-sequence');
-const autoprefixer = require('autoprefixer');
 
 
 
@@ -21,22 +21,23 @@ const autoprefixer = require('autoprefixer');
 // =================
 
 // compile sass
-gulp.task('sass', function(){
-	return gulp.src('app/styles/**/*.scss').
-		pipe(sass()).
-		on('error', function(err){
+gulp.task('sassCompile', function(){
+	return gulp.src('app/styles/**/*.scss')
+		.pipe(sass())
+		.on('error', function(err){
 			console.log(err.toString());
 			browserSync.notify(err.message, 3000);
 			this.emit('end');
-		}).
+		})
 		// autoprefix css
-		pipe( postcss ([ autoprefixer ({ browsers: ['> 0.5% in US'] }) ]) ).
+		.pipe( postcss ([ autoprefixer ({ browsers: ['> 0.5% in US'] }) ]) )
 		// send back to dev env for now
-		pipe(gulp.dest('app/styles')).
-		pipe(browserSync.reload({
+		.pipe(gulp.dest('app/styles'))
+		.pipe(browserSync.reload({
 			stream: true
 		}));
 });
+
 
 // concatenate and minify scripts
 gulp.task('useref', function(){
@@ -91,8 +92,8 @@ gulp.task('clean:dist', function(){
 // high-level tasks
 // ==================
 
-gulp.task('watch', ['browserSync','sass'], function(){
-	gulp.watch('app/styles/**/*.scss', ['sass']);
+gulp.task('watch', ['browserSync','sassCompile'], function(){
+	gulp.watch('app/styles/**/*.scss', ['sassCompile']);
 	gulp.watch('app/scripts/**/*.js', browserSync.reload);
 	gulp.watch('*.html', browserSync.reload);
 	gulp.watch('app/views/*.html', browserSync.reload);
@@ -101,10 +102,10 @@ gulp.task('watch', ['browserSync','sass'], function(){
 
 // build production dist dir
 gulp.task('build', function(callback){
-	runSequence('clean:dist', ['moveBowerComponents','moveFavicon','sass','imagemin','useref'], callback );
+	runSequence('clean:dist', ['moveBowerComponents','moveFavicon','sassCompile', 'imagemin','useref'], callback );
 });
 
 // compile sass, launch server, and watch
 gulp.task('default', function(callback){
-	runSequence( ['sass','browserSync','watch'], callback);
+	runSequence( ['sassCompile','browserSync','watch'], callback);
 });
