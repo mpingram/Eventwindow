@@ -40,7 +40,7 @@ gulp.task('sass', function(){
 
 // concatenate and minify scripts
 gulp.task('useref', function(){
-	return gulp.src('app/*.html').
+	return gulp.src('./index.html').
 		pipe(useref()).
 		// if javascript, minify it
 		pipe(gulpIf('*.js', uglify())).
@@ -94,7 +94,8 @@ gulp.task('clean:dist', function(){
 gulp.task('watch', ['browserSync','sass'], function(){
 	gulp.watch('app/styles/**/*.scss', ['sass']);
 	gulp.watch('app/scripts/**/*.js', browserSync.reload);
-	gulp.watch('app/*.html', browserSync.reload);
+	gulp.watch('*.html', browserSync.reload);
+	gulp.watch('app/views/*.html', browserSync.reload);
 });
 
 
