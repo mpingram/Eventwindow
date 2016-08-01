@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
+// dashboard view
 @Component({
-	selector: 'em-app',
-	template: '<h1>Foo</h1>',
+	selector: 'em-dashboard',
+	templateUrl: './app/views/dashboard_view.html',
+	styleUrls: ['app.component.css']
 })
 export class AppComponent { }

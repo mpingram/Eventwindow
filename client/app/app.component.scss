@@ -1,18 +1,14 @@
-@import "variables";
+@import "/styles/variables";
 
 $header-height: 50px;
 $nice-blue: #9DBCC9;
 $nice-blue-light: #ABC4CE;
 $nice-blue-lighter: #BCCBD1;
 
-/*
-// bower:scss
-// endbower
-*/
 
-@import "partials/dashboard";
-@import "partials/eventpage";
-@import "partials/fullcalendar-custom";
+@import "shared/styles/partials/dashboard";
+@import "shared/styles/partials/eventpage";
+@import "shared/styles/partials/fullcalendar-custom";
 
 html {
     -webkit-box-sizing: border-box;

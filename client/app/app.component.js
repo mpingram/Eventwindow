@@ -9,13 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+// dashboard view
 var AppComponent = (function () {
     function AppComponent() {
     }
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'em-app',
-            template: '<h1>Foo</h1>',
+            selector: 'em-dashboard',
+            templateUrl: './app/views/dashboard_view.html',
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
