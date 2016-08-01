@@ -22,7 +22,7 @@ const runSequence = require('run-sequence');
 
 // compile sass
 gulp.task('sassCompile', function(){
-	return gulp.src('app/styles/**/*.scss')
+	return gulp.src('app/**/*.scss')
 		.pipe(sass())
 		.on('error', function(err){
 			console.log(err.toString());
@@ -32,7 +32,7 @@ gulp.task('sassCompile', function(){
 		// autoprefix css
 		.pipe( postcss ([ autoprefixer ({ browsers: ['> 0.5% in US'] }) ]) )
 		// send back to dev env for now
-		.pipe(gulp.dest('app/styles'))
+		.pipe(gulp.dest('app/'))
 		.pipe(browserSync.reload({
 			stream: true
 		}));

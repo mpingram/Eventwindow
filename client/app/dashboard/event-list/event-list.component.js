@@ -9,18 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var event_service_1 = require('../../shared/event.service');
+var eventListComponent = (function () {
+    function eventListComponent(service) {
+        this.service = service;
     }
-    AppComponent = __decorate([
+    ;
+    eventListComponent.prototype.ngOnInit = function () {
+        this.service.getEvents();
+    };
+    eventListComponent = __decorate([
         core_1.Component({
-            selector: 'em-app',
-            template: '<em-event-list></em-event-list>',
-            styleUrls: ['./app/app.component.css']
+            selector: 'em-event-list',
+            templateUrl: 'event-list.component.html',
+            directives: [],
+            providers: [event_service_1.EventService]
         }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [event_service_1.EventService])
+    ], eventListComponent);
+    return eventListComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.eventListComponent = eventListComponent;
+//# sourceMappingURL=event-list.component.js.map

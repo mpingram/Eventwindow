@@ -9,18 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+// wrapper for browser console api
+var Logger = (function () {
+    function Logger() {
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'em-app',
-            template: '<em-event-list></em-event-list>',
-            styleUrls: ['./app/app.component.css']
-        }), 
+    Logger.prototype.log = function (msg) { console.log(msg); };
+    Logger.prototype.error = function (msg) { console.error(msg); };
+    Logger.prototype.warn = function (msg) { console.warn(msg); };
+    Logger = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], Logger);
+    return Logger;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.Logger = Logger;
+//# sourceMappingURL=logger.service.js.map

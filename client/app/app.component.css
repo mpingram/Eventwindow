@@ -1,0 +1,248 @@
+/* Coolors Exported Palette - coolors.co/cca9a9-ed4912-707d84-fffaff-277a96 */
+.dash-header {
+  font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
+  padding: 5px 5px;
+  margin: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+  height: 4em;
+  border-radius: 4px;
+  background-color: white; }
+
+.event-list-box {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+  height: 100%; }
+
+.event-list {
+  width: auto;
+  height: 90%;
+  margin: 2% 1% 2% 2%;
+  border-radius: 4px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #FFF; }
+
+.event-list-item-container {
+  width: 100%; }
+
+.event-list-item {
+  width: 100%;
+  margin-bottom: 2px;
+  padding: 1%;
+  background-color: #F1F5F5;
+  border-left: 0.4em solid #ed4912;
+  border-radius: 2px;
+  cusor: default; }
+  .event-list-item .ename {
+    font-size: 90%;
+    cursor: default; }
+  .event-list-item .eorganizer {
+    font-size: 85%;
+    color: #777;
+    font-style: italic;
+    cursor: default; }
+
+.event-list-item:hover {
+  background-color: #e2eaea; }
+
+.room-list-item {
+  font-size: 80%;
+  padding: 2px 0 0 1em;
+  border-top: 1px solid #eeeeee;
+  overflow-x: hidden;
+  position: relative;
+  height: 5em; }
+
+.room-text-wrapper {
+  position: absolute;
+  width: 90%; }
+
+.room-list-text {
+  color: #608787; }
+
+.room-list-field {
+  color: #555555;
+  font-weight: bold; }
+
+.rl-field-time {
+  text-align: right;
+  font-weight: normal; }
+
+.schedule-box {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -webkit-flex-grow: 2;
+  -ms-flex-positive: 2;
+      flex-grow: 2;
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+  width: 60%;
+  overflow: scroll; }
+
+.fc {
+  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+.fc-header-title > h2 {
+  font-weight: normal; }
+
+.selected {
+  background-color: #ed4912;
+  border-color: red; }
+
+html {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 100%;
+  padding: 0;
+  margin: 0; }
+
+/* side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 14px;
+  padding-right: 15px; }
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; }
+
+li {
+  list-style-type: none; }
+
+a {
+  text-decoration: none;
+  padding: 0;
+  margin: 0; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+
+.header {
+  height: 50px;
+  position: relative;
+  top: 0px;
+  border-bottom: 2px solid #CCC;
+  background-color: #F1F5F5;
+  margin-bottom: 1%;
+  /* Make the masthead heading the same height as the navigation */ }
+  .header h3 {
+    margin: auto;
+    line-height: 40px;
+    padding-bottom: 0; }
+
+.navbar {
+  padding-bottom: 0; }
+  .navbar .nav-link, .navbar .navbar-brand {
+    color: #000;
+    position: relative;
+    float: left;
+    margin: 5px 5px 0 0;
+    padding: 10px 5px; }
+  .navbar .nav-link {
+    border: 1px solid #AAA;
+    border-radius: 4px;
+    font-size: 87%;
+    color: #555; }
+  .navbar .active {
+    background-color: #BCCBD1;
+    color: #888; }
+  .navbar .navbar-brand {
+    padding-left: 15px;
+    padding-right: 20px; }
+
+.footer {
+  font-size: 85%;
+  color: #666;
+  height: 5%;
+  width: 100%;
+  position: relative;
+  bottom: 0px;
+  border-top: 1px solid #EEE;
+  padding: 5px 10px;
+  margin-top: 2px; }
+
+.footer-content {
+  padding-left: 2%; }
+
+.content {
+  padding: 0 1em 1em;
+  height: 87%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden; }
+
+.icon {
+  width: 1em;
+  height: 1em; }
+
+.clear {
+  clear: both;
+  overflow: auto; }
+
+.box {
+  position: relative;
+  float: left;
+  border: 2px solid #BCCBD1;
+  border-radius: 4px;
+  margin-left: 2px; }
+  .box h4 {
+    padding: 5px 5px;
+    margin: 0;
+    border-bottom: 2px solid #9DBCC9;
+    border-radius: 4px;
+    background-color: #F1F5F5; }
+
+.navbar-links {
+  float: left; }
+
+/* Responsive: Portrait tablets and up*/
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0; }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 10px; } }
