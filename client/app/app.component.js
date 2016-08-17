@@ -9,13 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var dashboard_component_1 = require('./dashboard/dashboard.component');
 var AppComponent = (function () {
     function AppComponent() {
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'em-app',
-            template: '<em-event-list></em-event-list>',
+            directives: [dashboard_component_1.DashboardComponent],
+            templateUrl: './app/app.component.html',
             styleUrls: ['./app/app.component.css']
         }), 
         __metadata('design:paramtypes', [])

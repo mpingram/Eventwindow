@@ -5,7 +5,7 @@ export class Event {
 
 	constructor(
 		public name: string,
-		public power?: string) {
+		public power?: string ) {
 			this.id = nextId++;
 	}
 }
