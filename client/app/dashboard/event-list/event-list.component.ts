@@ -9,7 +9,6 @@ import { EventDetailComponent } from './event-detail.component'
 	directives: [],
 	providers: []
 })
-
 export class eventListComponent {
 
 }

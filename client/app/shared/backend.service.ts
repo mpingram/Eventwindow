@@ -3,7 +3,7 @@ import { Logger } from './logger.service';
 
 import { Event } from './event';
 
-// FIXME: mock
+// TODO: replace mock with backend interface
 const EVENTS = [
 	new Event('test'),
 	new Event('foo'),

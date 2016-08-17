@@ -1,0 +1,9 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns": ["client/app/*.js","client/app/*.js.map","client/app/*.css"]
+		}
+	]
+}

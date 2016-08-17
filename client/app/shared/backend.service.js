@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var logger_service_1 = require('./logger.service');
 var event_1 = require('./event');
-// FIXME: mock
+// TODO: replace mock with backend interface
 var EVENTS = [
     new event_1.Event('test'),
     new event_1.Event('foo'),
