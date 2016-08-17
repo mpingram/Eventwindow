@@ -9,17 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var event_service_1 = require('../shared/event.service');
 var DashboardComponent = (function () {
-    function DashboardComponent() {
+    function DashboardComponent(service) {
+        this.service = service;
     }
+    ;
+    DashboardComponent.prototype.ngOnInit = function () {
+        this.service.getEvents();
+    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'em-dashboard',
             templateUrl: './app/dashboard/dashboard.component.html',
             directives: [],
-            providers: []
+            providers: [event_service_1.EventService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [event_service_1.EventService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

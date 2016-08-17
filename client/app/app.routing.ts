@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventPageComponent } from './eventPage/eventpage.component';
+import { EventPageComponent } from './event-page/eventpage.component';
 
 const appRoutes: Routes = [
 	{

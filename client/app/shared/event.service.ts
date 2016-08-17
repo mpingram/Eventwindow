@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+
 import { Event } from './event';
+
 import { BackendService } from './backend.service';
 import { Logger } from './logger.service';
 
@@ -8,9 +10,9 @@ export class EventService {
 
 	private events: Event[] = [];
 
-	constructor( 
+	constructor(
 		private backend: BackendService,
-		private logger: Logger ) {}
+		private logger: Logger ) { }
 
 	getEvents(){
 		this.backend.getAll(Event).then( (events: Event[]) => {

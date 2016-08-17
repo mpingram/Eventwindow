@@ -1,22 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Event }				from '../../shared/event'
-import { EventService } from '../../shared/event.service'; 
+import { Component } from '@angular/core';
 
 import { EventDetailComponent } from './event-detail.component'
 
 @Component({
 	selector: 'em-event-list',
 	templateUrl: 'event-list.component.html',
+	styleUrls: ['event-list.component'],
 	directives: [],
-	providers: [EventService]
+	providers: []
 })
-export class eventListComponent implements OnInit {
-	events: Event[];
 
-	constructor(private service: EventService) {};
+export class eventListComponent {
 
-	ngOnInit(){
-		this.service.getEvents();
-	}
 }

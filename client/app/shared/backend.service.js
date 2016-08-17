@@ -10,11 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var logger_service_1 = require('./logger.service');
+var event_1 = require('./event');
 // FIXME: mock
 var EVENTS = [
-    new Event('test', 1),
-    new Event('foo', 2),
-    new Event('bar', 4005)
+    new event_1.Event('test'),
+    new event_1.Event('foo'),
+    new event_1.Event('bar')
 ];
 var BackendService = (function () {
     function BackendService(logger) {
@@ -22,7 +23,7 @@ var BackendService = (function () {
     }
     //private lastEvent: Date
     BackendService.prototype.getAll = function (type) {
-        if (type === Event) {
+        if (type === event_1.Event) {
             // FIXME: mock
             return Promise.resolve(EVENTS);
         }

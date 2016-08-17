@@ -13,7 +13,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
-var eventpage_component_1 = require('./eventPage/eventpage.component');
+var eventpage_component_1 = require('./event-page/eventpage.component');
 var AppModule = (function () {
     function AppModule() {
     }

@@ -1,11 +1,13 @@
 import { Injectable, Type } from '@angular/core';
 import { Logger } from './logger.service';
 
+import { Event } from './event';
+
 // FIXME: mock
 const EVENTS = [
-	new Event('test',1),
-	new Event('foo', 2),
-	new Event('bar', 4005)
+	new Event('test'),
+	new Event('foo'),
+	new Event('bar')
 ]
 
 @Injectable()

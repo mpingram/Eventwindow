@@ -6,7 +6,7 @@ import { routing,
 				appRoutingProviders } from './app.routing';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventPageComponent } from './eventPage/eventpage.component';
+import { EventPageComponent } from './event-page/eventpage.component';
 
 @NgModule({
 	imports: [

@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
+var backend_service_1 = require('./shared/backend.service');
+var logger_service_1 = require('./shared/logger.service');
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -18,7 +20,9 @@ var AppComponent = (function () {
             selector: 'em-app',
             directives: [dashboard_component_1.DashboardComponent],
             templateUrl: './app/app.component.html',
-            styleUrls: ['./app/app.component.css']
+            styleUrls: ['./app/app.component.css'],
+            // register utility services
+            providers: [backend_service_1.BackendService, logger_service_1.Logger]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
