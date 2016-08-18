@@ -1,0 +1,5 @@
+:host {
+  -webkit-flex: 1 0 40vw;
+      -ms-flex: 1 0 40vw;
+          flex: 1 0 40vw;
+  border: 1px dotted red; }

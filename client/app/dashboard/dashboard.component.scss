@@ -1,0 +1,9 @@
+:host{
+	height: 100vh;
+	width: 100vw;
+	// flex parent for child components
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}

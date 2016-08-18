@@ -4,13 +4,14 @@ import { Event } 							from '../shared/event';
 import { EventService }				from '../shared/event.service';
 import { BackendService }			from '../shared/backend.service';
 
-import { EventListComponent } from './event-list/event-list.component';
+import { EventViewerComponent } from './event-viewer/event-viewer.component';
+import { ResourceViewerComponent } from './resource-viewer/resource-viewer.component';
 
 @Component({
 	selector: 'em-dashboard',
 	templateUrl: './app/dashboard/dashboard.component.html',
 	styleUrls: ['./app/dashboard/dashboard.component.css'],
-	directives: [ EventListComponent ],
+	directives: [ EventViewerComponent, ResourceViewerComponent ],
 	providers: [ EventService ]
 })
 

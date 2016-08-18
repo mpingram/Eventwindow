@@ -9,18 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var ResourceViwerComponent = (function () {
-    function ResourceViwerComponent() {
+var ResourceViewerComponent = (function () {
+    function ResourceViewerComponent() {
     }
-    ResourceViwerComponent = __decorate([
+    ResourceViewerComponent = __decorate([
         core_1.Component({
-            selector: 'em-resource-viwer',
-            templateUrl: '.app/dashboard/resource-viewer/resource-viwer.component.html',
-            styleUrls: ['.app/dashboard/resource-viewer/resource-viewer.component.css']
+            selector: 'em-resource-viewer',
+            templateUrl: './app/dashboard/resource-viewer/resource-viewer.component.html',
+            styleUrls: ['./app/dashboard/resource-viewer/resource-viewer.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], ResourceViwerComponent);
-    return ResourceViwerComponent;
+    ], ResourceViewerComponent);
+    return ResourceViewerComponent;
 }());
-exports.ResourceViwerComponent = ResourceViwerComponent;
+exports.ResourceViewerComponent = ResourceViewerComponent;
 //# sourceMappingURL=resource-viewer.component.js.map
