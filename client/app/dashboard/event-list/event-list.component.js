@@ -9,20 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var eventListComponent = (function () {
-    function eventListComponent() {
+var EventListComponent = (function () {
+    function EventListComponent() {
     }
-    eventListComponent = __decorate([
+    EventListComponent = __decorate([
         core_1.Component({
             selector: 'em-event-list',
-            templateUrl: 'event-list.component.html',
-            styleUrls: ['event-list.component'],
+            templateUrl: './app/dashboard/event-list/event-list.component.html',
+            styleUrls: ['./app/dashboard/event-list/event-list.component.css'],
             directives: [],
             providers: []
         }), 
         __metadata('design:paramtypes', [])
-    ], eventListComponent);
-    return eventListComponent;
+    ], EventListComponent);
+    return EventListComponent;
 }());
-exports.eventListComponent = eventListComponent;
+exports.EventListComponent = EventListComponent;
 //# sourceMappingURL=event-list.component.js.map

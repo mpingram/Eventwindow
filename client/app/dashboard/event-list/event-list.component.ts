@@ -4,11 +4,11 @@ import { EventDetailComponent } from './event-detail.component'
 
 @Component({
 	selector: 'em-event-list',
-	templateUrl: 'event-list.component.html',
-	styleUrls: ['event-list.component'],
+	templateUrl: './app/dashboard/event-list/event-list.component.html',
+	styleUrls: ['./app/dashboard/event-list/event-list.component.css'],
 	directives: [],
 	providers: []
 })
-export class eventListComponent {
+export class EventListComponent {
 
 }

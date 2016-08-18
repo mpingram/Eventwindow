@@ -1,0 +1,6 @@
+.event-list-container {
+  border: 1px solid grey;
+  position: relative;
+  -webkit-flex: 1 0 30em;
+      -ms-flex: 1 0 30em;
+          flex: 1 0 30em; }

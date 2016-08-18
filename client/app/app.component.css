@@ -54,14 +54,6 @@ table {
   border-spacing: 0; }
 
 /* Coolors Exported Palette - coolors.co/cca9a9-ed4912-707d84-fffaff-277a96 */
-body {
-  width: 100%;
-  height: 100%;
-  font-family: "Helvetica", sans-serif;
-  font-size: 100%;
-  padding: 0;
-  margin: 0; }
-
 .sr-only {
   position: absolute !important;
   width: 1px;
@@ -72,25 +64,42 @@ body {
   clip: rect(0, 0, 0, 0);
   border: 0; }
 
+.em-app-container {
+  height: 100vh;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start; }
+
 .header {
-  height: 3em;
+  -webkit-flex: 0 0 3em;
+      -ms-flex: 0 0 3em;
+          flex: 0 0 3em;
   position: relative;
   top: 0px;
   border-bottom: 2px solid #CCC;
   background-color: #F1F5F5;
-  margin-bottom: 1%;
-  /* Make the masthead heading the same height as the navigation */ }
-  .header h3 {
-    margin: auto;
-    line-height: 40px;
-    padding-bottom: 0; }
+  margin-bottom: 1%; }
+
+.header > h3 {
+  margin: auto;
+  line-height: 40px;
+  padding-bottom: 0; }
 
 .footer {
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  position: relative;
   font-size: 85%;
   color: #666;
   height: 5%;
   width: 100%;
-  position: relative;
   bottom: 0px;
   border-top: 1px solid #EEE;
   padding: 5px 10px;
@@ -98,6 +107,11 @@ body {
 
 .footer-content {
   padding-left: 2%; }
+
+em-dashboard {
+  -webkit-flex: 1 0 40em;
+      -ms-flex: 1 0 40em;
+          flex: 1 0 40em; }
 
 .content {
   padding: 0 1em 1em;

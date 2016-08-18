@@ -33,10 +33,7 @@ gulp.task('sassCompile', function(){
 		// autoprefix css
 		.pipe( postcss ([ autoprefixer ({ browsers: ['> 0.5% in US'] }) ]) )
 		// send back to dev env for now
-		.pipe(gulp.dest('app/'))
-		.pipe(browserSync.reload({
-			stream: true
-		}));
+		.pipe(gulp.dest('app/'));
 });
 
 
@@ -102,6 +99,7 @@ gulp.task('clean:dist', function(){
 
 gulp.task('watch', ['browserSync','sassCompile'], function(){
 	gulp.watch('app/**/*.scss', ['sassCompile']);
+	gulp.watch('app/**/*.css', browserSync.reload);
 	gulp.watch('app/**/*.js', browserSync.reload);
 	gulp.watch('*.html', browserSync.reload);
 	gulp.watch('app/**/*.html', browserSync.reload);

@@ -4,12 +4,13 @@ import { Event } 							from '../shared/event';
 import { EventService }				from '../shared/event.service';
 import { BackendService }			from '../shared/backend.service';
 
-import {eventListComponent} from './event-list/event-list.component.ts';
+import { EventListComponent } from './event-list/event-list.component';
 
 @Component({
 	selector: 'em-dashboard',
 	templateUrl: './app/dashboard/dashboard.component.html',
-	directives: [],
+	styleUrls: ['./app/dashboard/dashboard.component.css'],
+	directives: [ EventListComponent ],
 	providers: [ EventService ]
 })
 

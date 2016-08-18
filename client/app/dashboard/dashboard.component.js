@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var event_service_1 = require('../shared/event.service');
+var event_list_component_1 = require('./event-list/event-list.component');
 var DashboardComponent = (function () {
     function DashboardComponent(service) {
         this.service = service;
@@ -22,7 +23,8 @@ var DashboardComponent = (function () {
         core_1.Component({
             selector: 'em-dashboard',
             templateUrl: './app/dashboard/dashboard.component.html',
-            directives: [],
+            styleUrls: ['./app/dashboard/dashboard.component.css'],
+            directives: [event_list_component_1.EventListComponent],
             providers: [event_service_1.EventService]
         }), 
         __metadata('design:paramtypes', [event_service_1.EventService])

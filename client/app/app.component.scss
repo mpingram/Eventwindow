@@ -2,17 +2,6 @@
 @import "shared/styles/variables";
 
 
-body {
-
-    width: 100%;
-    height: 100%;
-    font-family: $sans;
-    font-size: 100%;
-    padding: 0;
-    margin: 0;
-
-}
-
 // hides elements but leaves them screen readable
 .sr-only {
     position: absolute !important;
@@ -25,30 +14,39 @@ body {
     border: 0;
 }
 
+.em-app-container{
+  height: 100vh;
+  
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+
+}
 
 .header {
-    height: 3em;
+    flex: 0 0 3em;
+
     position: relative;
     top: 0px;
     border-bottom: 2px solid #CCC;
     background-color: $brand-bg;
     margin-bottom: 1%;
-
-    /* Make the masthead heading the same height as the navigation */ 
-    h3 {
-    margin: auto;
-    line-height: 40px;
-    padding-bottom: 0;
-    }
-
+}
+.header > h3 {
+	margin: auto;
+	line-height: 40px;
+	padding-bottom: 0;
 }
 
 .footer {
+		flex: 0 0 auto;
+		
+    position: relative;
+		
     font-size: 85%;
     color: #666;
     height: 5%;
     width: 100%;
-    position: relative;
     bottom: 0px;
     border-top: 1px solid #EEE;
     padding: 5px 10px;
@@ -58,6 +56,10 @@ body {
     padding-left: 2%;
 }
 
+
+em-dashboard{
+	flex: 1 0 40em;
+}
 
 .content{
     padding: 0 1em 1em;
