@@ -13,6 +13,7 @@ const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
 const useref = require('gulp-useref');
 const runSequence = require('run-sequence');
+const modRewrite = require('connect-modRewrite');
 
 
 
@@ -74,10 +75,17 @@ gulp.task('moveFavicon', function(){
 // live reload browser
 gulp.task('browserSync', function(){
 	browserSync.init({
+		startPath: '/index.html',
 		open: 'ui',
 		server: {
 			// development server
-			baseDir: './'
+			baseDir: './',
+			middleware: [
+				modRewrite([
+					'^[^\\.]*$ /index.html [L]'
+				])
+			]
+			// allows use of html5 history api urls
 		}
 	});
 });
@@ -93,10 +101,10 @@ gulp.task('clean:dist', function(){
 // ==================
 
 gulp.task('watch', ['browserSync','sassCompile'], function(){
-	gulp.watch('app/styles/**/*.scss', ['sassCompile']);
-	gulp.watch('app/scripts/**/*.js', browserSync.reload);
+	gulp.watch('app/**/*.scss', ['sassCompile']);
+	gulp.watch('app/**/*.js', browserSync.reload);
 	gulp.watch('*.html', browserSync.reload);
-	gulp.watch('app/views/*.html', browserSync.reload);
+	gulp.watch('app/**/*.html', browserSync.reload);
 });
 
 

@@ -9,24 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var backend_service_1 = require('./shared/backend.service');
-var logger_service_1 = require('./shared/logger.service');
-var dashboard_component_1 = require('./dashboard/dashboard.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var ResourceViwerComponent = (function () {
+    function ResourceViwerComponent() {
     }
-    AppComponent = __decorate([
+    ResourceViwerComponent = __decorate([
         core_1.Component({
-            selector: 'em-app',
-            directives: [dashboard_component_1.DashboardComponent],
-            templateUrl: './app/app.component.html',
-            styleUrls: ['./app/app.component.css'],
-            // register utility services for general use
-            providers: [backend_service_1.BackendService, logger_service_1.Logger]
+            selector: 'em-resource-viwer',
+            templateUrl: '.app/dashboard/resource-viewer/resource-viwer.component.html',
+            styleUrls: ['.app/dashboard/resource-viewer/resource-viewer.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], ResourceViwerComponent);
+    return ResourceViwerComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ResourceViwerComponent = ResourceViwerComponent;
+//# sourceMappingURL=resource-viewer.component.js.map

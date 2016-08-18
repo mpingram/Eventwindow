@@ -1,65 +1,18 @@
-@import "shared/styles/test";
+@import "shared/styles/resets";
+@import "shared/styles/variables";
 
-$header-height: 50px;
-$nice-blue: #9DBCC9;
-$nice-blue-light: #ABC4CE;
-$nice-blue-lighter: #BCCBD1;
-
-
-@import "shared/styles/partials/dashboard";
-@import "shared/styles/partials/eventpage";
-@import "shared/styles/partials/fullcalendar-custom";
-
-html {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    width: 100%;
-    height: 100%;
-}
-*, *:before, *:after {
-  -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit;
-  box-sizing: inherit;
-}
 
 body {
 
     width: 100%;
     height: 100%;
-    font-family: $font-family-sans-serif;
+    font-family: $sans;
     font-size: 100%;
     padding: 0;
     margin: 0;
 
-    // display: flex;  // <--- solve this problem when u care
+}
 
-
-}
-/* side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-    padding-left: 14px;
-    padding-right: 15px;
-}
-// resetting default list styling
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-// for ie9
-li {
-    list-style-type: none;
-}
-// resetting some default link styling
-a {
-    text-decoration: none;
-    padding: 0;
-    margin: 0;
-}
 // hides elements but leaves them screen readable
 .sr-only {
     position: absolute !important;
@@ -74,7 +27,7 @@ a {
 
 
 .header {
-    height: $header-height;
+    height: 3em;
     position: relative;
     top: 0px;
     border-bottom: 2px solid #CCC;
@@ -88,35 +41,6 @@ a {
     padding-bottom: 0;
     }
 
-}
-
-.navbar{
-    padding-bottom: 0;
-    .nav-link, .navbar-brand {
-        color: #000;
-        position:relative;
-        float:left;
-        margin: 5px 5px 0 0;
-        padding: 10px 5px;
-    }
-    
-    .nav-link{
-        border: 1px solid #AAA;
-        border-radius: 4px;
-        font-size: 87%;
-        color: #555;
-    }
-    
-    .active{
-        background-color: $nice-blue-lighter;
-        color: #888;
-    }
-    
-    .navbar-brand {
-        padding-left: 15px;
-        padding-right: 20px;
-    }
-    
 }
 
 .footer {
@@ -151,10 +75,6 @@ a {
     height:1em;
 }
 
-.clear {
-    clear: both;
-    overflow: auto;
-}
 
 .box {
     position:relative;
@@ -182,14 +102,6 @@ a {
 /* Responsive: Portrait tablets and up*/
 @media screen and (min-width: 768px) {
 
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
   .header {
     margin-bottom: 10px;
   }
