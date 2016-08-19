@@ -1,7 +1,6 @@
 :host{
 	// child flex properties:
-	// take up 40% of screen width.
-	flex: 1 0 400px;
+	flex: 1 0 300px;
 
 	//parent flex
 	display: flex;
@@ -20,11 +19,6 @@
 	align-items: baseline;
 
 	padding: 0.5em;
-}
-
-.datepicker{
-	width: auto;
-	height: auto;
 
 }
 

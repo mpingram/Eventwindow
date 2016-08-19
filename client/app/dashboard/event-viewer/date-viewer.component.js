@@ -9,24 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var backend_service_1 = require('./shared/backend.service');
-var logger_service_1 = require('./shared/logger.service');
-var dashboard_component_1 = require('./dashboard/dashboard.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var datepicker_component_1 = require('../../shared/datepicker.component');
+var DateViewerComponent = (function () {
+    function DateViewerComponent() {
     }
-    AppComponent = __decorate([
+    DateViewerComponent = __decorate([
         core_1.Component({
-            selector: 'em-app',
-            directives: [dashboard_component_1.DashboardComponent],
-            templateUrl: './app/app.component.html',
-            styleUrls: ['./app/app.component.css', './app/shared/styles/ionicons.css'],
-            // register utility services for general use
-            providers: [backend_service_1.BackendService, logger_service_1.Logger]
+            selector: 'em-date-viewer',
+            templateUrl: 'app/dashboard/event-viewer/date-viewer.component.html',
+            styleUrls: ['app/dashboard/event-viewer/date-viewer.component.css'],
+            directives: [datepicker_component_1.DatePickerComponent],
+            encapsulation: core_1.ViewEncapsulation.None
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], DateViewerComponent);
+    return DateViewerComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.DateViewerComponent = DateViewerComponent;
+//# sourceMappingURL=date-viewer.component.js.map

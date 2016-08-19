@@ -1,0 +1,52 @@
+.date-viewer{
+	position: relative;
+	width: 169px;
+	height: 177px;
+	border: 1px solid #ccc;
+}
+
+#date{
+	width: 100%;
+	position: absolute;
+	top: 30%;
+	font-size: 5em;
+	text-align: center;
+}
+
+.date-selector-buttons-container{
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	padding: 5px;
+	width: 100%;
+	bottom: 0;
+}
+.date-selector-buttons{
+	position: relative;
+	display: block;
+	width: auto;
+	margin: 0 auto;
+}
+.date-selector-forward-back-container{
+	margin: 0;
+}
+.date-selector-button{
+	background: none;
+	border: 1px outset #ccc;
+	border-radius: 3px;
+}
+
+// adjust child styles for datepicker
+// FIXME: hardcoded for pikaday.
+.pika-single{
+	position: absolute 						!important;
+	height: 35px;
+	border: none 									!important;
+	border-bottom: 1px solid #ccc !important;
+	overflow: hidden;
+
+	transition: height 400ms ease;
+}
+.pika-single:hover{
+	height: 177px;
+}

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var datepicker_component_1 = require('../../shared/datepicker.component');
+var date_viewer_component_1 = require('./date-viewer.component');
 var EventViewerComponent = (function () {
     function EventViewerComponent() {
     }
@@ -17,8 +17,9 @@ var EventViewerComponent = (function () {
         core_1.Component({
             selector: 'em-event-viewer',
             templateUrl: './app/dashboard/event-viewer/event-viewer.component.html',
-            styleUrls: ['./app/dashboard/event-viewer/event-viewer.component.css'],
-            directives: [datepicker_component_1.DatePickerComponent],
+            styleUrls: ['app/dashboard/event-viewer/event-viewer.component.css',
+                'app/shared/styles/datepicker.component.css'],
+            directives: [date_viewer_component_1.DateViewerComponent],
             providers: []
         }), 
         __metadata('design:paramtypes', [])

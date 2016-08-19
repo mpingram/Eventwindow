@@ -1,7 +1,7 @@
 :host {
-  -webkit-flex: 1 0 400px;
-      -ms-flex: 1 0 400px;
-          flex: 1 0 400px;
+  -webkit-flex: 1 0 300px;
+      -ms-flex: 1 0 300px;
+          flex: 1 0 300px;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -30,10 +30,6 @@
       -ms-flex-align: baseline;
           align-items: baseline;
   padding: 0.5em; }
-
-.datepicker {
-  width: auto;
-  height: auto; }
 
 #search-icon {
   float: left;

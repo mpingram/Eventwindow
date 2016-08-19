@@ -25,8 +25,9 @@ var DatePickerComponent = (function () {
         core_1.Component({
             selector: 'em-datepicker',
             template: '<div #target class="datepicker"></div>',
-            styleUrls: ['./app/shared/styles/datepicker.component.css'],
-            providers: [datepicker_service_1.DatePickerService]
+            styleUrls: ['app/shared/styles/datepicker.component.css'],
+            providers: [datepicker_service_1.DatePickerService],
+            encapsulation: core_1.ViewEncapsulation.None
         }), 
         __metadata('design:paramtypes', [datepicker_service_1.DatePickerService])
     ], DatePickerComponent);

@@ -1,5 +1,5 @@
 :host {
-  -webkit-flex: 1 0 60vw;
-      -ms-flex: 1 0 60vw;
-          flex: 1 0 60vw;
+  -webkit-flex: 1 0 600px;
+      -ms-flex: 1 0 600px;
+          flex: 1 0 600px;
   border: 1px dashed green; }

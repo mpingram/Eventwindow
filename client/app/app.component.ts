@@ -11,7 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 	selector: 'em-app',
 	directives: [ DashboardComponent ],
 	templateUrl: './app/app.component.html',
-	styleUrls: [ './app/app.component.css' ],
+	styleUrls: [ './app/app.component.css', './app/shared/styles/ionicons.css' ],
 	// register utility services for general use
 	providers: [BackendService, Logger]
 })

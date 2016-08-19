@@ -30,7 +30,6 @@ $pd-week-color: #999 !default;
 // Font
 $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
-
 .pika-single {
     z-index: 1;
     display: block;
@@ -72,6 +71,7 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 }
 
 .pika-title {
+
     position: relative;
     text-align: center;
 
@@ -95,9 +95,8 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
     overflow: hidden;
     margin: 0;
     padding: 5px 3px;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: bold;
+    font-size: 12px;
+    line-height: 12px;
     color: $pd-title-color;
     background-color: $pd-title-bg;
 }
@@ -110,8 +109,8 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
     outline: none;
     border: 0;
     padding: 0;
-    width: 20px;
-    height: 30px;
+    width: 15px;
+    height: 25px;
     text-indent: 20px; // hide text using text-indent trick, using width value (it's enough)
     white-space: nowrap;
     overflow: hidden;
@@ -166,10 +165,11 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
     th {
         color: $pd-th-color;
-        //font-size: 85%;
-        line-height: 25px;
+        font-size: 85%;
+        line-height: 15px;
         font-weight: bold;
-        text-align: center;
+        text-align: right;
+        padding-right: 4px;
     }
 
     abbr {
@@ -191,8 +191,8 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
     width: 100%;
     padding: 5px;
     color: $pd-day-color;
-    font-size: 12px;
-    line-height: 10px;
+    font-size: 10px;
+    line-height: 8x;
     text-align: right;
     background: $pd-day-bg;
 
