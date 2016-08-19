@@ -9,21 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var datepicker_component_1 = require('../../shared/datepicker.component');
-var EventViewerComponent = (function () {
-    function EventViewerComponent() {
+var DatePickerService = (function () {
+    function DatePickerService() {
     }
-    EventViewerComponent = __decorate([
-        core_1.Component({
-            selector: 'em-event-viewer',
-            templateUrl: './app/dashboard/event-viewer/event-viewer.component.html',
-            styleUrls: ['./app/dashboard/event-viewer/event-viewer.component.css'],
-            directives: [datepicker_component_1.DatePickerComponent],
-            providers: []
-        }), 
+    DatePickerService.prototype.init = function (element) {
+        var hackyInputElement = document.createElementNS(null, 'input');
+        hackyInputElement.setAttributeNS(null, 'style', 'display:none');
+        hackyInputElement.setAttributeNS(null, 'type', 'text');
+        new Pikaday({
+            field: hackyInputElement,
+            container: element.nativeElement,
+            bound: false,
+            onSelect: function () {
+                // debug
+                console.log(this.getMoment().format('Do MMM YYYY'));
+            }
+        });
+    };
+    DatePickerService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], EventViewerComponent);
-    return EventViewerComponent;
+    ], DatePickerService);
+    return DatePickerService;
 }());
-exports.EventViewerComponent = EventViewerComponent;
-//# sourceMappingURL=event-viewer.component.js.map
+exports.DatePickerService = DatePickerService;
+//# sourceMappingURL=datepicker.service.js.map

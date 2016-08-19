@@ -2,7 +2,6 @@
 	// child flex properties:
 	// take up 40% of screen width.
 	flex: 1 0 400px;
-	border: 1px dotted red;
 
 	//parent flex
 	display: flex;
@@ -23,11 +22,10 @@
 	padding: 0.5em;
 }
 
-#date-picker{
-	width: 5em;
-	height: 5em;
+.datepicker{
+	width: auto;
+	height: auto;
 
-	border: 1px solid red;
 }
 
 .icons-date-container{
@@ -40,7 +38,6 @@
 	float: left;
 	width: 2em;
 	height: 2em;
-
 	border: 1px solid grey;
 }
 
@@ -57,10 +54,8 @@
 	width: 30em;
 	height: 2em;
 
-	border: 1px solid orange;
 }
 
 em-event-list{
 	flex: 1 0 auto;
-	border: 1px solid yellow;
 }

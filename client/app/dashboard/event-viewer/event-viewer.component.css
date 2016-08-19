@@ -2,7 +2,6 @@
   -webkit-flex: 1 0 400px;
       -ms-flex: 1 0 400px;
           flex: 1 0 400px;
-  border: 1px dotted red;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -32,10 +31,9 @@
           align-items: baseline;
   padding: 0.5em; }
 
-#date-picker {
-  width: 5em;
-  height: 5em;
-  border: 1px solid red; }
+.datepicker {
+  width: auto;
+  height: auto; }
 
 #search-icon {
   float: left;
@@ -52,11 +50,9 @@
 #date-interface {
   float: left;
   width: 30em;
-  height: 2em;
-  border: 1px solid orange; }
+  height: 2em; }
 
 em-event-list {
   -webkit-flex: 1 0 auto;
       -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
-  border: 1px solid yellow; }
+          flex: 1 0 auto; }
