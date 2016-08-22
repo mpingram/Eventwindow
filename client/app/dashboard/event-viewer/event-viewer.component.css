@@ -1,19 +1,30 @@
 :host {
-  -webkit-flex: 1 0 300px;
-      -ms-flex: 1 0 300px;
-          flex: 1 0 300px;
+  overflow: hidden;
+  -webkit-flex: 1 0 320px;
+      -ms-flex: 1 0 320px;
+          flex: 1 0 320px;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-flex-wrap: nowrap;
       -ms-flex-wrap: nowrap;
-          flex-wrap: nowrap; }
+          flex-wrap: nowrap;
+  -webkit-align-content: stretch;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch; }
 
 .event-viewer-header {
+  -webkit-flex: 1 0 177px;
+      -ms-flex: 1 0 177px;
+          flex: 1 0 177px;
   position: relative;
+  width: 100%;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -43,12 +54,15 @@
   height: 2em;
   border: 1px solid grey; }
 
-#date-interface {
+.alert-box {
   float: left;
   width: 30em;
-  height: 2em; }
+  height: 2em;
+  border: 1px solid red; }
 
-em-event-list {
-  -webkit-flex: 1 0 auto;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto; }
+.event-list-container {
+  width: 100%;
+  -webkit-flex: 6 0 auto;
+      -ms-flex: 6 0 auto;
+          flex: 6 0 auto;
+  border: 1px solid red; }

@@ -26,8 +26,8 @@
   -webkit-flex: 0 0 3em;
       -ms-flex: 0 0 3em;
           flex: 0 0 3em;
+  width: 100vw;
   position: relative;
-  top: 0px;
   border-bottom: 2px solid #CCC;
   background-color: #F1F5F5;
   margin-bottom: 1%; }
