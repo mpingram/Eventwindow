@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var datepicker_service_1 = require('../../shared/datepicker.service');
+var datepicker_Component_1 = require('../../shared/datepicker.Component');
 var EventViewerHeaderComponent = (function () {
     function EventViewerHeaderComponent() {
     }
@@ -19,7 +19,7 @@ var EventViewerHeaderComponent = (function () {
             selector: 'em-event-viewer-header',
             templateUrl: 'event-viewer-header.component.html',
             styleUrls: ['event-viewer-header.component.css'],
-            providers: [datepicker_service_1.DatePickerService]
+            directives: [datepicker_Component_1.DatePickerComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], EventViewerHeaderComponent);

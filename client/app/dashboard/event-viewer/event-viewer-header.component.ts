@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
-import { DatePickerService } from '../../shared/datepicker.service';
+import { DatePickerComponent } from '../../shared/datepicker.Component';
 
 @Component({
 	moduleId: module.id,
 	selector: 'em-event-viewer-header',
 	templateUrl: 'event-viewer-header.component.html',
 	styleUrls: [ 'event-viewer-header.component.css' ],
-	providers: [ DatePickerService ]
+	directives: [ DatePickerComponent ]
 })
 export class EventViewerHeaderComponent{
 

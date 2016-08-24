@@ -1,16 +1,43 @@
-<div class='date-viewer'>
+<div class='date-display'>
+
 	<em-datepicker></em-datepicker>
-	<div id='date'>
-	Tuesday, November 1
+
+	<div class='date-container'>
+		<div class='day-name'>Saturday</div>
+		<div class='date'>August 27</div>
 	</div>
 
-	<div class='date-selector-buttons-container'>
-		<div class='date-selector-buttons'>
-			<div class='date-selector-forward-back-container'>
-				<button class='date-selector-button'> < </button>
-				<button class='date-selector-button'> > </button>
-			</div>
-			<button class='date-selector-button'> today </button>
+	<div class='date-selector-buttons'>
+		<div class='date-selector-forward-back-container'>
+			<button class='date-selector-button'> < </button>
+			<button class='date-selector-button'> > </button>
 		</div>
+		<button class='date-selector-button'> today </button>
+	</div>
+</div>
+
+<div class='status-display'>
+	<div class='event-sum'>
+		<div class='event-sum-total'>
+		<span class='number-emphasis'>27</span> events
+		</div>
+		<div class='event-subtotals'>
+			<!-- TODO: *ngFor types in range of event types for this day (calculated in component) (secondary benefit: show color associated with event type!)... Scroll overflowing event types on x axis? -->
+			<div class='repeating-events'>
+				<span class='number-emphasis'>16</span> repeating events
+			</div>
+		</div>
+	<div class='event-status-attributes'>
+		<div class='status-unconfirmed'>
+			<span class='number-emphasis'>2</span> unconfirmed events
+		</div>
+		<div class='status-conflict'>
+			<span class='number-emphasis'>3</span> conflicts
+		</div>
+		<!-- TODO: dropdown? different transition counts for each resource type? -->
+		<div class='status-transition'>
+			Foo bars
+		</div>
+
 	</div>
 </div>

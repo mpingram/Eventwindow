@@ -23,9 +23,10 @@ var DatePickerComponent = (function () {
     ], DatePickerComponent.prototype, "datepickerElement", void 0);
     DatePickerComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'em-datepicker',
             template: '<div #target class="datepicker"></div>',
-            styleUrls: ['app/shared/styles/datepicker.component.css'],
+            styleUrls: ['styles/datepicker.component.css'],
             providers: [datepicker_service_1.DatePickerService],
             encapsulation: core_1.ViewEncapsulation.None
         }), 
@@ -34,4 +35,4 @@ var DatePickerComponent = (function () {
     return DatePickerComponent;
 }());
 exports.DatePickerComponent = DatePickerComponent;
-//# sourceMappingURL=datepicker.component.js.map
+//# sourceMappingURL=datepicker.Component.js.map

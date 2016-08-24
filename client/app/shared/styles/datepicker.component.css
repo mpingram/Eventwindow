@@ -4,6 +4,14 @@
  * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
  */
 .pika-single {
+  height: 37px;
+  overflow: hidden;
+  transition: height 400ms ease; }
+
+.pika-single:hover {
+  height: 177px; }
+
+.pika-single {
   z-index: 1;
   display: block;
   position: relative;
