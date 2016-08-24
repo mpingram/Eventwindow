@@ -1,3 +1,4 @@
+/* Coolors Exported Palette - coolors.co/cca9a9-ed4912-707d84-fffaff-277a96 */
 .date-viewer {
   position: relative;
   width: 172px;
@@ -5,10 +6,11 @@
   border: 1px solid #ccc; }
 
 #date {
+  font-family: "Helvetica", sans-serif;
   width: 100%;
   position: absolute;
   top: 20%;
-  font-size: 5em;
+  font-size: 1.5em;
   text-align: center; }
 
 .date-selector-buttons-container {

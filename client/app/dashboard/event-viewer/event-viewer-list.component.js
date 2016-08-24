@@ -9,23 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var event_viewer_list_component_1 = require('./event-viewer-list.component');
-var event_viewer_header_component_1 = require('./event-viewer-header.component');
-var EventViewerComponent = (function () {
-    function EventViewerComponent() {
+var EventViewerListComponent = (function () {
+    function EventViewerListComponent() {
     }
-    EventViewerComponent = __decorate([
+    EventViewerListComponent = __decorate([
         core_1.Component({
-            selector: 'em-event-viewer',
-            templateUrl: './app/dashboard/event-viewer/event-viewer.component.html',
-            styleUrls: ['app/dashboard/event-viewer/event-viewer.component.css',
-                'app/shared/styles/datepicker.component.css'],
-            directives: [event_viewer_list_component_1.EventViewerListComponent, event_viewer_header_component_1.EventViewerHeaderComponent],
-            providers: []
+            moduleId: module.id,
+            selector: 'em-event-viewer-list',
+            templateUrl: 'event-viewer-list.component.html',
+            styleUrls: ['event-viewer-list.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], EventViewerComponent);
-    return EventViewerComponent;
+    ], EventViewerListComponent);
+    return EventViewerListComponent;
 }());
-exports.EventViewerComponent = EventViewerComponent;
-//# sourceMappingURL=event-viewer.component.js.map
+exports.EventViewerListComponent = EventViewerListComponent;
+//# sourceMappingURL=event-viewer-list.component.js.map

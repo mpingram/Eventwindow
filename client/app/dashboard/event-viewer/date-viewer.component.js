@@ -15,11 +15,11 @@ var DateViewerComponent = (function () {
     }
     DateViewerComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'em-date-viewer',
-            templateUrl: 'app/dashboard/event-viewer/date-viewer.component.html',
-            styleUrls: ['app/dashboard/event-viewer/date-viewer.component.css'],
+            templateUrl: 'date-viewer.component.html',
+            styleUrls: ['date-viewer.component.css'],
             directives: [datepicker_component_1.DatePickerComponent],
-            encapsulation: core_1.ViewEncapsulation.None
         }), 
         __metadata('design:paramtypes', [])
     ], DateViewerComponent);

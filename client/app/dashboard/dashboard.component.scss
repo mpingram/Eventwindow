@@ -4,7 +4,7 @@
 	// flex parent for child components
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	justify-content: flex-start;
 	overflow: auto;
 }
