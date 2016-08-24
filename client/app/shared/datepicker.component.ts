@@ -7,9 +7,10 @@ import { 	Component,
 import { DatePickerService } from './datepicker.service';
 
 @Component({
+	moduleId: module.id,
 	selector: 'em-datepicker',
 	template: '<div #target class="datepicker"></div>',
-	styleUrls: ['app/shared/styles/datepicker.component.css'],
+	styleUrls: ['styles/datepicker.component.css'],
 	providers: [ DatePickerService ],
 	encapsulation: ViewEncapsulation.None
 })

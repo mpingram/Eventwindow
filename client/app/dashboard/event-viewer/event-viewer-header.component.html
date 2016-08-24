@@ -1,16 +1,35 @@
-<div class='date-viewer'>
+<div class='date-display'>
+
 	<em-datepicker></em-datepicker>
-	<div id='date'>
-	Tuesday, November 1
+
+	<div class='date-container'>
+		<div class='day-name'>Saturday</div>
+		<div class='date'>August 27</div>
 	</div>
 
-	<div class='date-selector-buttons-container'>
-		<div class='date-selector-buttons'>
-			<div class='date-selector-forward-back-container'>
-				<button class='date-selector-button'> < </button>
-				<button class='date-selector-button'> > </button>
-			</div>
-			<button class='date-selector-button'> today </button>
+	<div class='date-selector-buttons'>
+		<div class='date-selector-forward-back-container'>
+			<button class='date-selector-button'> < </button>
+			<button class='date-selector-button'> > </button>
 		</div>
+		<button class='date-selector-button'> today </button>
+	</div>
+</div>
+
+<div class='status-display'>
+	<div class='event-sum'>
+		<span class='number-emphasis'>27</span> events
+	<div class='event-status-attributes'>
+		<div class='status-unconfirmed'>
+			<span class='number-emphasis'>2</span> unconfirmed events
+		</div>
+		<div class='status-conflict'>
+			<span class='number-emphasis'>3</span> conflicts
+		</div>
+		<!-- TODO: dropdown? different transition counts for each resource type? -->
+		<div class='status-transition'>
+			Foo bars
+		</div>
+
 	</div>
 </div>

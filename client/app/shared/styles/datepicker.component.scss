@@ -30,7 +30,18 @@ $pd-week-color: #999 !default;
 // Font
 $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
-.pika-single {
+// dropdown styles
+.pika-single{
+	height: 37px;
+	overflow: hidden;
+
+	transition: height 400ms ease;
+}
+.pika-single:hover{
+	height: 177px;
+}
+
+.pika-single{
     z-index: 1;
     display: block;
     position: relative;
