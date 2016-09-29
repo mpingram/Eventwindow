@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var event_list_item_component_1 = require('./event-list-item.component');
 var EventViewerListComponent = (function () {
     function EventViewerListComponent() {
     }
@@ -17,7 +18,8 @@ var EventViewerListComponent = (function () {
             moduleId: module.id,
             selector: 'em-event-viewer-list',
             templateUrl: 'event-viewer-list.component.html',
-            styleUrls: ['event-viewer-list.component.css']
+            styleUrls: ['event-viewer-list.component.css'],
+            directives: [event_list_item_component_1.EventListItemComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], EventViewerListComponent);
