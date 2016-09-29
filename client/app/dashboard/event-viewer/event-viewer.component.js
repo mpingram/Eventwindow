@@ -9,18 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var event_viewer_list_component_1 = require('./event-viewer-list.component');
-var event_viewer_header_component_1 = require('./event-viewer-header.component');
+var event_list_component_1 = require('./event-list/event-list.component');
 var EventViewerComponent = (function () {
     function EventViewerComponent() {
     }
     EventViewerComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'em-event-viewer',
-            templateUrl: './app/dashboard/event-viewer/event-viewer.component.html',
-            styleUrls: ['app/dashboard/event-viewer/event-viewer.component.css',
-                'app/shared/styles/datepicker.component.css'],
-            directives: [event_viewer_list_component_1.EventViewerListComponent, event_viewer_header_component_1.EventViewerHeaderComponent],
+            templateUrl: 'event-viewer.component.html',
+            styleUrls: ['event-viewer.component.css',
+                '../../shared/styles/datepicker.component.css'],
+            directives: [event_list_component_1.EventListComponent],
             providers: []
         }), 
         __metadata('design:paramtypes', [])

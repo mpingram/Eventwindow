@@ -1,14 +1,14 @@
 import { 	Component } from '@angular/core';
 
-import { EventViewerListComponent } from './event-viewer-list.component';
-import { EventViewerHeaderComponent } 	from './event-viewer-header.component';
+import { EventListComponent } from './event-list/event-list.component';
 
 @Component({
+	moduleId: module.id,
 	selector: 'em-event-viewer',
-	templateUrl: './app/dashboard/event-viewer/event-viewer.component.html',
-	styleUrls: ['app/dashboard/event-viewer/event-viewer.component.css',
-							'app/shared/styles/datepicker.component.css'],
-	directives: [ EventViewerListComponent, EventViewerHeaderComponent ],
+	templateUrl: 'event-viewer.component.html',
+	styleUrls: ['event-viewer.component.css',
+							'../../shared/styles/datepicker.component.css'],
+	directives: [ EventListComponent ],
 	providers: []
 })
 export class EventViewerComponent {

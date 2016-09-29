@@ -35,4 +35,4 @@ var DatePickerComponent = (function () {
     return DatePickerComponent;
 }());
 exports.DatePickerComponent = DatePickerComponent;
-//# sourceMappingURL=datepicker.Component.js.map
+//# sourceMappingURL=datepicker.component.js.map

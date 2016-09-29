@@ -9,21 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var datepicker_component_1 = require('../../shared/datepicker.component');
-var DateViewerComponent = (function () {
-    function DateViewerComponent() {
+var event_list_item_component_1 = require('./event-list-item.component');
+var event_list_day_component_1 = require('./event-list-day.component');
+var EventListComponent = (function () {
+    function EventListComponent() {
     }
-    DateViewerComponent = __decorate([
+    EventListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'em-date-viewer',
-            templateUrl: 'date-viewer.component.html',
-            styleUrls: ['date-viewer.component.css'],
-            directives: [datepicker_component_1.DatePickerComponent],
+            selector: 'em-event-list',
+            templateUrl: 'event-list.component.html',
+            styleUrls: ['event-list.component.css'],
+            directives: [event_list_item_component_1.EventListItemComponent, event_list_day_component_1.EventListDayComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], DateViewerComponent);
-    return DateViewerComponent;
+    ], EventListComponent);
+    return EventListComponent;
 }());
-exports.DateViewerComponent = DateViewerComponent;
-//# sourceMappingURL=date-viewer.component.js.map
+exports.EventListComponent = EventListComponent;
+//# sourceMappingURL=event-list.component.js.map

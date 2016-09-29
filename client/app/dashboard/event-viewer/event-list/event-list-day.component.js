@@ -9,18 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var EventDetailComponent = (function () {
-    function EventDetailComponent() {
+var EventListDayComponent = (function () {
+    function EventListDayComponent() {
     }
-    EventDetailComponent = __decorate([
+    EventListDayComponent = __decorate([
         core_1.Component({
-            selector: 'event-detail',
-            template: '<h1>test</h1>',
-            directives: [EventDetailComponent]
+            moduleId: module.id,
+            selector: 'em-event-list-day',
+            templateUrl: 'event-list-day.component.html',
+            styleUrls: ['event-list-day.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], EventDetailComponent);
-    return EventDetailComponent;
+    ], EventListDayComponent);
+    return EventListDayComponent;
 }());
-exports.EventDetailComponent = EventDetailComponent;
-//# sourceMappingURL=event-detail.component.js.map
+exports.EventListDayComponent = EventListDayComponent;
+//# sourceMappingURL=event-list-day.component.js.map

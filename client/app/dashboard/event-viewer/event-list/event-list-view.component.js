@@ -9,19 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var EventListItemComponent = (function () {
-    function EventListItemComponent() {
+var event_list_item_component_1 = require('./event-list-item.component');
+var EventListComponent = (function () {
+    function EventListComponent() {
     }
-    EventListItemComponent = __decorate([
+    EventListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'em-event-list-item',
-            templateUrl: 'event-list-item.component.html',
-            styleUrls: ['event-list.component.css']
+            selector: 'em-event-list',
+            templateUrl: 'event-list.component.html',
+            styleUrls: ['event-list.component.css'],
+            directives: [event_list_item_component_1.EventListItemComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], EventListItemComponent);
-    return EventListItemComponent;
+    ], EventListComponent);
+    return EventListComponent;
 }());
-exports.EventListItemComponent = EventListItemComponent;
-//# sourceMappingURL=event-viewer-list-item.component.js.map
+exports.EventListComponent = EventListComponent;
+//# sourceMappingURL=event-list-view.component.js.map
