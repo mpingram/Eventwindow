@@ -9,21 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var event_list_scroll_component_1 = require('./event-list-scroll.component');
-var EventListComponent = (function () {
-    function EventListComponent() {
+var event_list_day_component_1 = require('./event-list-day.component');
+var event_list_item_component_1 = require('./event-list-item.component');
+var event_list_multi_item_component_1 = require('./event-list-multi-item.component');
+var EventListScrollComponent = (function () {
+    function EventListScrollComponent() {
     }
-    EventListComponent = __decorate([
+    EventListScrollComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'em-event-list',
-            templateUrl: 'event-list.component.html',
-            styleUrls: ['event-list.component.css'],
-            directives: [event_list_scroll_component_1.EventListScrollComponent]
+            selector: 'em-event-list-scroll',
+            directives: [event_list_day_component_1.EventListDayComponent, event_list_item_component_1.EventListItemComponent, event_list_multi_item_component_1.EventListMultiItemComponent],
+            templateUrl: 'event-list-scroll.component.html',
+            styleUrls: ['event-list-scroll.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], EventListComponent);
-    return EventListComponent;
+    ], EventListScrollComponent);
+    return EventListScrollComponent;
 }());
-exports.EventListComponent = EventListComponent;
-//# sourceMappingURL=event-list.component.js.map
+exports.EventListScrollComponent = EventListScrollComponent;
+//# sourceMappingURL=event-list-scroll.component.js.map

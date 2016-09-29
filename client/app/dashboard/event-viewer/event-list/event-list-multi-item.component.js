@@ -9,21 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var event_list_scroll_component_1 = require('./event-list-scroll.component');
-var EventListComponent = (function () {
-    function EventListComponent() {
+var EventListMultiItemComponent = (function () {
+    function EventListMultiItemComponent() {
     }
-    EventListComponent = __decorate([
+    EventListMultiItemComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'em-event-list',
-            templateUrl: 'event-list.component.html',
-            styleUrls: ['event-list.component.css'],
-            directives: [event_list_scroll_component_1.EventListScrollComponent]
+            selector: 'em-event-list-multi-item',
+            templateUrl: 'event-list-multi-item.component.html',
+            styleUrls: ['event-list-multi-item.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], EventListComponent);
-    return EventListComponent;
+    ], EventListMultiItemComponent);
+    return EventListMultiItemComponent;
 }());
-exports.EventListComponent = EventListComponent;
-//# sourceMappingURL=event-list.component.js.map
+exports.EventListMultiItemComponent = EventListMultiItemComponent;
+//# sourceMappingURL=event-list-multi-item.component.js.map
