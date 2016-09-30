@@ -19,10 +19,3 @@
   -webkit-align-content: stretch;
       -ms-flex-line-pack: stretch;
           align-content: stretch; }
-
-.event-list-container {
-  width: 100%;
-  -webkit-flex: 6 0 auto;
-      -ms-flex: 6 0 auto;
-          flex: 6 0 auto;
-  border: 1px solid red; }

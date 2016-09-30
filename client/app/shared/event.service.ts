@@ -17,6 +17,7 @@ export class EventService {
 	getEvents(){
 		this.backend.getAll(Event).then( (events: Event[]) => {
 			this.logger.log(`Fetched ${events.length} events.`);
+			this.logger.log(events);
 			this.events.push(...events);
 		});
 		return this.events;

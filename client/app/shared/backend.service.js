@@ -11,20 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var logger_service_1 = require('./logger.service');
 var event_1 = require('./event');
-// TODO: replace mock with backend interface
-var EVENTS = [
-    new event_1.Event('test'),
-    new event_1.Event('foo'),
-    new event_1.Event('bar')
-];
+var mock_event_generator_service_1 = require('./mock-event-generator.service');
 var BackendService = (function () {
-    function BackendService(logger) {
+    function BackendService(logger, 
+        // mock
+        mockGenerator) {
         this.logger = logger;
+        this.mockGenerator = mockGenerator;
     }
-    //private lastEvent: Date
+    //
     BackendService.prototype.getAll = function (type) {
         if (type === event_1.Event) {
             // FIXME: mock
+            var EVENTS = this.mockGenerator.generateBuffer(14);
             return Promise.resolve(EVENTS);
         }
         var err = new Error('Cannot get object of this type');
@@ -33,7 +32,7 @@ var BackendService = (function () {
     };
     BackendService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [logger_service_1.Logger])
+        __metadata('design:paramtypes', [logger_service_1.Logger, mock_event_generator_service_1.MockEventGeneratorService])
     ], BackendService);
     return BackendService;
 }());

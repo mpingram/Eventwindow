@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var backend_service_1 = require('./shared/backend.service');
 var logger_service_1 = require('./shared/logger.service');
+var mock_event_generator_service_1 = require('./shared/mock-event-generator.service');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
 var AppComponent = (function () {
     function AppComponent() {
@@ -22,7 +23,7 @@ var AppComponent = (function () {
             templateUrl: './app/app.component.html',
             styleUrls: ['./app/app.component.css', './app/shared/styles/ionicons.css'],
             // register utility services for general use
-            providers: [backend_service_1.BackendService, logger_service_1.Logger]
+            providers: [backend_service_1.BackendService, logger_service_1.Logger, mock_event_generator_service_1.MockEventGeneratorService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

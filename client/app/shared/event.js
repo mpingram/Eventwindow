@@ -1,10 +1,12 @@
 "use strict";
-var nextId = 1;
 var Event = (function () {
-    function Event(test) {
-        this.test = test;
+    function Event(properties) {
+        for (var x in properties) {
+            if (properties.hasOwnProperty(x)) {
+                this[x] = properties[x];
+            }
+        }
     }
-    ;
     return Event;
 }());
 exports.Event = Event;

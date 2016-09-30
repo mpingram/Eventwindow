@@ -1,13 +1,14 @@
 @import '../../../shared/styles/variables';
 
 :host{
-	background-color: #eee;
+	background-color: $gray-lighter;
 	width: 100%;
 	height: 3.5em;
 
 	display: block;
 
 	font-family: $sans;
+	border-bottom: 1px solid $col-border-light;
 }
 .block{
 	display: block;
@@ -18,6 +19,7 @@
 
 .event-type{
 	width: 3%;
+	background-color: red;
 }
 .event-name{
 	width: 47%;

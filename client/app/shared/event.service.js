@@ -22,6 +22,7 @@ var EventService = (function () {
         var _this = this;
         this.backend.getAll(event_1.Event).then(function (events) {
             _this.logger.log("Fetched " + events.length + " events.");
+            _this.logger.log(events);
             (_a = _this.events).push.apply(_a, events);
             var _a;
         });

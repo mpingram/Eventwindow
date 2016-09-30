@@ -6,3 +6,15 @@ body {
   width: 100%;
   height: 100%;
   margin: 0; }
+
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54); }
+
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26); }
+
+.material-icons.md-light {
+  color: white; }
+
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3); }
