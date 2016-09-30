@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { EventListScrollComponent } from './event-list-scroll.component';
 @Component({
@@ -9,5 +9,5 @@ import { EventListScrollComponent } from './event-list-scroll.component';
 	directives: [ EventListScrollComponent ]
 })
 export class EventListComponent{
-
+	@Input() eventBuffer: Event[];
 }

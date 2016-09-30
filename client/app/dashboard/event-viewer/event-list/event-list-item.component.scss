@@ -29,11 +29,14 @@
 	width: 100%;
 	height: 50%;
 	padding: 0 10px;
+	overflow: hidden;
+	white-space: nowrap;
 	text-overflow: ellipsis;
 	vertical-align: middle;
 	line-height: 27px;
 }
 .event-title{
+	font-size: 90%;
 }
 .event-organizer{
 	font-size: 90%;

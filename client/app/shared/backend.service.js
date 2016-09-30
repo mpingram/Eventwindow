@@ -19,7 +19,6 @@ var BackendService = (function () {
         this.logger = logger;
         this.mockGenerator = mockGenerator;
     }
-    //
     BackendService.prototype.getAll = function (type) {
         if (type === event_1.Event) {
             // FIXME: mock

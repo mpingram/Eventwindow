@@ -13,12 +13,12 @@ var event_service_1 = require('../shared/event.service');
 var event_viewer_component_1 = require('./event-viewer/event-viewer.component');
 var resource_viewer_component_1 = require('./resource-viewer/resource-viewer.component');
 var DashboardComponent = (function () {
-    function DashboardComponent(service) {
-        this.service = service;
+    function DashboardComponent(eventService) {
+        this.eventService = eventService;
     }
     ;
     DashboardComponent.prototype.ngOnInit = function () {
-        this.service.getEvents();
+        this.eventBuffer = this.eventService.getEvents();
     };
     DashboardComponent = __decorate([
         core_1.Component({

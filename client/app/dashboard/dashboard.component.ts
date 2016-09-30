@@ -2,7 +2,6 @@ import {Component, OnInit } 	from '@angular/core';
 
 import { Event } 							from '../shared/event';
 import { EventService }				from '../shared/event.service';
-import { BackendService }			from '../shared/backend.service';
 
 import { EventViewerComponent } from './event-viewer/event-viewer.component';
 import { ResourceViewerComponent } from './resource-viewer/resource-viewer.component';
@@ -17,11 +16,11 @@ import { ResourceViewerComponent } from './resource-viewer/resource-viewer.compo
 
 export class DashboardComponent implements OnInit {
 
-		events: Event[];
+		public eventBuffer: Event[];
 
-		constructor(private service: EventService) {};
+		constructor(private eventService: EventService) {};
 
 		ngOnInit(){
-			this.service.getEvents();
+			this.eventBuffer = this.eventService.getEvents();
 		}
 }

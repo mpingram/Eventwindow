@@ -11,7 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var EventListItemComponent = (function () {
     function EventListItemComponent() {
+        this.event = Event;
     }
+    EventListItemComponent.prototype.dateToClockTime = function (momentObj) {
+        return momentObj.format('h mm');
+    };
+    EventListItemComponent.prototype.dateToAMPM = function (momentObj) {
+        return momentObj.format('a');
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], EventListItemComponent.prototype, "event", void 0);
     EventListItemComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

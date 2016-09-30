@@ -1,1 +1,3 @@
-<em-event-list-day *ngFor="let day of buffer;" day=day></em-event-list-day>
+<em-event-list-day></em-event-list-day>
+<em-event-list-item  *ngFor='let event of eventBuffer' [event]='event'></em-event-list-item>
+

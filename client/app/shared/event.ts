@@ -1,7 +1,7 @@
 export class Event {
 
 	// FIXME: useless if constructor accepts obj
-	// ts doesn't check types
+	// ts doesn't check types of obj's props
 	id: 				number;
 	name: 			string;
 	organizer: 	string;

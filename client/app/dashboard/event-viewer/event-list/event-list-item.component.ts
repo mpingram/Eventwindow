@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+declare const moment: any;
 
 @Component({
 	moduleId: module.id,
@@ -7,5 +9,12 @@ import { Component } from '@angular/core';
 	styleUrls: ['event-list-item.component.css']
 })
 export class EventListItemComponent{
+	@Input() event = Event;
 
+	dateToClockTime(momentObj){
+		return momentObj.format('h mm')
+	}
+	dateToAMPM(momentObj){
+		return momentObj.format('a');
+	}
 }

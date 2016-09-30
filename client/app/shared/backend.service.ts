@@ -14,7 +14,6 @@ export class BackendService {
 	            public mockGenerator: MockEventGeneratorService
 	            ) {}
 
-	//
 	
 	getAll(type: Type): PromiseLike<any[]> {
 		if (type === Event){

@@ -13,6 +13,10 @@ var event_list_scroll_component_1 = require('./event-list-scroll.component');
 var EventListComponent = (function () {
     function EventListComponent() {
     }
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], EventListComponent.prototype, "eventBuffer", void 0);
     EventListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

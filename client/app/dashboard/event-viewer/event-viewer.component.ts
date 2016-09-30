@@ -1,4 +1,4 @@
-import { 	Component } from '@angular/core';
+import { 	Component, Input } from '@angular/core';
 
 import { EventListComponent } from './event-list/event-list.component';
 
@@ -12,5 +12,5 @@ import { EventListComponent } from './event-list/event-list.component';
 	providers: []
 })
 export class EventViewerComponent {
-	
+	@Input() eventBuffer: Event[];
 }

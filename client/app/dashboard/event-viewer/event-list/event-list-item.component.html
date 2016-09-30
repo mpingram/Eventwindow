@@ -3,10 +3,10 @@
 </div>
 <div class='block event-name'>
 	<div class='horizontal-block event-title'>
-	Event Title
+	{{event.name}}
 	</div>
 	<div class='horizontal-block event-organizer text-light'>
-	Event Organizer
+	{{event.organizer}}
 	</div>
 </div>
 
@@ -16,14 +16,14 @@
 
 <div class='block event-info'>
 	<div class='horizontal-block event-time'>
-		<span class='event-time-start'>1:30</span>
-		<span class='text-light'>pm</span>
+		<span class='event-time-start'>{{dateToClockTime(event.start)}}</span>
+		<span class='text-light'>{{dateToAMPM(event.start)}}</span>
 		-
-		<span class='event-time-end'>4:30</span>
-		<span class='text-light'>pm</span>
+		<span class='event-time-end'>{{dateToClockTime(event.end)}}</span>
+		<span class='text-light'>{{dateToAMPM(event.end)}}</span>
 	</div>
 	<div class='horizontal-block event-resource'>
-		<span class='text-light'>Room</span> 120
+		<span class='text-light'>Room</span> {{event.primaryResource}}
 	</div>
 </div>
 <div class='block event-status'></div>

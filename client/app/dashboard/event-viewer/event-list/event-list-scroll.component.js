@@ -15,6 +15,10 @@ var event_list_multi_item_component_1 = require('./event-list-multi-item.compone
 var EventListScrollComponent = (function () {
     function EventListScrollComponent() {
     }
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], EventListScrollComponent.prototype, "eventBuffer", void 0);
     EventListScrollComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

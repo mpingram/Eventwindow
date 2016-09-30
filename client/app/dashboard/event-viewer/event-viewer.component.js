@@ -13,6 +13,10 @@ var event_list_component_1 = require('./event-list/event-list.component');
 var EventViewerComponent = (function () {
     function EventViewerComponent() {
     }
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], EventViewerComponent.prototype, "eventBuffer", void 0);
     EventViewerComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
