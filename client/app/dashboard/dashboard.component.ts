@@ -16,7 +16,7 @@ import { ResourceViewerComponent } from './resource-viewer/resource-viewer.compo
 
 export class DashboardComponent implements OnInit {
 
-		public eventBuffer: Event[];
+		public eventBuffer: Event[][];
 
 		constructor(private eventService: EventService) {};
 

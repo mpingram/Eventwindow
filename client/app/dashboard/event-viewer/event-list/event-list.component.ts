@@ -9,5 +9,5 @@ import { EventListScrollComponent } from './event-list-scroll.component';
 	directives: [ EventListScrollComponent ]
 })
 export class EventListComponent{
-	@Input() eventBuffer: Event[];
+	@Input() eventBuffer: Event[][];
 }

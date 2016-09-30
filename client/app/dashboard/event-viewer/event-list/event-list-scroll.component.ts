@@ -12,5 +12,5 @@ import { EventListMultiItemComponent } from './event-list-multi-item.component';
 	styleUrls: [ 'event-list-scroll.component.css' ]
 })
 export class EventListScrollComponent{
-	@Input() eventBuffer: Event[];
+	@Input() eventBuffer: Event[][];
 }

@@ -1,11 +1,6 @@
 "use strict";
 var Event = (function () {
-    function Event(properties) {
-        for (var x in properties) {
-            if (properties.hasOwnProperty(x)) {
-                this[x] = properties[x];
-            }
-        }
+    function Event() {
     }
     return Event;
 }());

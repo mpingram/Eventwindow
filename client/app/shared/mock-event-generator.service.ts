@@ -12,7 +12,7 @@ export class MockEventGeneratorService{
 	private eventTitlePool: string[] = ['Rap', 'Classical Music', 'Sting and the Police', 'Baby', 'Pillow', 'Chromolithograph', 'Men', 'Bath', 'German', 'Grasshopper', 'Peer-to-Peer', 'Forestry', 'Paramedic', 'Hot Doctor', 'Jellyfish', 'Angry Bears', 'Intersectionality', 'Shirt', 'Astronaut', 'Duck', 'Fashion', 'Gentrification', 'Yoga', 'Dance', 'Balloon'];
 	private eventSubtitlePool: string[] = ['in the Hood', 'Burlesque', 'Conference', 'Discussion', 'Lecture', 'Meeting', 'Round Table', 'Viewing', 'Competition', 'Battle', ': an Exploration', 'and the Sorcerer\'s Stone', 'Class', 'Intervention', '-splaining', 'Brunch', 'Coast to Coast', 'Meditation', 'Fight', 'Teleconference', 'Reading', 'Punching', 'Dissection', 'Marathon'];
 	private firstNamePool: string[] = ['Richard', 'Flingus','Sid','Ebenezer', 'Rocky', 'Dontae', 'Margarette', 'Robin', 'Willow', 'Ola', 'Bonnie', 'Nicole', 'Diana', 'Dianna', 'Diananana', 'Michael', 'Jareth'];
-	private lastNamePool: string[] = ['Nye', 'Hatfield', 'Herring', 'Ingram', 'Lee', 'Li', 'Heaton', 'Cohen', 'Tomlinson', 'Brenner', 'Butler', 'King', 'Morris', 'Bungleton', 'Powerhat', 'Dolphin', 'the Goblin King', 'Goethe', 'Yang', 'Brown', 'Foghorn', 'Colton', 'Dongus'];
+	private lastNamePool: string[] = ['Nye', 'Hatfield', 'Herring', 'Lee', 'Li', 'Heaton', 'Cohen', 'Tomlinson', 'Brenner', 'Butler', 'King', 'Morris', 'Bungleton', 'Powerhat', 'Dolphin', 'the Goblin King', 'Goethe', 'Yang', 'Brown', 'Foghorn', 'Colton', 'Dongus'];
 	private resourcesPool: string[] = ['EI', 'EII', 'EIII','EIV', 'WIa', 'WIb', 'WII', 'WIII', 'WIV', 'Lobby', 'Library', '120', '129'];
 	private eventTypePool: string[] = ['Class', 'Meeting', 'Internal Event', 'External Event'];
 
@@ -42,21 +42,20 @@ export class MockEventGeneratorService{
 	}
 
 	private generateEvent(start: any, end: any, availResources: string[]){
-		let params = {};
-		params.id = Math.ceil(Math.random()*1000);
-		params.name = this.generateEventName();
-		params.organizer = this.generateHumanName();
-		params.start = start;
-		params.end 	= end;
-		params.primaryResource = this.selectFrom(availResources);
+		let event: Event = new Event();
+		event.id = Math.ceil(Math.random()*1000);
+		event.name = this.generateEventName();
+		event.organizer = this.generateHumanName();
+		event.start = start;
+		event.end 	= end;
+		event.primaryResource = this.selectFrom(availResources);
 
-		let event = new Event(params);
 		return event;
 	}
 
 	generateBuffer(length: number){
 		
-		let buffer: Event[] = [];
+		let events: Event[] = [];
 
 		let currentDay = moment().startOf('day');
 
@@ -70,12 +69,12 @@ export class MockEventGeneratorService{
 
 				while (Math.random() > 0.1){
 					let event = this.generateEvent(start, end, availResources);
-					buffer.push(event);
+					events.push(event);
 				}
 			}
 			currentDay.add(1, 'day');
 		}
 
-		return buffer;
+		return events;
 	}
 }

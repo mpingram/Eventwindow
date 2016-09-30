@@ -19,10 +19,10 @@ var BackendService = (function () {
         this.logger = logger;
         this.mockGenerator = mockGenerator;
     }
-    BackendService.prototype.getAll = function (type) {
+    BackendService.prototype.getAll = function (type, bufferSize) {
         if (type === event_1.Event) {
             // FIXME: mock
-            var EVENTS = this.mockGenerator.generateBuffer(14);
+            var EVENTS = this.mockGenerator.generateBuffer(bufferSize);
             return Promise.resolve(EVENTS);
         }
         var err = new Error('Cannot get object of this type');

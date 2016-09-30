@@ -12,5 +12,5 @@ import { EventListComponent } from './event-list/event-list.component';
 	providers: []
 })
 export class EventViewerComponent {
-	@Input() eventBuffer: Event[];
+	@Input() eventBuffer: Event[][];
 }

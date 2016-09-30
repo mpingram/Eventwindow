@@ -12,21 +12,54 @@ var core_1 = require('@angular/core');
 var event_1 = require('./event');
 var backend_service_1 = require('./backend.service');
 var logger_service_1 = require('./logger.service');
+//import * as moment from 'moment';
+//declare const moment: any;
 var EventService = (function () {
     function EventService(backend, logger) {
         this.backend = backend;
         this.logger = logger;
-        this.events = [];
+        this.eventBuffer = [];
+        this.defaultBufferSize = 14;
     }
-    EventService.prototype.getEvents = function () {
-        var _this = this;
-        this.backend.getAll(event_1.Event).then(function (events) {
-            _this.logger.log("Fetched " + events.length + " events.");
-            _this.logger.log(events);
-            (_a = _this.events).push.apply(_a, events);
-            var _a;
+    EventService.prototype.sortEventsByStart = function (events) {
+        return events.sort(function (a, b) {
+            if (a.start.isAfter(b.start))
+                return 1;
+            else if (a.start.isBefore(b.start))
+                return -1;
+            else
+                return 0;
         });
-        return this.events;
+    };
+    EventService.prototype.convertToBuffer = function (events, bufferSize) {
+        // fixme: nullable event[] []?
+        var buffer;
+        var numEvents = events.length;
+        var bufferIndex = 0;
+        var currentDay = events[0].start.startOf('day');
+        for (var i = 0; i < numEvents; i++) {
+            var thisDay = events[i].start.startOf('day');
+            while (thisDay.isAfter(currentDay)) {
+                currentDay.add(1, 'day');
+                bufferIndex += 1;
+            }
+            buffer[bufferIndex].push(events[i]);
+        }
+        return buffer;
+    };
+    EventService.prototype.getEvents = function (bufferSize) {
+        var _this = this;
+        if (bufferSize === undefined) {
+            bufferSize = this.defaultBufferSize;
+        }
+        this.backend.getAll(event_1.Event, bufferSize).then(function (events) {
+            _this.logger.log("Fetched " + events.length + " events.");
+            console.log(events);
+            _this.sortEventsByStart(events);
+            // FIXME: hardcoded bufferSize. Need to find a way to set it
+            _this.eventBuffer = _this.convertToBuffer(events, bufferSize);
+        });
+        return this.eventBuffer;
     };
     EventService = __decorate([
         core_1.Injectable(), 

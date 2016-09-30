@@ -15,10 +15,10 @@ export class BackendService {
 	            ) {}
 
 	
-	getAll(type: Type): PromiseLike<any[]> {
+	getAll(type: Type, bufferSize: number): PromiseLike<any[]> {
 		if (type === Event){
 			// FIXME: mock
-			const EVENTS = this.mockGenerator.generateBuffer(14);
+			const EVENTS = this.mockGenerator.generateBuffer(bufferSize);
 			return Promise.resolve<Event[]>(EVENTS);
 		}
 		let err = new Error('Cannot get object of this type');
