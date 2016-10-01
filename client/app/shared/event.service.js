@@ -32,15 +32,21 @@ var EventService = (function () {
         });
     };
     EventService.prototype.convertToBuffer = function (events, bufferSize) {
-        // fixme: nullable event[] []?
-        var buffer;
+        var buffer = [];
+        for (var i = 0; i < bufferSize; i++) {
+            buffer[i] = [];
+        }
+        // fill out buffer with number of days
         var numEvents = events.length;
         var bufferIndex = 0;
-        var currentDay = events[0].start.startOf('day');
+        var currentDay = events[0].start.dayOfYear;
         for (var i = 0; i < numEvents; i++) {
-            var thisDay = events[i].start.startOf('day');
-            while (thisDay.isAfter(currentDay)) {
-                currentDay.add(1, 'day');
+            var thisDay = events[i].start.dayOfYear;
+            while (thisDay > currentDay) {
+                events[i].start.add(1, 'day');
+                console.log(typeof currentDay);
+                currentDay = events[i].start.dayOfYear;
+                //currentDay++;
                 bufferIndex += 1;
             }
             buffer[bufferIndex].push(events[i]);
@@ -54,10 +60,10 @@ var EventService = (function () {
         }
         this.backend.getAll(event_1.Event, bufferSize).then(function (events) {
             _this.logger.log("Fetched " + events.length + " events.");
-            console.log(events);
             _this.sortEventsByStart(events);
-            // FIXME: hardcoded bufferSize. Need to find a way to set it
+            console.log(events);
             _this.eventBuffer = _this.convertToBuffer(events, bufferSize);
+            console.log(_this.eventBuffer);
         });
         return this.eventBuffer;
     };

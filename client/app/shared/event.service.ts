@@ -26,17 +26,22 @@ export class EventService {
 	}
 
 	private convertToBuffer(events: Event[], bufferSize: number){
-		// fixme: nullable event[] []?
-		let buffer: Event[][];
+		let buffer: Event[][] = [];
+		for (let i = 0; i < bufferSize; i++){
+			buffer[i] = [];
+		}
+		// fill out buffer with number of days
 		let numEvents: number = events.length;
 		let bufferIndex: number = 0;
-		let currentDay = events[0].start.startOf('day');
+		let currentDay = events[0].start.dayOfYear;
 
 		for (let i = 0; i < numEvents; i++){
-
-			let thisDay = events[i].start.startOf('day');
-			while (thisDay.isAfter(currentDay)){
-				currentDay.add(1,'day');
+			let thisDay = events[i].start.dayOfYear;
+			while (thisDay > currentDay){
+				events[i].start.add(1,'day');
+				console.log(typeof currentDay);
+				currentDay = events[i].start.dayOfYear;
+				//currentDay++;
 				bufferIndex += 1;
 			}
 			buffer[bufferIndex].push(events[i]);
@@ -54,10 +59,10 @@ export class EventService {
 
 		this.backend.getAll(Event, bufferSize).then( (events: Event[]) => {
 			this.logger.log(`Fetched ${events.length} events.`);
-			console.log(events);
 			this.sortEventsByStart(events);
-			// FIXME: hardcoded bufferSize. Need to find a way to set it
+			console.log(events);
 			this.eventBuffer = this.convertToBuffer(events, bufferSize);
+			console.log(this.eventBuffer);
 		});
 		return this.eventBuffer;
 	}
