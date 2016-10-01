@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var event_list_scroll_component_1 = require('./event-list-scroll.component');
 var EventListComponent = (function () {
     function EventListComponent() {
     }
@@ -23,7 +22,6 @@ var EventListComponent = (function () {
             selector: 'em-event-list',
             templateUrl: 'event-list.component.html',
             styleUrls: ['event-list.component.css'],
-            directives: [event_list_scroll_component_1.EventListScrollComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], EventListComponent);

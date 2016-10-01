@@ -10,8 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var event_service_1 = require('../shared/event.service');
-var event_viewer_component_1 = require('./event-viewer/event-viewer.component');
-var resource_viewer_component_1 = require('./resource-viewer/resource-viewer.component');
 var DashboardComponent = (function () {
     function DashboardComponent(eventService) {
         this.eventService = eventService;
@@ -25,7 +23,6 @@ var DashboardComponent = (function () {
             selector: 'em-dashboard',
             templateUrl: './app/dashboard/dashboard.component.html',
             styleUrls: ['./app/dashboard/dashboard.component.css'],
-            directives: [event_viewer_component_1.EventViewerComponent, resource_viewer_component_1.ResourceViewerComponent],
             providers: [event_service_1.EventService]
         }), 
         __metadata('design:paramtypes', [event_service_1.EventService])

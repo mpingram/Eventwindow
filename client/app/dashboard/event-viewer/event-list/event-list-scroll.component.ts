@@ -7,7 +7,6 @@ import { EventListMultiItemComponent } from './event-list-multi-item.component';
 @Component({
 	moduleId: module.id,
 	selector: 'em-event-list-scroll',
-	directives: [EventListDayComponent, EventListItemComponent, EventListMultiItemComponent],
 	templateUrl: 'event-list-scroll.component.html',
 	styleUrls: [ 'event-list-scroll.component.css' ]
 })

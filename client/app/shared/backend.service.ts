@@ -15,7 +15,7 @@ export class BackendService {
 	            ) {}
 
 	
-	getAll(type: Type, bufferSize: number): PromiseLike<any[]> {
+	getAll(type: Type<any>, bufferSize: number): PromiseLike<any[]> {
 		if (type === Event){
 			// FIXME: mock
 			const EVENTS = this.mockGenerator.generateBuffer(bufferSize);

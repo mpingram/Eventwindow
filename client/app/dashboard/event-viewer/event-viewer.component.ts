@@ -8,7 +8,6 @@ import { EventListComponent } from './event-list/event-list.component';
 	templateUrl: 'event-viewer.component.html',
 	styleUrls: ['event-viewer.component.css',
 							'../../shared/styles/datepicker.component.css'],
-	directives: [ EventListComponent ],
 	providers: []
 })
 export class EventViewerComponent {

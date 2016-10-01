@@ -6,7 +6,6 @@ import { EventListScrollComponent } from './event-list-scroll.component';
 	selector: 'em-event-list',
 	templateUrl: 'event-list.component.html',
 	styleUrls: [ 'event-list.component.css' ],
-	directives: [ EventListScrollComponent ]
 })
 export class EventListComponent{
 	@Input() eventBuffer: Event[][];

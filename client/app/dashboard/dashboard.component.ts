@@ -10,7 +10,6 @@ import { ResourceViewerComponent } from './resource-viewer/resource-viewer.compo
 	selector: 'em-dashboard',
 	templateUrl: './app/dashboard/dashboard.component.html',
 	styleUrls: ['./app/dashboard/dashboard.component.css'],
-	directives: [ EventViewerComponent, ResourceViewerComponent ],
 	providers: [ EventService ]
 })
 

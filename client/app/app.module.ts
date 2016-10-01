@@ -23,7 +23,4 @@ import { EventPageComponent } from './event-page/eventpage.component';
 	],
 	bootstrap: [AppComponent]
 })
-
-export class AppModule{
-	
-}
+export class AppModule { }
