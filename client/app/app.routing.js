@@ -1,7 +1,6 @@
 "use strict";
 var router_1 = require('@angular/router');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
-var eventpage_component_1 = require('./event-page/eventpage.component');
 var appRoutes = [
     {
         path: '',
@@ -11,10 +10,6 @@ var appRoutes = [
     {
         path: 'dashboard',
         component: dashboard_component_1.DashboardComponent
-    },
-    {
-        path: 'event/:id',
-        component: eventpage_component_1.EventPageComponent
     }
 ];
 exports.appRoutingProviders = [];

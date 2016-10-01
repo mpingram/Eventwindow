@@ -13,7 +13,12 @@ var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
-var eventpage_component_1 = require('./event-page/eventpage.component');
+var resource_viewer_component_1 = require('./dashboard/resource-viewer/resource-viewer.component');
+var event_viewer_component_1 = require('./dashboard/event-viewer/event-viewer.component');
+var event_list_component_1 = require('./dashboard/event-viewer/event-list/event-list.component');
+var event_list_scroll_component_1 = require('./dashboard/event-viewer/event-list/event-list-scroll.component');
+var event_list_day_component_1 = require('./dashboard/event-viewer/event-list/event-list-day.component');
+var event_list_item_component_1 = require('./dashboard/event-viewer/event-list/event-list-item.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -23,10 +28,16 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 app_routing_1.routing
             ],
+            // FIXME: organize into feature modules? Cut down on the # of components?
             declarations: [
                 app_component_1.AppComponent,
                 dashboard_component_1.DashboardComponent,
-                eventpage_component_1.EventPageComponent
+                resource_viewer_component_1.ResourceViewerComponent,
+                event_viewer_component_1.EventViewerComponent,
+                event_list_component_1.EventListComponent,
+                event_list_scroll_component_1.EventListScrollComponent,
+                event_list_day_component_1.EventListDayComponent,
+                event_list_item_component_1.EventListItemComponent
             ],
             providers: [
                 app_routing_1.appRoutingProviders

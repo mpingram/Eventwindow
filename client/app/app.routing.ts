@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventPageComponent } from './event-page/eventpage.component';
 
 const appRoutes: Routes = [
 	{
@@ -12,11 +11,7 @@ const appRoutes: Routes = [
 	{
 		path: 'dashboard',
 		component: DashboardComponent
-	},
-	{
-		path: 'event/:id',
-		component: EventPageComponent
- 	}
+	}
 ]
 
 export const appRoutingProviders: any[] = [

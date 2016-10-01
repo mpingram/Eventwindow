@@ -6,17 +6,29 @@ import { routing,
 				appRoutingProviders } from './app.routing';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventPageComponent } from './event-page/eventpage.component';
+import { ResourceViewerComponent } from './dashboard/resource-viewer/resource-viewer.component';
+import { EventViewerComponent } from './dashboard/event-viewer/event-viewer.component';
+import { EventListComponent } from './dashboard/event-viewer/event-list/event-list.component';
+import { EventListScrollComponent } from './dashboard/event-viewer/event-list/event-list-scroll.component';
+import { EventListDayComponent } from './dashboard/event-viewer/event-list/event-list-day.component';
+import { EventListItemComponent } from './dashboard/event-viewer/event-list/event-list-item.component';
+
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		routing
 	],
+	// FIXME: organize into feature modules? Cut down on the # of components?
 	declarations:[
 		AppComponent,
 		DashboardComponent,
-		EventPageComponent
+		ResourceViewerComponent,
+		EventViewerComponent,
+		EventListComponent,
+		EventListScrollComponent,
+		EventListDayComponent,
+		EventListItemComponent
 	],
 	providers:[
 		appRoutingProviders
