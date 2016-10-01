@@ -47,11 +47,12 @@ System.config({
 });
 
 System.import('systemjs.config.js')
-  .then(importSystemJsExtras)
+  //.then(importSystemJsExtras)
   .then(initTestBed)
   .then(initTesting);
 
 /** Optional SystemJS configuration extras. Keep going w/o it */
+/*
 function importSystemJsExtras(){
   return System.import('systemjs.config.extras.js')
   .catch(function(reason) {
@@ -61,7 +62,7 @@ function importSystemJsExtras(){
     console.log(reason);
   });
 }
-
+*/
 function initTestBed(){
   return Promise.all([
     System.import('@angular/core/testing'),
