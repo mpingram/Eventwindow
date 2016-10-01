@@ -18,7 +18,6 @@ var EventService = (function () {
     function EventService(backend, logger) {
         this.backend = backend;
         this.logger = logger;
-        this.eventBuffer = [];
         this.defaultBufferSize = 14;
     }
     EventService.prototype.sortEventsByStart = function (events) {
@@ -39,15 +38,12 @@ var EventService = (function () {
         // fill out buffer with number of days
         var numEvents = events.length;
         var bufferIndex = 0;
-        var currentDay = events[0].start.dayOfYear;
+        var currentDay = events[0].start.clone().startOf('day');
         for (var i = 0; i < numEvents; i++) {
-            var thisDay = events[i].start.dayOfYear;
-            while (thisDay > currentDay) {
-                events[i].start.add(1, 'day');
-                console.log(typeof currentDay);
-                currentDay = events[i].start.dayOfYear;
-                //currentDay++;
-                bufferIndex += 1;
+            var thisDay = events[i].start.clone().startOf('day');
+            while (thisDay.isAfter(currentDay)) {
+                currentDay.add(1, 'day');
+                bufferIndex++;
             }
             buffer[bufferIndex].push(events[i]);
         }
@@ -61,9 +57,9 @@ var EventService = (function () {
         this.backend.getAll(event_1.Event, bufferSize).then(function (events) {
             _this.logger.log("Fetched " + events.length + " events.");
             _this.sortEventsByStart(events);
-            console.log(events);
+            _this.logger.log(events);
             _this.eventBuffer = _this.convertToBuffer(events, bufferSize);
-            console.log(_this.eventBuffer);
+            _this.logger.log(_this.eventBuffer);
         });
         return this.eventBuffer;
     };

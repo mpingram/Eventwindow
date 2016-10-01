@@ -11,7 +11,7 @@ import { Logger } from './logger.service';
 @Injectable()
 export class EventService {
 
-	private eventBuffer: Event[][] = [];
+	private eventBuffer: Event[][];
 
 	constructor(
 		private backend: BackendService,
@@ -33,19 +33,17 @@ export class EventService {
 		// fill out buffer with number of days
 		let numEvents: number = events.length;
 		let bufferIndex: number = 0;
-		let currentDay = events[0].start.dayOfYear;
+		let currentDay = events[0].start.clone().startOf('day');
 
 		for (let i = 0; i < numEvents; i++){
-			let thisDay = events[i].start.dayOfYear;
-			while (thisDay > currentDay){
-				events[i].start.add(1,'day');
-				console.log(typeof currentDay);
-				currentDay = events[i].start.dayOfYear;
-				//currentDay++;
-				bufferIndex += 1;
+			let thisDay = events[i].start.clone().startOf('day');
+			while (thisDay.isAfter(currentDay)){
+				currentDay.add(1,'day');
+				bufferIndex++;
 			}
 			buffer[bufferIndex].push(events[i]);
 		}
+
 		return buffer;
 	}
 
@@ -60,9 +58,9 @@ export class EventService {
 		this.backend.getAll(Event, bufferSize).then( (events: Event[]) => {
 			this.logger.log(`Fetched ${events.length} events.`);
 			this.sortEventsByStart(events);
-			console.log(events);
+			this.logger.log(events);
 			this.eventBuffer = this.convertToBuffer(events, bufferSize);
-			console.log(this.eventBuffer);
+			this.logger.log(this.eventBuffer);
 		});
 		return this.eventBuffer;
 	}
