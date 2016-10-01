@@ -12,8 +12,6 @@ var core_1 = require('@angular/core');
 var event_1 = require('./event');
 var backend_service_1 = require('./backend.service');
 var logger_service_1 = require('./logger.service');
-//import * as moment from 'moment';
-//declare const moment: any;
 var EventService = (function () {
     function EventService(backend, logger) {
         this.backend = backend;
@@ -32,10 +30,10 @@ var EventService = (function () {
     };
     EventService.prototype.convertToBuffer = function (events, bufferSize) {
         var buffer = [];
+        // initialize buffer with empty arrays
         for (var i = 0; i < bufferSize; i++) {
             buffer[i] = [];
         }
-        // fill out buffer with number of days
         var numEvents = events.length;
         var bufferIndex = 0;
         var currentDay = events[0].start.clone().startOf('day');

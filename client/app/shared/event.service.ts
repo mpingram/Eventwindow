@@ -5,9 +5,6 @@ import { Event } from './event';
 import { BackendService } from './backend.service';
 import { Logger } from './logger.service';
 
-//import * as moment from 'moment';
-//declare const moment: any;
-
 @Injectable()
 export class EventService {
 
@@ -27,10 +24,10 @@ export class EventService {
 
 	private convertToBuffer(events: Event[], bufferSize: number){
 		let buffer: Event[][] = [];
+		// initialize buffer with empty arrays
 		for (let i = 0; i < bufferSize; i++){
 			buffer[i] = [];
 		}
-		// fill out buffer with number of days
 		let numEvents: number = events.length;
 		let bufferIndex: number = 0;
 		let currentDay = events[0].start.clone().startOf('day');
