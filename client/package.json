@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"gulp\" ",
-    "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
+    "test": "SET CHROME_BIN = \"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\" & tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "e2e": "tsc && concurrently \"http-server -s\" \"protractor protractor.config.js\" --kill-others --success first",
     "postinstall": "typings install",
     "tsc": "tsc",
