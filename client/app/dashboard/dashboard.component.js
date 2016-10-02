@@ -16,7 +16,8 @@ var DashboardComponent = (function () {
     }
     ;
     DashboardComponent.prototype.ngOnInit = function () {
-        this.eventBuffer = this.eventService.getEvents();
+        var now = moment();
+        this.eventBuffer = this.eventService.loadEventBuffer(now, 14);
     };
     DashboardComponent = __decorate([
         core_1.Component({

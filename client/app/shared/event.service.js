@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var event_1 = require('./event');
 var backend_service_1 = require('./backend.service');
 var logger_service_1 = require('./logger.service');
 var EventService = (function () {
@@ -47,16 +46,30 @@ var EventService = (function () {
         }
         return buffer;
     };
-    EventService.prototype.getEvents = function (bufferSize) {
+    // TODO: decide if we want a unidirectional buffer (like this one)
+    // or a combination of unidirectional (at initialization) and then bidirectional
+    EventService.prototype.loadEventBuffer = function (bufferStart, bufferSize) {
         var _this = this;
-        if (bufferSize === undefined) {
-            bufferSize = this.defaultBufferSize;
-        }
-        this.backend.getAll(event_1.Event, bufferSize).then(function (events) {
+        if (bufferSize === void 0) { bufferSize = this.defaultBufferSize; }
+        var rangeStart = bufferStart;
+        var rangeEnd = bufferStart.clone().add(bufferSize, 'days');
+        this.backend.getEvents(rangeStart, rangeEnd).then(function (events) {
+            _this.logger.log("Fetched " + events.length + " events.");
+            _this.logger.log(events);
+            _this.sortEventsByStart(events);
+            _this.eventBuffer = _this.convertToBuffer(events, bufferSize);
+        });
+        return this.eventBuffer;
+    };
+    EventService.prototype.getEvents = function (rangeStart, rangeEnd) {
+        var _this = this;
+        this.logger.warn('eventService.getEvents is deprecated');
+        this.backend.getEvents(rangeStart, rangeEnd).then(function (events) {
             _this.logger.log("Fetched " + events.length + " events.");
             _this.sortEventsByStart(events);
             _this.logger.log(events);
-            _this.eventBuffer = _this.convertToBuffer(events, bufferSize);
+            // FIXME: HARDCODED AND ERROR BUG CAUSER
+            _this.eventBuffer = _this.convertToBuffer(events, _this.defaultBufferSize);
             _this.logger.log(_this.eventBuffer);
         });
         return this.eventBuffer;

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Moment } 		from 'moment';
 
 import { Event } from './event';
 
@@ -9,6 +10,9 @@ import { Logger } from './logger.service';
 export class EventService {
 
 	private eventBuffer: Event[][];
+
+	private defaultBufferSize = 14;
+
 
 	constructor(
 		private backend: BackendService,
@@ -22,7 +26,8 @@ export class EventService {
 		})
 	}
 
-	private convertToBuffer(events: Event[], bufferSize: number){
+	private convertToBuffer(events: Event[], bufferSize: number): Event[][] {
+
 		let buffer: Event[][] = [];
 		// initialize buffer with empty arrays
 		for (let i = 0; i < bufferSize; i++){
@@ -44,19 +49,32 @@ export class EventService {
 		return buffer;
 	}
 
-	private defaultBufferSize = 14;
 
-	getEvents(bufferSize?: number){
+	// TODO: decide if we want a unidirectional buffer (like this one)
+	// or a combination of unidirectional (at initialization) and then bidirectional
+	loadEventBuffer(bufferStart: Moment, bufferSize: number = this.defaultBufferSize ) : Event[][]{
 
-		if (bufferSize === undefined) {
-			bufferSize = this.defaultBufferSize;
-		}
+		let rangeStart = bufferStart;
+		let rangeEnd = bufferStart.clone().add(bufferSize, 'days');
 
-		this.backend.getAll(Event, bufferSize).then( (events: Event[]) => {
+		this.backend.getEvents(rangeStart, rangeEnd).then( (events:Event[]) => {
+			this.logger.log(`Fetched ${events.length} events.`);
+			this.logger.log(events);
+			this.sortEventsByStart(events);
+			this.eventBuffer = this.convertToBuffer(events, bufferSize)
+		})
+
+		return this.eventBuffer;
+	}
+
+	getEvents(rangeStart: Moment, rangeEnd: Moment): Event[][] {
+		this.logger.warn('eventService.getEvents is deprecated');
+		this.backend.getEvents(rangeStart, rangeEnd).then( (events: Event[]) => {
 			this.logger.log(`Fetched ${events.length} events.`);
 			this.sortEventsByStart(events);
 			this.logger.log(events);
-			this.eventBuffer = this.convertToBuffer(events, bufferSize);
+			// FIXME: HARDCODED AND ERROR BUG CAUSER
+			this.eventBuffer = this.convertToBuffer(events, this.defaultBufferSize);
 			this.logger.log(this.eventBuffer);
 		});
 		return this.eventBuffer;

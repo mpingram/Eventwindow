@@ -6,6 +6,8 @@ import { EventService }				from '../shared/event.service';
 import { EventViewerComponent } from './event-viewer/event-viewer.component';
 import { ResourceViewerComponent } from './resource-viewer/resource-viewer.component';
 
+declare const moment:any;
+
 @Component({
 	selector: 'em-dashboard',
 	templateUrl: './app/dashboard/dashboard.component.html',
@@ -20,6 +22,7 @@ export class DashboardComponent implements OnInit {
 		constructor(private eventService: EventService) {};
 
 		ngOnInit(){
-			this.eventBuffer = this.eventService.getEvents();
+			let now = moment();
+			this.eventBuffer = this.eventService.loadEventBuffer(now, 14);
 		}
 }
