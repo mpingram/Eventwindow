@@ -45,22 +45,23 @@ var EventService = (function () {
             else {
                 buffer.push(bufferDay);
                 bufferDay = [];
+                bufferDay.push(event);
                 currentDay.add(1, 'day');
+            }
+            if (i === lastIndex) {
+                buffer.push(bufferDay);
             }
         }
         return buffer;
     };
-    EventService.prototype.loadEventBuffer = function (bufferStart, bufferEnd) {
+    EventService.prototype.asyncLoadEventBuffer = function (bufferStart, bufferEnd) {
         var _this = this;
-        var bufferSize = bufferStart.diff(bufferEnd, 'days');
-        this.backend.getEvents(bufferStart, bufferEnd).then(function (eventArray) {
+        return this.backend.getEvents(bufferStart, bufferEnd)
+            .then(function (eventArray) {
             _this.logger.log("Fetched " + eventArray.length + " events.");
             _this.sortEventsByStart(eventArray);
-            _this.eventBuffer = _this.convertToBuffer(eventArray);
-            //DEBUG
-            //this.logger.log(this.eventBuffer);
+            return Promise.resolve(_this.convertToBuffer(eventArray));
         });
-        return this.eventBuffer;
     };
     EventService = __decorate([
         core_1.Injectable(), 

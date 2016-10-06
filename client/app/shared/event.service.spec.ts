@@ -20,61 +20,57 @@ describe('Isolated tests of EventService', () => {
 	let eventService: EventService;
 	let logger: Logger = new Logger();
 	let backendService: BackendService = new BackendService(logger);
+	let mockBackendService: any = {
+		
+	}
 
-
-	let mockBackendService: any;
-
-	let start: Moment;
-	let end: Moment;
 
 	// covering basic functionality with real-deal service
 	describe('with real backendService', () => {
 
-		let eventBuffer: EventBuffer;
-
 		beforeEach( () => {
 			eventService = new EventService(backendService, logger);
-			// FIXME: doesn't work for whatever reason
-			start = moment();
-			end = start.clone().add(14,'days');
-			eventBuffer = eventService.loadEventBuffer(start,end);
-			});
-
-
-		it('should return an EventBuffer with the same number of original events in it', ( done ) =>{
-
-
-			function test(eventArray: Event[]){
-
-				let numEvents: number = 0;
-				let expectedNumEvents: number = eventArray.length;
-
-				for (let i = 0; i < eventBuffer.length; i++){
-					numEvents += eventBuffer[i].length;			
-				}
-
-				let condition: boolean = numEvents === expectedNumEvents;
-				expect(condition).toBe(true);
-			}
-
-		  function failTest(error){
-				expect(error).toBeUndefined();
-			}
-
-			backendService.getEvents(start,end)
-				.then( test )
-				.catch( failTest )
-				.then( done );
-			});
-
 		});
 
+		// FIXME: Holy Crockford have patience with my dumb ass
+		it('should return an EventBuffer with the same number of original events in it', ( done ) =>{
+			
+			let start: Moment = moment();
+			let end: Moment = start.clone().add(14, 'days');
 
+			function countItems(nestedArray:[][]) :number {
+				let numEvents: number = 0;
+				for (let i = 0; i < nestedArray.length; i++){
+					numEvents += nestedArray[i].length;
+				}
+				return numEvents;
+			}
+
+			// Typescript hack to access private methods
+			// Used here due to the fact that each call to backendService.getEvents
+			// randomly generates a new set of events
+			// FIXME: remove when testing with non-randomly generated backend service
+			let convertToBuffer = eventService["convertToBuffer"];
+
+			backendService.getEvents(start, end)
+			.then( ( eventArray: Event[] ) => {
+
+				let eventBuffer: EventBuffer = convertToBuffer( eventArray );
+				let eventBufferCount: number = countItems(eventBuffer);
+				let eventArrayCount: number = eventArray.length;
+
+				expect(eventBufferCount).toEqual(eventArrayCount);
+
+			}).then(done);
+		});
+	});
 
 
 	describe('with mock backendService', () => {
 
-
+		beforeEach( () => {
+			eventService = new EventService(mockBackendService, logger);
+		})
 		// FIXME: implement
 		
 	});

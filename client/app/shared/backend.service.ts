@@ -17,7 +17,7 @@ export class BackendService {
 
 	public getEvents(rangeStart: Moment, rangeEnd: Moment): Promise<Event[]> {
 		if( rangeStart.isAfter(rangeEnd) ){
-			const errorMessage = 'The first Moment date must come before the second Moment date in the range passed to backendService.getEvents';
+			const errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
 			return Promise.reject<Event[]>(errorMessage);
 
 		} else {

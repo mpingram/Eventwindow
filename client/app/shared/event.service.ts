@@ -52,29 +52,26 @@ export class EventService {
 			} else {
 				buffer.push(bufferDay);
 				bufferDay = [];
+				bufferDay.push(event);
 				currentDay.add(1,'day');
 			}
 
+			if ( i === lastIndex ){
+				buffer.push(bufferDay);
+			}
 		}
-
 		return buffer;
 	}
 
 
-	public loadEventBuffer(bufferStart: Moment, bufferEnd: Moment ) : EventBuffer{
+	public asyncLoadEventBuffer(bufferStart: Moment, bufferEnd: Moment ): Promise<EventBuffer> {
 
-		let bufferSize: number = bufferStart.diff(bufferEnd, 'days');
+		return this.backend.getEvents(bufferStart, bufferEnd)
+		.then( (eventArray:Event[]) => {
+				this.logger.log(`Fetched ${eventArray.length} events.`);
+				this.sortEventsByStart(eventArray);
+				return Promise.resolve<EventBuffer>(this.convertToBuffer(eventArray));
+		});
 
-		this.backend.getEvents(bufferStart, bufferEnd).then( (eventArray:Event[]) => {
-			this.logger.log(`Fetched ${eventArray.length} events.`);
-			this.sortEventsByStart(eventArray);
-			this.eventBuffer = this.convertToBuffer(eventArray);
-
-			//DEBUG
-			//this.logger.log(this.eventBuffer);
-		})
-
-		return this.eventBuffer;
 	}
-
 }

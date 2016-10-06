@@ -26,7 +26,7 @@ var BackendService = (function () {
     }
     BackendService.prototype.getEvents = function (rangeStart, rangeEnd) {
         if (rangeStart.isAfter(rangeEnd)) {
-            var errorMessage = 'The first Moment date must come before the second Moment date in the range passed to backendService.getEvents';
+            var errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
             return Promise.reject(errorMessage);
         }
         else {
