@@ -14,6 +14,7 @@ module.exports = function(config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
+      require('moment'),
       //require('karma-phantomjs-launcher'),
       require('karma-jasmine-html-reporter'), // click "Debug" in browser to see it
       //require('karma-htmlfile-reporter') // crashing w/ strange socket error
@@ -43,6 +44,9 @@ module.exports = function(config) {
       'node_modules/zone.js/dist/jasmine-patch.js',
       'node_modules/zone.js/dist/async-test.js',
       'node_modules/zone.js/dist/fake-async-test.js',
+
+      // moment.js
+      'bower_components/moment/moment.js',
 
       // RxJs
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },

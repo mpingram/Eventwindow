@@ -1,6 +1,5 @@
 import { Injectable, Type } from '@angular/core';
 import { Moment }						from 'moment';
-//declare const moment:any;
 
 import { Event } from './event';
 
@@ -17,7 +16,7 @@ export class BackendService {
 	constructor(private logger: Logger) {}
 
 	public getEvents(rangeStart: Moment, rangeEnd: Moment): Promise<Event[]> {
-		if( rangeStart.isBefore(rangeEnd) ){
+		if( rangeStart.isAfter(rangeEnd) ){
 			const errorMessage = 'The first Moment date must come before the second Moment date in the range passed to backendService.getEvents';
 			return Promise.reject<Event[]>(errorMessage);
 
@@ -25,19 +24,6 @@ export class BackendService {
 			const EVENTS = this.generateEventArray(rangeStart, rangeEnd);
 			return Promise.resolve<Event[]>(EVENTS);
 		}
-	}
-
-	public getAll(type: Type<any>, inRange: number): Promise<any[]> {
-		this.logger.warn('backendService.getAll is deprecated.');
-		if (type === Event){
-			let rangeStart = moment();
-			let rangeEnd = rangeStart.clone().add(inRange, 'days');
-			const EVENTS = this.generateEventArray(rangeStart, rangeEnd);
-			return Promise.resolve<Event[]>(EVENTS);
-		}
-		let err = new Error('Cannot get object of this type');
-		this.logger.error(err);
-		throw err;
 	}
 
 

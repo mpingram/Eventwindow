@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Moment } 		from 'moment';
 
 import { Event } from './event';
+import { EventBuffer } from './event-buffer';
 
 import { BackendService } from './backend.service';
 import { Logger } from './logger.service';
@@ -9,74 +10,71 @@ import { Logger } from './logger.service';
 @Injectable()
 export class EventService {
 
-	private eventBuffer: Event[][];
+	private eventBuffer: EventBuffer;
 
-	private defaultBufferSize = 14;
+	private defaultBufferSize: number = 14;
+
+	private bufferSize: number = this.defaultBufferSize;
 
 
 	constructor(
 		private backend: BackendService,
 		private logger: Logger ) { }
 
-	private sortEventsByStart(events: Event[]){
-		return events.sort( (a,b) => {
+	private sortEventsByStart(eventArray: Event[]){
+		return eventArray.sort( (a,b) => {
 			if (a.start.isAfter(b.start)) return 1;
 			else if (a.start.isBefore(b.start)) return -1;
 			else return 0;
-		})
+		});
 	}
 
-	private convertToBuffer(events: Event[], bufferSize: number): Event[][] {
 
-		let buffer: Event[][] = [];
-		// initialize buffer with empty arrays
-		for (let i = 0; i < bufferSize; i++){
-			buffer[i] = [];
-		}
-		let numEvents: number = events.length;
-		let bufferIndex: number = 0;
-		let currentDay = events[0].start.clone().startOf('day');
+	// accepts sorted array of Events
+	private convertToBuffer(eventArray: Event[]): EventBuffer {
 
-		for (let i = 0; i < numEvents; i++){
-			let thisDay = events[i].start.clone().startOf('day');
-			while (thisDay.isAfter(currentDay)){
+		let buffer: EventBuffer = [];
+
+		const lastIndex: number = eventArray.length - 1;
+		const firstDay: Moment = eventArray[0].start.clone();
+		const lastDay: Moment = eventArray[lastIndex].start.clone();
+
+		let currentDay: Moment = firstDay.clone();
+		let event: Event;
+		let bufferDay: Event[] = [];
+		for (let i = 0; i <= lastIndex; i++){
+
+			event = eventArray[i];
+
+			if (event.start.isSame(currentDay, 'day')){
+				bufferDay.push(event);
+
+			} else {
+				buffer.push(bufferDay);
+				bufferDay = [];
 				currentDay.add(1,'day');
-				bufferIndex++;
 			}
-			buffer[bufferIndex].push(events[i]);
+
 		}
 
 		return buffer;
 	}
 
 
-	// TODO: decide if we want a unidirectional buffer (like this one)
-	// or a combination of unidirectional (at initialization) and then bidirectional
-	loadEventBuffer(bufferStart: Moment, bufferSize: number = this.defaultBufferSize ) : Event[][]{
+	public loadEventBuffer(bufferStart: Moment, bufferEnd: Moment ) : EventBuffer{
 
-		let rangeStart = bufferStart;
-		let rangeEnd = bufferStart.clone().add(bufferSize, 'days');
+		let bufferSize: number = bufferStart.diff(bufferEnd, 'days');
 
-		this.backend.getEvents(rangeStart, rangeEnd).then( (events:Event[]) => {
-			this.logger.log(`Fetched ${events.length} events.`);
-			this.logger.log(events);
-			this.sortEventsByStart(events);
-			this.eventBuffer = this.convertToBuffer(events, bufferSize)
+		this.backend.getEvents(bufferStart, bufferEnd).then( (eventArray:Event[]) => {
+			this.logger.log(`Fetched ${eventArray.length} events.`);
+			this.sortEventsByStart(eventArray);
+			this.eventBuffer = this.convertToBuffer(eventArray);
+
+			//DEBUG
+			//this.logger.log(this.eventBuffer);
 		})
 
 		return this.eventBuffer;
 	}
 
-	getEvents(rangeStart: Moment, rangeEnd: Moment): Event[][] {
-		this.logger.warn('eventService.getEvents is deprecated');
-		this.backend.getEvents(rangeStart, rangeEnd).then( (events: Event[]) => {
-			this.logger.log(`Fetched ${events.length} events.`);
-			this.sortEventsByStart(events);
-			this.logger.log(events);
-			// FIXME: HARDCODED AND ERROR BUG CAUSER
-			this.eventBuffer = this.convertToBuffer(events, this.defaultBufferSize);
-			this.logger.log(this.eventBuffer);
-		});
-		return this.eventBuffer;
-	}
 }

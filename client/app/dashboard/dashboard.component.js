@@ -16,8 +16,10 @@ var DashboardComponent = (function () {
     }
     ;
     DashboardComponent.prototype.ngOnInit = function () {
-        var now = moment();
-        this.eventBuffer = this.eventService.loadEventBuffer(now, 14);
+        // FIXME
+        var start = moment();
+        var end = start.clone().add(14, 'days');
+        this.eventBuffer = this.eventService.loadEventBuffer(start, end);
     };
     DashboardComponent = __decorate([
         core_1.Component({

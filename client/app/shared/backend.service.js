@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-//declare const moment:any;
 var event_1 = require('./event');
 var logger_service_1 = require('./logger.service');
 // FIXME: mock
@@ -26,7 +25,7 @@ var BackendService = (function () {
         this.eventTypePool = ['Class', 'Meeting', 'Internal Event', 'External Event'];
     }
     BackendService.prototype.getEvents = function (rangeStart, rangeEnd) {
-        if (rangeStart.isBefore(rangeEnd)) {
+        if (rangeStart.isAfter(rangeEnd)) {
             var errorMessage = 'The first Moment date must come before the second Moment date in the range passed to backendService.getEvents';
             return Promise.reject(errorMessage);
         }
@@ -34,18 +33,6 @@ var BackendService = (function () {
             var EVENTS = this.generateEventArray(rangeStart, rangeEnd);
             return Promise.resolve(EVENTS);
         }
-    };
-    BackendService.prototype.getAll = function (type, inRange) {
-        this.logger.warn('backendService.getAll is deprecated.');
-        if (type === event_1.Event) {
-            var rangeStart = moment();
-            var rangeEnd = rangeStart.clone().add(inRange, 'days');
-            var EVENTS = this.generateEventArray(rangeStart, rangeEnd);
-            return Promise.resolve(EVENTS);
-        }
-        var err = new Error('Cannot get object of this type');
-        this.logger.error(err);
-        throw err;
     };
     BackendService.prototype.selectFrom = function (arr) {
         var len = arr.length;

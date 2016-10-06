@@ -16,9 +16,10 @@ var EventService = (function () {
         this.backend = backend;
         this.logger = logger;
         this.defaultBufferSize = 14;
+        this.bufferSize = this.defaultBufferSize;
     }
-    EventService.prototype.sortEventsByStart = function (events) {
-        return events.sort(function (a, b) {
+    EventService.prototype.sortEventsByStart = function (eventArray) {
+        return eventArray.sort(function (a, b) {
             if (a.start.isAfter(b.start))
                 return 1;
             else if (a.start.isBefore(b.start))
@@ -27,50 +28,37 @@ var EventService = (function () {
                 return 0;
         });
     };
-    EventService.prototype.convertToBuffer = function (events, bufferSize) {
+    // accepts sorted array of Events
+    EventService.prototype.convertToBuffer = function (eventArray) {
         var buffer = [];
-        // initialize buffer with empty arrays
-        for (var i = 0; i < bufferSize; i++) {
-            buffer[i] = [];
-        }
-        var numEvents = events.length;
-        var bufferIndex = 0;
-        var currentDay = events[0].start.clone().startOf('day');
-        for (var i = 0; i < numEvents; i++) {
-            var thisDay = events[i].start.clone().startOf('day');
-            while (thisDay.isAfter(currentDay)) {
-                currentDay.add(1, 'day');
-                bufferIndex++;
+        var lastIndex = eventArray.length - 1;
+        var firstDay = eventArray[0].start.clone();
+        var lastDay = eventArray[lastIndex].start.clone();
+        var currentDay = firstDay.clone();
+        var event;
+        var bufferDay = [];
+        for (var i = 0; i <= lastIndex; i++) {
+            event = eventArray[i];
+            if (event.start.isSame(currentDay, 'day')) {
+                bufferDay.push(event);
             }
-            buffer[bufferIndex].push(events[i]);
+            else {
+                buffer.push(bufferDay);
+                bufferDay = [];
+                currentDay.add(1, 'day');
+            }
         }
         return buffer;
     };
-    // TODO: decide if we want a unidirectional buffer (like this one)
-    // or a combination of unidirectional (at initialization) and then bidirectional
-    EventService.prototype.loadEventBuffer = function (bufferStart, bufferSize) {
+    EventService.prototype.loadEventBuffer = function (bufferStart, bufferEnd) {
         var _this = this;
-        if (bufferSize === void 0) { bufferSize = this.defaultBufferSize; }
-        var rangeStart = bufferStart;
-        var rangeEnd = bufferStart.clone().add(bufferSize, 'days');
-        this.backend.getEvents(rangeStart, rangeEnd).then(function (events) {
-            _this.logger.log("Fetched " + events.length + " events.");
-            _this.logger.log(events);
-            _this.sortEventsByStart(events);
-            _this.eventBuffer = _this.convertToBuffer(events, bufferSize);
-        });
-        return this.eventBuffer;
-    };
-    EventService.prototype.getEvents = function (rangeStart, rangeEnd) {
-        var _this = this;
-        this.logger.warn('eventService.getEvents is deprecated');
-        this.backend.getEvents(rangeStart, rangeEnd).then(function (events) {
-            _this.logger.log("Fetched " + events.length + " events.");
-            _this.sortEventsByStart(events);
-            _this.logger.log(events);
-            // FIXME: HARDCODED AND ERROR BUG CAUSER
-            _this.eventBuffer = _this.convertToBuffer(events, _this.defaultBufferSize);
-            _this.logger.log(_this.eventBuffer);
+        var bufferSize = bufferStart.diff(bufferEnd, 'days');
+        this.backend.getEvents(bufferStart, bufferEnd).then(function (eventArray) {
+            _this.logger.log("Fetched " + eventArray.length + " events.");
+            _this.sortEventsByStart(eventArray);
+            _this.eventBuffer = _this.convertToBuffer(eventArray);
+            //DEBUG
+            //this.logger.log(this.eventBuffer);
         });
         return this.eventBuffer;
     };
