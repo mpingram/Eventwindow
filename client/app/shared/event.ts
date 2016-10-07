@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 
-export class Event {
+export interface Event {
 
 	id: 				number;
 	name: 			string;

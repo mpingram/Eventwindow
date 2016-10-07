@@ -16,6 +16,7 @@ var EventService = (function () {
     function EventService(backend, logger) {
         this.backend = backend;
         this.logger = logger;
+        this.eventBuffer = [[]];
         this._defaultBufferSize = 14;
         this._init();
     }
@@ -24,10 +25,15 @@ var EventService = (function () {
         //this._eventBuffer;
     } */
     EventService.prototype._init = function () {
+        var _this = this;
         // FIXME: hardcoded
         var start = moment();
         var end = start.clone().add(this._defaultBufferSize, 'days');
-        this._asyncLoadEventBuffer(start, end);
+        // FXIME: still not grokking it
+        this._asyncLoadEventBuffer(start, end)
+            .subscribe(function (events) {
+            _this.eventBuffer = (events);
+        });
     };
     /*
     private _sortEventsByStart(eventArray: Event[]): Event[] {
@@ -73,14 +79,6 @@ var EventService = (function () {
     EventService.prototype._asyncLoadEventBuffer = function (bufferStart, bufferEnd) {
         return this.backend.getEvents(bufferStart, bufferEnd)
             .map(this._convertToBuffer);
-        /*
-        return this.backend.getEvents(bufferStart, bufferEnd)
-        .map( (eventArray:Event[]) => {
-                this.logger.log(`Fetched ${eventArray.length} events.`);
-                this._sortEventsByStart(eventArray);
-                return Promise.resolve<EventBuffer>(this._convertToBuffer(eventArray));
-        });
-        */
     };
     EventService = __decorate([
         core_1.Injectable(), 
