@@ -5,7 +5,8 @@ import { Logger }							from './shared/logger.service';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-
+import './shared/rxjs-operators';
+//import 'rxjs/Rx';
 
 @Component({
 	selector: 'em-app',

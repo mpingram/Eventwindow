@@ -1,12 +1,12 @@
 import { Injectable, Type } from '@angular/core';
+import { Observable }				from 'rxjs/Observable';
+
 import { Moment }						from 'moment';
 
-import { Event } from './event';
+import { Event } 						from './event';
 
-import { Logger } from './logger.service';
+import { Logger } 					from './logger.service';
 
-// FIXME: unnecessary once getAll method removed
-declare const moment:any;
 
 // FIXME: mock
 @Injectable()
@@ -15,15 +15,19 @@ export class BackendService {
 
 	constructor(private logger: Logger) {}
 
-	public getEvents(rangeStart: Moment, rangeEnd: Moment): Promise<Event[]> {
+	public getEvents(rangeStart: Moment, rangeEnd: Moment): Observable<Event[]> {
+
+		let eventObservable: Observable<any> = new Observable;
+
 		if( rangeStart.isAfter(rangeEnd) ){
 			const errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
-			return Promise.reject<Event[]>(errorMessage);
-
+			eventObservable = Observable.throw(errorMessage);
 		} else {
-			const EVENTS = this.generateEventArray(rangeStart, rangeEnd);
-			return Promise.resolve<Event[]>(EVENTS);
+			let eventArray: Event[] = this.generateEventArray( rangeStart, rangeEnd ); 
+			eventObservable = Observable.from( eventArray );
 		}
+
+		return eventObservable;
 	}
 
 

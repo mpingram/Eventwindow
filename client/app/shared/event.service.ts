@@ -1,37 +1,57 @@
-import { Injectable } from '@angular/core';
-import { Moment } 		from 'moment';
+import { Injectable } 		from '@angular/core';
 
-import { Event } from './event';
-import { EventBuffer } from './event-buffer';
+import { Observable } 		from 'rxjs/Observable';
+import { Subject }				from 'rxjs/Subject';
+import { BehaviorSubject } 	from 'rxjs/Rx';
+
+import { Moment } 				from 'moment';
+
+import { Event } 					from './event';
+import { EventBuffer } 		from './event-buffer';
 
 import { BackendService } from './backend.service';
-import { Logger } from './logger.service';
+import { Logger } 				from './logger.service';
+
+declare const moment:any;
 
 @Injectable()
 export class EventService {
 
-	private eventBuffer: EventBuffer;
+	private _eventBuffer: BehaviorSubject<EventBuffer>;
 
-	private defaultBufferSize: number = 14;
+	private _defaultBufferSize: number = 14;
 
-	private bufferSize: number = this.defaultBufferSize;
+	constructor( 
+	 private backend: BackendService,
+	 private logger: Logger ) {
+		this._init();
+	}
 
+	/*
+	public get eventBuffer() : EventBuffer {
+		//this._eventBuffer;
+	} */
 
-	constructor(
-		private backend: BackendService,
-		private logger: Logger ) { }
+	private _init(): void {
+		// FIXME: hardcoded
+		let start = moment();
+		let end = start.clone().add( this._defaultBufferSize, 'days' );
 
-	private sortEventsByStart(eventArray: Event[]){
+		this._asyncLoadEventBuffer( start, end );
+	}
+
+	/*
+	private _sortEventsByStart(eventArray: Event[]): Event[] {
 		return eventArray.sort( (a,b) => {
 			if (a.start.isAfter(b.start)) return 1;
 			else if (a.start.isBefore(b.start)) return -1;
 			else return 0;
 		});
 	}
-
+	*/
 
 	// accepts sorted array of Events
-	private convertToBuffer(eventArray: Event[]): EventBuffer {
+	private _convertToBuffer(eventArray: Event[]): EventBuffer {
 
 		let buffer: EventBuffer = [];
 
@@ -63,15 +83,25 @@ export class EventService {
 		return buffer;
 	}
 
+	private _errorHandler(error:any){
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+  	this.logger.error(errMsg);
+    return Observable.throw(errMsg);
+  }
+	
+	private _asyncLoadEventBuffer(bufferStart: Moment, bufferEnd: Moment ): Observable<EventBuffer> {
 
-	public asyncLoadEventBuffer(bufferStart: Moment, bufferEnd: Moment ): Promise<EventBuffer> {
+		return this.backend.getEvents( bufferStart, bufferEnd )
+			.map( this._convertToBuffer );
 
+		/*
 		return this.backend.getEvents(bufferStart, bufferEnd)
-		.then( (eventArray:Event[]) => {
+		.map( (eventArray:Event[]) => {
 				this.logger.log(`Fetched ${eventArray.length} events.`);
-				this.sortEventsByStart(eventArray);
-				return Promise.resolve<EventBuffer>(this.convertToBuffer(eventArray));
-		});
-
+				this._sortEventsByStart(eventArray);
+				return Promise.resolve<EventBuffer>(this._convertToBuffer(eventArray));
+		}); 
+		*/
 	}
 }

@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Observable_1 = require('rxjs/Observable');
 var event_1 = require('./event');
 var logger_service_1 = require('./logger.service');
 // FIXME: mock
@@ -25,14 +26,16 @@ var BackendService = (function () {
         this.eventTypePool = ['Class', 'Meeting', 'Internal Event', 'External Event'];
     }
     BackendService.prototype.getEvents = function (rangeStart, rangeEnd) {
+        var eventObservable = new Observable_1.Observable;
         if (rangeStart.isAfter(rangeEnd)) {
             var errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
-            return Promise.reject(errorMessage);
+            eventObservable = Observable_1.Observable.throw(errorMessage);
         }
         else {
-            var EVENTS = this.generateEventArray(rangeStart, rangeEnd);
-            return Promise.resolve(EVENTS);
+            var eventArray = this.generateEventArray(rangeStart, rangeEnd);
+            eventObservable = Observable_1.Observable.from(eventArray);
         }
+        return eventObservable;
     };
     BackendService.prototype.selectFrom = function (arr) {
         var len = arr.length;

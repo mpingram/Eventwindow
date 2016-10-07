@@ -9,27 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Observable_1 = require('rxjs/Observable');
 var backend_service_1 = require('./backend.service');
 var logger_service_1 = require('./logger.service');
 var EventService = (function () {
     function EventService(backend, logger) {
         this.backend = backend;
         this.logger = logger;
-        this.defaultBufferSize = 14;
-        this.bufferSize = this.defaultBufferSize;
+        this._defaultBufferSize = 14;
+        this._init();
     }
-    EventService.prototype.sortEventsByStart = function (eventArray) {
-        return eventArray.sort(function (a, b) {
-            if (a.start.isAfter(b.start))
-                return 1;
-            else if (a.start.isBefore(b.start))
-                return -1;
-            else
-                return 0;
-        });
+    /*
+    public get eventBuffer() : EventBuffer {
+        //this._eventBuffer;
+    } */
+    EventService.prototype._init = function () {
+        // FIXME: hardcoded
+        var start = moment();
+        var end = start.clone().add(this._defaultBufferSize, 'days');
+        this._asyncLoadEventBuffer(start, end);
     };
+    /*
+    private _sortEventsByStart(eventArray: Event[]): Event[] {
+        return eventArray.sort( (a,b) => {
+            if (a.start.isAfter(b.start)) return 1;
+            else if (a.start.isBefore(b.start)) return -1;
+            else return 0;
+        });
+    }
+    */
     // accepts sorted array of Events
-    EventService.prototype.convertToBuffer = function (eventArray) {
+    EventService.prototype._convertToBuffer = function (eventArray) {
         var buffer = [];
         var lastIndex = eventArray.length - 1;
         var firstDay = eventArray[0].start.clone();
@@ -54,14 +64,23 @@ var EventService = (function () {
         }
         return buffer;
     };
-    EventService.prototype.asyncLoadEventBuffer = function (bufferStart, bufferEnd) {
-        var _this = this;
+    EventService.prototype._errorHandler = function (error) {
+        var errMsg = (error.message) ? error.message :
+            error.status ? error.status + " - " + error.statusText : 'Server error';
+        this.logger.error(errMsg);
+        return Observable_1.Observable.throw(errMsg);
+    };
+    EventService.prototype._asyncLoadEventBuffer = function (bufferStart, bufferEnd) {
         return this.backend.getEvents(bufferStart, bufferEnd)
-            .then(function (eventArray) {
-            _this.logger.log("Fetched " + eventArray.length + " events.");
-            _this.sortEventsByStart(eventArray);
-            return Promise.resolve(_this.convertToBuffer(eventArray));
+            .map(this._convertToBuffer);
+        /*
+        return this.backend.getEvents(bufferStart, bufferEnd)
+        .map( (eventArray:Event[]) => {
+                this.logger.log(`Fetched ${eventArray.length} events.`);
+                this._sortEventsByStart(eventArray);
+                return Promise.resolve<EventBuffer>(this._convertToBuffer(eventArray));
         });
+        */
     };
     EventService = __decorate([
         core_1.Injectable(), 

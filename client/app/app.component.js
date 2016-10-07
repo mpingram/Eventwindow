@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var backend_service_1 = require('./shared/backend.service');
 var logger_service_1 = require('./shared/logger.service');
+require('./shared/rxjs-operators');
+//import 'rxjs/Rx';
 var AppComponent = (function () {
     function AppComponent() {
     }

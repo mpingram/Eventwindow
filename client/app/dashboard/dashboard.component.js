@@ -16,10 +16,6 @@ var DashboardComponent = (function () {
     }
     ;
     DashboardComponent.prototype.ngOnInit = function () {
-        // FIXME
-        var start = moment();
-        var end = start.clone().add(14, 'days');
-        this.eventBuffer = this.eventService.loadEventBuffer(start, end);
     };
     DashboardComponent = __decorate([
         core_1.Component({
