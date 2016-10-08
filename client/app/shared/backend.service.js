@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Observable_1 = require('rxjs/Observable');
-var event_1 = require('./event');
 var logger_service_1 = require('./logger.service');
 // FIXME: mock
 var BackendService = (function () {
@@ -26,7 +25,7 @@ var BackendService = (function () {
         this.eventTypePool = ['Class', 'Meeting', 'Internal Event', 'External Event'];
     }
     BackendService.prototype.getEvents = function (rangeStart, rangeEnd) {
-        var eventObservable = new Observable_1.Observable;
+        var eventObservable;
         if (rangeStart.isAfter(rangeEnd)) {
             var errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
             eventObservable = Observable_1.Observable.throw(errorMessage);
@@ -34,6 +33,8 @@ var BackendService = (function () {
         else {
             var eventArray = this.generateEventArray(rangeStart, rangeEnd);
             eventObservable = Observable_1.Observable.from(eventArray);
+            // debug
+            this.logger.log(eventObservable);
         }
         return eventObservable;
     };
@@ -59,7 +60,7 @@ var BackendService = (function () {
         return this.selectFrom(this.eventTitlePool) + ' ' + this.selectFrom(this.eventSubtitlePool);
     };
     BackendService.prototype.generateEvent = function (start, end, availResources) {
-        var event = new event_1.Event();
+        var event = new Event();
         event.id = Math.ceil(Math.random() * 1000);
         event.name = this.generateEventName();
         event.organizer = this.generateHumanName();
@@ -83,8 +84,8 @@ var BackendService = (function () {
                 eventStart.hour(startTime);
                 eventEnd.hour(startTime).add(2, 'hours');
                 while (Math.random() > 0.1) {
-                    var event_2 = this.generateEvent(eventStart, eventEnd, availResources);
-                    events.push(event_2);
+                    var event_1 = this.generateEvent(eventStart, eventEnd, availResources);
+                    events.push(event_1);
                 }
             }
             // increment while loop

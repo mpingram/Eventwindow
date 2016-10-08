@@ -15,9 +15,9 @@ export class BackendService {
 
 	constructor(private logger: Logger) {}
 
-	public getEvents(rangeStart: Moment, rangeEnd: Moment): Observable<Event[]> {
+	public getEvents(rangeStart: Moment, rangeEnd: Moment): Observable<Event> {
 
-		let eventObservable: Observable<any> = new Observable;
+		let eventObservable: Observable<Event>;
 
 		if( rangeStart.isAfter(rangeEnd) ){
 			const errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
@@ -25,6 +25,8 @@ export class BackendService {
 		} else {
 			let eventArray: Event[] = this.generateEventArray( rangeStart, rangeEnd ); 
 			eventObservable = Observable.from( eventArray );
+			// debug
+			this.logger.log(eventObservable);
 		}
 
 		return eventObservable;

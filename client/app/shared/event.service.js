@@ -16,69 +16,44 @@ var EventService = (function () {
     function EventService(backend, logger) {
         this.backend = backend;
         this.logger = logger;
-        this.eventBuffer = [[]];
         this._defaultBufferSize = 14;
         this._init();
     }
-    /*
-    public get eventBuffer() : EventBuffer {
-        //this._eventBuffer;
-    } */
+    Object.defineProperty(EventService.prototype, "eventBuffer", {
+        get: function () {
+            return this._eventBuffer;
+        },
+        enumerable: true,
+        configurable: true
+    });
     EventService.prototype._init = function () {
-        var _this = this;
+        this._bufferStartDay = moment().startOf('day');
         // FIXME: hardcoded
-        var start = moment();
+        var start = this._bufferStartDay.clone();
         var end = start.clone().add(this._defaultBufferSize, 'days');
         // FXIME: still not grokking it
-        this._asyncLoadEventBuffer(start, end)
-            .subscribe(function (events) {
-            _this.eventBuffer = (events);
-        });
+        this._loadEvents(start, end)
+            .map(this._sortEventsIntoBuffer);
     };
-    /*
-    private _sortEventsByStart(eventArray: Event[]): Event[] {
-        return eventArray.sort( (a,b) => {
-            if (a.start.isAfter(b.start)) return 1;
-            else if (a.start.isBefore(b.start)) return -1;
-            else return 0;
-        });
-    }
-    */
-    // accepts sorted array of Events
-    EventService.prototype._convertToBuffer = function (eventArray) {
-        var buffer = [];
-        var lastIndex = eventArray.length - 1;
-        var firstDay = eventArray[0].start.clone();
-        var lastDay = eventArray[lastIndex].start.clone();
-        var currentDay = firstDay.clone();
-        var event;
-        var bufferDay = [];
-        for (var i = 0; i <= lastIndex; i++) {
-            event = eventArray[i];
-            if (event.start.isSame(currentDay, 'day')) {
-                bufferDay.push(event);
-            }
-            else {
-                buffer.push(bufferDay);
-                bufferDay = [];
-                bufferDay.push(event);
-                currentDay.add(1, 'day');
-            }
-            if (i === lastIndex) {
-                buffer.push(bufferDay);
-            }
+    EventService.prototype._createEventBufferOfLength = function (length) {
+        var eventBuffer = [];
+        for (var i = 0; i < length; i++) {
+            eventBuffer[i] = [];
         }
-        return buffer;
+        return eventBuffer;
     };
-    EventService.prototype._errorHandler = function (error) {
+    // FIXME: type confusion
+    EventService.prototype._sortEventsIntoDays = function (value, index) {
+        var startDay = this._bufferStartDay.clone();
+    };
+    EventService.prototype._observableErrorHandler = function (error) {
         var errMsg = (error.message) ? error.message :
             error.status ? error.status + " - " + error.statusText : 'Server error';
         this.logger.error(errMsg);
         return Observable_1.Observable.throw(errMsg);
     };
-    EventService.prototype._asyncLoadEventBuffer = function (bufferStart, bufferEnd) {
-        return this.backend.getEvents(bufferStart, bufferEnd)
-            .map(this._convertToBuffer);
+    EventService.prototype._loadEvents = function (start, end) {
+        return this.backend.getEvents(start, end);
     };
     EventService = __decorate([
         core_1.Injectable(), 

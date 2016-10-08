@@ -17,11 +17,16 @@ declare const moment:any;
 @Injectable()
 export class EventService {
 
+
+	// TODO: understand
 	private _eventBufferBehaviorSubject: BehaviorSubject<EventBuffer>;
-
-	public eventBuffer: EventBuffer = [[]];
-
+	private _eventBuffer: EventBuffer;
+	private _bufferStartDate: Moment;
 	private _defaultBufferSize: number = 14;
+
+	public get eventBuffer() : EventBuffer {
+		return this._eventBuffer;
+	} 
 
 	constructor( 
 	 private backend: BackendService,
@@ -31,49 +36,57 @@ export class EventService {
 
 	}
 
-	/*
-	public get eventBuffer() : EventBuffer {
-		//this._eventBuffer;
-	} */
-
 	private _init(): void {
+
+		this._bufferStartDate = moment().startOf('day');
+
 		// FIXME: hardcoded
-		let start = moment();
+		let start = this._bufferStartDate.clone();
 		let end = start.clone().add( this._defaultBufferSize, 'days' );
+
+
+		this._loadEventBuffer();
 		// FXIME: still not grokking it
-		this._asyncLoadEventBuffer( start, end )
-		.subscribe( (events: EventBuffer) => {
-			this.eventBuffer = (events);
-		});
+		this._loadEvents( start, end )
+			.map( this._sortEventsIntoBuffer );
+
 	}
 
-	private _createEventBufferOfLength( length: number ): EventBuffer {
-		let eventBuffer: EventBuffer = [];
 
-		for (let i = 0; i < length; i++){
-			eventBuffer[i] = [];
+	// FIXME: type confusion
+	private _sortEventsIntoBuffer( event: Event, index?: number ): void {
+
+		const firstDayInBuffer: Moment = this._bufferStartDate.clone();
+		const eventDate: Moment = event.start.clone();
+
+		const daysFromFirstDay: number = eventDate.diff( firstDayInBuffer, 'days' );
+		
+		if ( daysFromFirstDay < 0 ){
+			throw new Error('Event ' + event.name + ' out of range of buffer');
 		}
 
-		return eventBuffer;
-	}
-
-	// side effect: mutates target EventBuffer
-	private _sortEventIntoBuffer( event: Event, targetBuffer: EventBuffer ): void {
-		let index: number;
-		
+		this._eventBuffer[ daysFromFirstDay ].push(event);
 
 	}
 
-	private _observableErrorHandler(error:any){
+	private _observableErrorHandler(error:any): Observable<any> {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
   	this.logger.error(errMsg);
     return Observable.throw(errMsg);
   }
 	
-	private _asyncLoadEventBuffer(bufferStart: Moment, bufferEnd: Moment ): Observable<EventBuffer> {
+	private _loadEvents( start: Moment, end: Moment ): Observable<Event> {
 
-		return this.backend.getEvents( bufferStart, bufferEnd );
+		return this.backend.getEvents( start, end );
 
+	}
+
+	private _loadEventBuffer( start: Moment, end: Moment ): BehaviorSubject<Event[]> {
+
+		let behaviorSubject: BehaviorSubject<Event[]>;
+
+		this._loadEvents(start, end)
+			.map( this._sortEventsIntoBuffer );
 	}
 }
