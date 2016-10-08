@@ -19,10 +19,9 @@ export class EventService {
 
 
 	// TODO: understand
-	private _eventBufferBehaviorSubject: BehaviorSubject<EventBuffer>;
-	private _eventBuffer: EventBuffer;
+	private _eventBuffer: EventBuffer = {};
 	private _bufferStartDate: Moment;
-	private _defaultBufferSize: number = 14;
+	private _defaultBufferSize: number = 1;
 
 	public get eventBuffer() : EventBuffer {
 		return this._eventBuffer;
@@ -41,31 +40,20 @@ export class EventService {
 		this._bufferStartDate = moment().startOf('day');
 
 		// FIXME: hardcoded
-		let start = this._bufferStartDate.clone();
-		let end = start.clone().add( this._defaultBufferSize, 'days' );
-
-
-		this._loadEventBuffer();
-		// FXIME: still not grokking it
-		this._loadEvents( start, end )
-			.map( this._sortEventsIntoBuffer );
-
+		let start = moment().startOf('day');
+		let end = start.clone().add( this._defaultBufferSize - 1, 'days' );
+		this._loadEventsIntoBuffer( start, end );
 	}
 
 
-	// FIXME: type confusion
-	private _sortEventsIntoBuffer( event: Event, index?: number ): void {
+	private _sortEventIntoBuffer( event: Event ): void {
 
-		const firstDayInBuffer: Moment = this._bufferStartDate.clone();
-		const eventDate: Moment = event.start.clone();
+		let eventISODateString = event.start.clone().startOf('day').format();
 
-		const daysFromFirstDay: number = eventDate.diff( firstDayInBuffer, 'days' );
-		
-		if ( daysFromFirstDay < 0 ){
-			throw new Error('Event ' + event.name + ' out of range of buffer');
+		if ( this._eventBuffer[ eventISODateString ] === undefined ) {
+			this._eventBuffer[ eventISODateString ] = [];
 		}
-
-		this._eventBuffer[ daysFromFirstDay ].push(event);
+		this._eventBuffer[ eventISODateString ].push(event);
 
 	}
 
@@ -76,17 +64,20 @@ export class EventService {
     return Observable.throw(errMsg);
   }
 	
-	private _loadEvents( start: Moment, end: Moment ): Observable<Event> {
+	private _getEvents( start: Moment, end: Moment ): Observable<Event> {
 
 		return this.backend.getEvents( start, end );
-
 	}
 
-	private _loadEventBuffer( start: Moment, end: Moment ): BehaviorSubject<Event[]> {
+	private _loadEventsIntoBuffer( start: Moment, end: Moment ): void {
 
-		let behaviorSubject: BehaviorSubject<Event[]>;
+		this._getEvents(start, end)
+			.subscribe( 
+			  ( event: Event ) => this._sortEventIntoBuffer( event ),
+			  ( error: any ) => this._observableErrorHandler( error ),
+			  // DEBUG
+				() => this.logger.log('EventBuffer completed: ' + JSON.stringify( this._eventBuffer, null, 4 ) ) 
+			);
 
-		this._loadEvents(start, end)
-			.map( this._sortEventsIntoBuffer );
 	}
 }

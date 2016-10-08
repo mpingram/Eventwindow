@@ -14,7 +14,7 @@ var EventViewerComponent = (function () {
     }
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Array)
+        __metadata('design:type', Object)
     ], EventViewerComponent.prototype, "eventBuffer", void 0);
     EventViewerComponent = __decorate([
         core_1.Component({

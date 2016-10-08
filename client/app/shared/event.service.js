@@ -16,7 +16,9 @@ var EventService = (function () {
     function EventService(backend, logger) {
         this.backend = backend;
         this.logger = logger;
-        this._defaultBufferSize = 14;
+        // TODO: understand
+        this._eventBuffer = {};
+        this._defaultBufferSize = 1;
         this._init();
     }
     Object.defineProperty(EventService.prototype, "eventBuffer", {
@@ -27,24 +29,18 @@ var EventService = (function () {
         configurable: true
     });
     EventService.prototype._init = function () {
-        this._bufferStartDay = moment().startOf('day');
+        this._bufferStartDate = moment().startOf('day');
         // FIXME: hardcoded
-        var start = this._bufferStartDay.clone();
-        var end = start.clone().add(this._defaultBufferSize, 'days');
-        // FXIME: still not grokking it
-        this._loadEvents(start, end)
-            .map(this._sortEventsIntoBuffer);
+        var start = moment().startOf('day');
+        var end = start.clone().add(this._defaultBufferSize - 1, 'days');
+        this._loadEventsIntoBuffer(start, end);
     };
-    EventService.prototype._createEventBufferOfLength = function (length) {
-        var eventBuffer = [];
-        for (var i = 0; i < length; i++) {
-            eventBuffer[i] = [];
+    EventService.prototype._sortEventIntoBuffer = function (event) {
+        var eventISODateString = event.start.clone().startOf('day').format();
+        if (this._eventBuffer[eventISODateString] === undefined) {
+            this._eventBuffer[eventISODateString] = [];
         }
-        return eventBuffer;
-    };
-    // FIXME: type confusion
-    EventService.prototype._sortEventsIntoDays = function (value, index) {
-        var startDay = this._bufferStartDay.clone();
+        this._eventBuffer[eventISODateString].push(event);
     };
     EventService.prototype._observableErrorHandler = function (error) {
         var errMsg = (error.message) ? error.message :
@@ -52,8 +48,15 @@ var EventService = (function () {
         this.logger.error(errMsg);
         return Observable_1.Observable.throw(errMsg);
     };
-    EventService.prototype._loadEvents = function (start, end) {
+    EventService.prototype._getEvents = function (start, end) {
         return this.backend.getEvents(start, end);
+    };
+    EventService.prototype._loadEventsIntoBuffer = function (start, end) {
+        var _this = this;
+        this._getEvents(start, end)
+            .subscribe(function (event) { return _this._sortEventIntoBuffer(event); }, function (error) { return _this._observableErrorHandler(error); }, 
+        // DEBUG
+        function () { return _this.logger.log('EventBuffer completed: ' + JSON.stringify(_this._eventBuffer, null, 4)); });
     };
     EventService = __decorate([
         core_1.Injectable(), 

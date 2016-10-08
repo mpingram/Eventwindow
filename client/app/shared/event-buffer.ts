@@ -1,3 +1,7 @@
 import { Event } from './event';
 
-export type EventBuffer = Event[][];
+export interface EventBuffer {
+
+	[ ISO8601date: string ] : Event[];
+
+}

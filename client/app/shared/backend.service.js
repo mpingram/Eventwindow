@@ -33,8 +33,7 @@ var BackendService = (function () {
         else {
             var eventArray = this.generateEventArray(rangeStart, rangeEnd);
             eventObservable = Observable_1.Observable.from(eventArray);
-            // debug
-            this.logger.log(eventObservable);
+            this.logger.log("Fetched " + eventArray.length + " events");
         }
         return eventObservable;
     };
@@ -60,13 +59,15 @@ var BackendService = (function () {
         return this.selectFrom(this.eventTitlePool) + ' ' + this.selectFrom(this.eventSubtitlePool);
     };
     BackendService.prototype.generateEvent = function (start, end, availResources) {
-        var event = new Event();
-        event.id = Math.ceil(Math.random() * 1000);
-        event.name = this.generateEventName();
-        event.organizer = this.generateHumanName();
-        event.start = start;
-        event.end = end;
-        event.primaryResource = this.selectFrom(availResources);
+        var event = {
+            id: Math.ceil(Math.random() * 1000),
+            name: this.generateEventName(),
+            organizer: this.generateHumanName(),
+            start: start,
+            end: end,
+            repeating: false,
+            primaryResource: this.selectFrom(availResources)
+        };
         return event;
     };
     BackendService.prototype.generateEventArray = function (rangeStart, rangeEnd) {

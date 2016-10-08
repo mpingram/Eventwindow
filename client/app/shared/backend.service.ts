@@ -25,8 +25,7 @@ export class BackendService {
 		} else {
 			let eventArray: Event[] = this.generateEventArray( rangeStart, rangeEnd ); 
 			eventObservable = Observable.from( eventArray );
-			// debug
-			this.logger.log(eventObservable);
+			this.logger.log( `Fetched ${ eventArray.length } events` );
 		}
 
 		return eventObservable;
@@ -69,14 +68,18 @@ export class BackendService {
 
 	private generateEvent(start: Moment, end: Moment, availResources: string[]): Event {
 
-		let event: Event = new Event();
-		event.id = Math.ceil(Math.random()*1000);
-		event.name = this.generateEventName();
-		event.organizer = this.generateHumanName();
-		event.start = start;
-		event.end 	= end;
-		event.primaryResource = this.selectFrom(availResources);
+		let event: Event = {
 
+			id: 							Math.ceil(Math.random()*1000),
+			name:							this.generateEventName(),
+			organizer: 				this.generateHumanName(),
+			start:						start,
+			end : 						end,
+			repeating: 				false,
+
+			primaryResource: 	this.selectFrom(availResources)
+
+		}
 		return event;
 	}
 
