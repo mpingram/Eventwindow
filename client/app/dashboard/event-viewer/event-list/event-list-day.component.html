@@ -1,13 +1,24 @@
-<div class='day-inline date'>
-September 29, 2016
-</div>
-<div class='day-inline num-events'>
-	<span class='text-emphasis'>27</span>
-	<span class='text-light text-small'> events</span>
+
+<div class='day-header-container'>
+
+	<div class='day-inline date'>
+	{{ day.format('MMMM D YYYY') }}
+	</div>
+	<div class='day-inline num-events'>
+		<span class='text-emphasis'> {{ events?.length }}</span>
+		<span class='text-light text-small'> events</span>
+	</div>
+
+	<div class='collapse-button-container'>
+		<i class='collapse-button material-icons md-dark'>expand_less</i>
+	</div>
+
 </div>
 
-<div class='collapse-button-container'>
-	<i class='material-icons md-dark'>expand_less</i>
-</div>
 
+<div class='day-events-container' *ngIf = 'events'>
+
+	<em-event-list-item  *ngFor='let event of events' [event]='event'></em-event-list-item>
+
+</div>
 

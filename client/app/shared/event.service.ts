@@ -21,18 +21,21 @@ export class EventService {
 	// TODO: understand
 	private _eventBuffer: EventBuffer = {};
 	private _bufferStartDate: Moment;
-	private _defaultBufferSize: number = 1;
+	private _defaultBufferSize: number = 14;
 
-	public get eventBuffer() : EventBuffer {
-		return this._eventBuffer;
-	} 
+	public getEventsByDay( day: Moment ): Event[] {
+
+		const dayISOString = day.clone().startOf('day').format();
+		return this._eventBuffer[ dayISOString ];
+
+	}
 
 	constructor( 
 	 private backend: BackendService,
 	 private logger: Logger ) {
 
 		this._init();
-
+		
 	}
 
 	private _init(): void {

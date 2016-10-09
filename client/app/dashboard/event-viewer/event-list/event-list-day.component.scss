@@ -2,26 +2,38 @@
 
 :host{
 	width: 100%;
-	padding: 0.5em 0.25em 0.5em 0;
 	font-family: $sans;
 
 	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
+	flex-direction: column;
+	align-items: stretch;
+
+}
+.day-header-container{
+
+	padding: 0.5em 0.25em 0.5em 0;
+
+	border-bottom: 1px solid $gray-lightish;
+	box-shadow: 0px 1px 2px $gray-lightish;
+	z-index: 1;
+
 }
 
+
+
+
 .day-inline{
-	margin-left: 5px;
+	float: left;
+	margin-left: 10px;
 	display: inline-block;
 	text-align: center;
+
+	line-height: 24px;
 }
 .date{
-	flex: 1 0 30%;
 }
 .num-events{
 	font-size: 90%;
-	flex: 1 0 20%;
 }
 
 .text-light{
@@ -32,8 +44,23 @@
 }
 
 .collapse-button-container{
-	flex: 0 0 24px;
-	padding: 0 5px;
+	float: right;
+	margin-right: 30px;
+	width: 30px;
 	border-radius: 4px;
-	background-color: $gray-lighter;
+	border: 1px solid $gray-lightish;
+
+	transition: background-color 200ms ease;
 }
+
+.collapse-button-container:hover{
+
+	background-color: $gray-lightish;
+}
+
+.collapse-button{
+	width: 24px;
+	display: block;
+	margin: 0 auto;
+}
+

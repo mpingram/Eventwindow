@@ -12,18 +12,13 @@ var core_1 = require('@angular/core');
 var EventViewerComponent = (function () {
     function EventViewerComponent() {
     }
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], EventViewerComponent.prototype, "eventBuffer", void 0);
     EventViewerComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'em-event-viewer',
             templateUrl: 'event-viewer.component.html',
             styleUrls: ['event-viewer.component.css',
-                '../../shared/styles/datepicker.component.css'],
-            providers: []
+                '../../shared/styles/datepicker.component.css']
         }), 
         __metadata('design:paramtypes', [])
     ], EventViewerComponent);

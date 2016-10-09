@@ -18,16 +18,13 @@ var EventService = (function () {
         this.logger = logger;
         // TODO: understand
         this._eventBuffer = {};
-        this._defaultBufferSize = 1;
+        this._defaultBufferSize = 14;
         this._init();
     }
-    Object.defineProperty(EventService.prototype, "eventBuffer", {
-        get: function () {
-            return this._eventBuffer;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    EventService.prototype.getEventsByDay = function (day) {
+        var dayISOString = day.clone().startOf('day').format();
+        return this._eventBuffer[dayISOString];
+    };
     EventService.prototype._init = function () {
         this._bufferStartDate = moment().startOf('day');
         // FIXME: hardcoded

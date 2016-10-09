@@ -10,5 +10,9 @@
 </div>
 
 
-<em-event-list-scroll [eventBuffer]='eventBuffer'></em-event-list-scroll>
+<div class='event-list-scroll'>
+
+	<em-event-list-day *ngFor='let day of days' [day]='day'></em-event-list-day>
+
+</div>
 

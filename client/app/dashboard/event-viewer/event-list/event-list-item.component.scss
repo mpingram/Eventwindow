@@ -9,6 +9,8 @@
 
 	font-family: $sans;
 	border-bottom: 1px solid $col-border-light;
+
+	z-index: 1;
 }
 .block{
 	display: block;

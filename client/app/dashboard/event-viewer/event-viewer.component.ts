@@ -1,16 +1,11 @@
-import { 	Component, Input } from '@angular/core';
-
-import { EventBuffer }				from '../../shared/event-buffer'; 
-import { EventListComponent } from './event-list/event-list.component';
+import { 	Component } from '@angular/core';
 
 @Component({
 	moduleId: module.id,
 	selector: 'em-event-viewer',
 	templateUrl: 'event-viewer.component.html',
 	styleUrls: ['event-viewer.component.css',
-							'../../shared/styles/datepicker.component.css'],
-	providers: []
+							'../../shared/styles/datepicker.component.css']
 })
 export class EventViewerComponent {
-	@Input() eventBuffer: EventBuffer;
 }

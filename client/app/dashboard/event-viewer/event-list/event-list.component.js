@@ -11,11 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var EventListComponent = (function () {
     function EventListComponent() {
+        this.days = [];
+        // FIXME: hardcoded? Should be set by dashboard?
+        this._defaultNumDays = 14;
     }
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], EventListComponent.prototype, "eventBuffer", void 0);
+    ;
+    EventListComponent.prototype.ngOnInit = function () {
+        this.days = this.initializeDays();
+    };
+    EventListComponent.prototype.initializeDays = function () {
+        var days = [];
+        var numDays = this._defaultNumDays;
+        // FIXME: hardcoded to start at present
+        var startDay = moment().startOf('day');
+        for (var i = 0; i < numDays; i++) {
+            var day = startDay.clone();
+            day.add(i, 'days');
+            days.push(day);
+        }
+        return days;
+    };
     EventListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

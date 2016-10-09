@@ -16,7 +16,6 @@ var dashboard_component_1 = require('./dashboard/dashboard.component');
 var resource_viewer_component_1 = require('./dashboard/resource-viewer/resource-viewer.component');
 var event_viewer_component_1 = require('./dashboard/event-viewer/event-viewer.component');
 var event_list_component_1 = require('./dashboard/event-viewer/event-list/event-list.component');
-var event_list_scroll_component_1 = require('./dashboard/event-viewer/event-list/event-list-scroll.component');
 var event_list_day_component_1 = require('./dashboard/event-viewer/event-list/event-list-day.component');
 var event_list_item_component_1 = require('./dashboard/event-viewer/event-list/event-list-item.component');
 var AppModule = (function () {
@@ -35,7 +34,6 @@ var AppModule = (function () {
                 resource_viewer_component_1.ResourceViewerComponent,
                 event_viewer_component_1.EventViewerComponent,
                 event_list_component_1.EventListComponent,
-                event_list_scroll_component_1.EventListScrollComponent,
                 event_list_day_component_1.EventListDayComponent,
                 event_list_item_component_1.EventListItemComponent
             ],

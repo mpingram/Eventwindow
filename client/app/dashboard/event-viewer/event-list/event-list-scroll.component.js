@@ -12,10 +12,8 @@ var core_1 = require('@angular/core');
 var EventListScrollComponent = (function () {
     function EventListScrollComponent() {
     }
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], EventListScrollComponent.prototype, "eventBuffer", void 0);
+    EventListScrollComponent.prototype.ngOnInit = function () {
+    };
     EventListScrollComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

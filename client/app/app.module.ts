@@ -9,7 +9,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ResourceViewerComponent } from './dashboard/resource-viewer/resource-viewer.component';
 import { EventViewerComponent } from './dashboard/event-viewer/event-viewer.component';
 import { EventListComponent } from './dashboard/event-viewer/event-list/event-list.component';
-import { EventListScrollComponent } from './dashboard/event-viewer/event-list/event-list-scroll.component';
 import { EventListDayComponent } from './dashboard/event-viewer/event-list/event-list-day.component';
 import { EventListItemComponent } from './dashboard/event-viewer/event-list/event-list-item.component';
 
@@ -26,7 +25,6 @@ import { EventListItemComponent } from './dashboard/event-viewer/event-list/even
 		ResourceViewerComponent,
 		EventViewerComponent,
 		EventListComponent,
-		EventListScrollComponent,
 		EventListDayComponent,
 		EventListItemComponent
 	],
