@@ -13,6 +13,10 @@ var EventListItemComponent = (function () {
     function EventListItemComponent() {
         this.event = Event;
     }
+    EventListItemComponent.prototype.openEventDetail = function () {
+        // DEBUG
+        console.log(JSON.stringify(this.event, null, 4));
+    };
     EventListItemComponent.prototype.dateToClockTime = function (momentObj) {
         return momentObj.format('h mm');
     };

@@ -9,12 +9,19 @@ declare const moment: any;
 	styleUrls: ['event-list-item.component.css']
 })
 export class EventListItemComponent{
+
 	@Input() event = Event;
 
-	dateToClockTime(momentObj){
+	public openEventDetail(){
+		// DEBUG
+		console.log( JSON.stringify( this.event, null, 4 ) );
+	}
+
+	public dateToClockTime(momentObj){
 		return momentObj.format('h mm')
 	}
-	dateToAMPM(momentObj){
+
+	public dateToAMPM(momentObj){
 		return momentObj.format('a');
 	}
 }

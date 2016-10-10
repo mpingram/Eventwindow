@@ -53,10 +53,32 @@
   text-align: center; }
 
 .event-link {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: default;
   float: right;
   line-height: 65px;
   width: 10%;
   text-align: center;
   vertical-align: center;
   background-color: #e4e4e4;
-  border-radius: 50% 0 0 50%; }
+  border-radius: 50% 0 0 50%;
+  -webkit-transform-origin: center right;
+      -ms-transform-origin: center right;
+          transform-origin: center right;
+  transition: background-color 200ms ease, -webkit-transform 100ms ease;
+  transition: background-color 200ms ease, transform 100ms ease;
+  transition: background-color 200ms ease, transform 100ms ease, -webkit-transform 100ms ease; }
+
+.event-link:hover {
+  background-color: #d7d7d7;
+  -webkit-transform: scaleX(1.1);
+      -ms-transform: scaleX(1.1);
+          transform: scaleX(1.1); }
+
+.event-link:active {
+  -webkit-transform: scaleX(0.97);
+      -ms-transform: scaleX(0.97);
+          transform: scaleX(0.97); }
