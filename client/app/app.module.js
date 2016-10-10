@@ -18,7 +18,6 @@ var event_viewer_component_1 = require('./dashboard/event-viewer/event-viewer.co
 var event_list_component_1 = require('./dashboard/event-viewer/event-list/event-list.component');
 var event_list_day_component_1 = require('./dashboard/event-viewer/event-list/event-list-day.component');
 var event_list_item_component_1 = require('./dashboard/event-viewer/event-list/event-list-item.component');
-var slide_down_directive_1 = require('./shared/slide-down.directive');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -37,7 +36,6 @@ var AppModule = (function () {
                 event_list_component_1.EventListComponent,
                 event_list_day_component_1.EventListDayComponent,
                 event_list_item_component_1.EventListItemComponent,
-                slide_down_directive_1.SlideDownDirective,
             ],
             providers: [
                 app_routing_1.appRoutingProviders

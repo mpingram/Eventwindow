@@ -8,6 +8,8 @@
 	flex-direction: column;
 	align-items: stretch;
 
+	overflow: hidden;
+
 }
 .day-header-container{
 
@@ -30,15 +32,15 @@
 
 	line-height: 24px;
 }
-.date{
+.inactive{
+	color: darken( $gray-lightish, 10% );
 }
+
+
 .num-events{
 	font-size: 90%;
 }
 
-.text-light{
-	color: $gray;
-}
 .text-small{
 	font-size: 80%;
 }

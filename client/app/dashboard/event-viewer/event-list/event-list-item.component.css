@@ -5,8 +5,7 @@
   height: 3.5em;
   display: block;
   font-family: "Helvetica", sans-serif;
-  border-bottom: 1px solid #CCC;
-  z-index: 1; }
+  border-bottom: 1px solid #CCC; }
 
 .block {
   display: block;

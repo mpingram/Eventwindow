@@ -14,12 +14,20 @@ var EventListDayComponent = (function () {
     function EventListDayComponent(eventService) {
         this.eventService = eventService;
     }
-    EventListDayComponent.prototype.toggleEventsDropdown = function () {
-        this.dropdownOpen = !this.dropdownOpen;
+    EventListDayComponent.prototype.toggleDropdownState = function () {
+        if (this.dropdownState === 'open') {
+            this.dropdownState = 'closed';
+        }
+        else {
+            this.dropdownState = 'open';
+        }
     };
     EventListDayComponent.prototype.ngOnInit = function () {
-        this.dropdownOpen = true;
+        this.dropdownState = 'open';
         this.events = this.eventService.getEventsByDay(this.day);
+        if (this.events === undefined || this.events.length === 0) {
+            this.noEvents = true;
+        }
     };
     __decorate([
         core_1.Input(), 
@@ -30,7 +38,15 @@ var EventListDayComponent = (function () {
             moduleId: module.id,
             selector: 'em-event-list-day',
             templateUrl: 'event-list-day.component.html',
-            styleUrls: ['event-list-day.component.css']
+            styleUrls: ['event-list-day.component.css'],
+            animations: [
+                core_1.trigger('openClosed', [
+                    core_1.state('open', core_1.style({ height: '*' })),
+                    core_1.state('closed', core_1.style({ height: 0 })),
+                    core_1.transition('open => closed', core_1.animate('350ms ease-in-out')),
+                    core_1.transition('closed => open', core_1.animate('400ms ease-in-out')),
+                ])
+            ],
         }), 
         __metadata('design:paramtypes', [event_service_1.EventService])
     ], EventListDayComponent);

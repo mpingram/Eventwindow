@@ -12,7 +12,6 @@ import { EventListComponent } from './dashboard/event-viewer/event-list/event-li
 import { EventListDayComponent } from './dashboard/event-viewer/event-list/event-list-day.component';
 import { EventListItemComponent } from './dashboard/event-viewer/event-list/event-list-item.component';
 
-import { SlideDownDirective }			from './shared/slide-down.directive';
 
 @NgModule({
 	imports: [
@@ -29,7 +28,6 @@ import { SlideDownDirective }			from './shared/slide-down.directive';
 		EventListDayComponent,
 		EventListItemComponent,
 
-		SlideDownDirective,
 	],
 	providers:[
 		appRoutingProviders

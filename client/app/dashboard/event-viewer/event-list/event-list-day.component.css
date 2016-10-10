@@ -10,7 +10,8 @@
           flex-direction: column;
   -webkit-align-items: stretch;
       -ms-flex-align: stretch;
-          align-items: stretch; }
+          align-items: stretch;
+  overflow: hidden; }
 
 .day-header-container {
   padding: 0.5em 0.25em 0.5em 0;
@@ -25,11 +26,11 @@
   text-align: center;
   line-height: 24px; }
 
+.inactive {
+  color: #ababab; }
+
 .num-events {
   font-size: 90%; }
-
-.text-light {
-  color: #555555; }
 
 .text-small {
   font-size: 80%; }
