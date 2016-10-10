@@ -77,9 +77,7 @@ export class EventService {
 		this._getEvents(start, end)
 			.subscribe( 
 			  ( event: Event ) => this._sortEventIntoBuffer( event ),
-			  ( error: any ) => this._observableErrorHandler( error ),
-			  // DEBUG
-				() => this.logger.log('EventBuffer completed: ' + JSON.stringify( this._eventBuffer, null, 4 ) ) 
+			  ( error: any ) => this._observableErrorHandler( error )
 			);
 
 	}

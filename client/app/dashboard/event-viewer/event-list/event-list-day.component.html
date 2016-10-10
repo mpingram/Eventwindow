@@ -9,14 +9,14 @@
 		<span class='text-light text-small'> events</span>
 	</div>
 
-	<div class='collapse-button-container'>
+	<div (click)='toggleEventsDropdown()' class='collapse-button-container'>
 		<i class='collapse-button material-icons md-dark'>expand_less</i>
 	</div>
 
 </div>
 
 
-<div class='day-events-container' *ngIf = 'events'>
+<div class='day-events-container' *ngIf='events' [emSlideDown]='dropdownOpen'>
 
 	<em-event-list-item  *ngFor='let event of events' [event]='event'></em-event-list-item>
 

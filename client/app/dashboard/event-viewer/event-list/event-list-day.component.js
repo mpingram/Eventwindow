@@ -14,7 +14,11 @@ var EventListDayComponent = (function () {
     function EventListDayComponent(eventService) {
         this.eventService = eventService;
     }
+    EventListDayComponent.prototype.toggleEventsDropdown = function () {
+        this.dropdownOpen = !this.dropdownOpen;
+    };
     EventListDayComponent.prototype.ngOnInit = function () {
+        this.dropdownOpen = true;
         this.events = this.eventService.getEventsByDay(this.day);
     };
     __decorate([

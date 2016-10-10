@@ -45,20 +45,29 @@
 
 .collapse-button-container{
 	float: right;
-	margin-right: 30px;
-	width: 30px;
+	margin-right: 25px;
+	width: 35px;
 	border-radius: 4px;
+	//background-color: $gray-lighter;
 	border: 1px solid $gray-lightish;
 
-	transition: background-color 200ms ease;
+	transition: background-color 200ms ease,
+							border-color 200ms ease,
+							transform 200ms ease;
 }
 
 .collapse-button-container:hover{
+	background-color: darken( $gray-lighter, 5% );
+	border-color: lighten( $gray-lightish, 5% );
+}
 
-	background-color: $gray-lightish;
+.collapse-button-container:active{
+	transform: scale(0.9);
 }
 
 .collapse-button{
+	user-select: none;
+	cursor: default;
 	width: 24px;
 	display: block;
 	margin: 0 auto;

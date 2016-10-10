@@ -51,9 +51,7 @@ var EventService = (function () {
     EventService.prototype._loadEventsIntoBuffer = function (start, end) {
         var _this = this;
         this._getEvents(start, end)
-            .subscribe(function (event) { return _this._sortEventIntoBuffer(event); }, function (error) { return _this._observableErrorHandler(error); }, 
-        // DEBUG
-        function () { return _this.logger.log('EventBuffer completed: ' + JSON.stringify(_this._eventBuffer, null, 4)); });
+            .subscribe(function (event) { return _this._sortEventIntoBuffer(event); }, function (error) { return _this._observableErrorHandler(error); });
     };
     EventService = __decorate([
         core_1.Injectable(), 

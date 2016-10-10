@@ -36,16 +36,29 @@
 
 .collapse-button-container {
   float: right;
-  margin-right: 30px;
-  width: 30px;
+  margin-right: 25px;
+  width: 35px;
   border-radius: 4px;
   border: 1px solid #c4c4c4;
-  transition: background-color 200ms ease; }
+  transition: background-color 200ms ease, border-color 200ms ease, -webkit-transform 200ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease, -webkit-transform 200ms ease; }
 
 .collapse-button-container:hover {
-  background-color: #c4c4c4; }
+  background-color: #e2e2e2;
+  border-color: #d1d1d1; }
+
+.collapse-button-container:active {
+  -webkit-transform: scale(0.9);
+      -ms-transform: scale(0.9);
+          transform: scale(0.9); }
 
 .collapse-button {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: default;
   width: 24px;
   display: block;
   margin: 0 auto; }

@@ -17,14 +17,21 @@ export class EventListDayComponent implements OnInit {
 	
 	public events: Event[];
 
+	public dropdownOpen: boolean;
+
+	public toggleEventsDropdown(): void {
+		this.dropdownOpen = !this.dropdownOpen;
+	}
+
 	constructor( private eventService: EventService ) { }
 
 
 	@Input() day: Moment;
 
 	ngOnInit(){
-
+		this.dropdownOpen = true;
 		this.events = this.eventService.getEventsByDay( this.day );
 
 	}
+
 }
