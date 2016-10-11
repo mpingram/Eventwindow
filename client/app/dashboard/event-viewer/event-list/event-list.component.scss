@@ -3,6 +3,7 @@
 :host{
 	width: 100%;
 	height: 100%;
+
 	flex: 6 0 auto;
 
 	display: flex;
@@ -11,8 +12,9 @@
 
 .event-list-header{
 
+	flex: 0 0 auto; 
+
 	width: 100%;
-	height: auto;
 	
 	display: flex;
 	flex-direction: row;
@@ -33,8 +35,8 @@
 }
 
 .event-list-scroll{
+	flex: 1 1 auto;
 	display: block;
 	overflow-y: scroll;
 	width: 100%;
-	height: 100%;
 }

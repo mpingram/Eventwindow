@@ -20,7 +20,7 @@ import { Moment }							from 'moment';
 	templateUrl: 'event-list-day.component.html',
 	styleUrls: [ 'event-list-day.component.css' ],
 
-	animations [
+	animations: [
 		trigger('openClosed', [
 			state('open', style({ height: '*' })),
 			state('closed', style({ height: 0 })),
