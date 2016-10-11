@@ -1,0 +1,55 @@
+@import '../../shared/styles/variables';
+
+:host{
+	flex: 1 0 auto;
+	display: block;
+
+	border: 1px solid $gray-lightish;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+
+	overflow-x: auto;
+}
+
+.time-axis-column{
+	flex: 0 0 42px;
+	border-right: 1px solid $gray-lightish;
+
+	display: flex;
+	flex-direction: column;
+}
+.time-axis-column-heading{
+	height: 40px;
+}
+.time-axis-body{
+	flex: 1 0 auto;
+}
+.timeslot{
+	border-top: 1px solid $gray-lightish;
+}
+
+.column{
+	border-right: 1px solid $gray-lightish;
+	flex: 0 0 84px;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.column-heading{
+	background-color: $col-bg;
+	height: 40px;
+	border-bottom: 1px solid $gray-lightish;
+	box-shadow: 0px 1px 1px $gray-lightish;
+	z-index: 1;
+
+	text-align: center;
+	padding-top: 4px;
+}
+
+.column-body{
+	flex: 1 0 auto;
+	background-color: darken( $gray-lightest, 0.5% );
+}
+

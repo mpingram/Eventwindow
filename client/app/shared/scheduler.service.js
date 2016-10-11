@@ -10,18 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var SchedulerService = (function () {
-    function SchedulerService(schedulerElement) {
-        this.schedulerElement = schedulerElement;
+    function SchedulerService(parent, renderer) {
+        this.parent = parent;
+        this.renderer = renderer;
+        var ref = this.renderer.createElement(this.parent.nativeElement, 'div');
+        console.log(ref);
     }
-    SchedulerService.prototype.initialize = function () {
-        console.log(this.schedulerElement);
-    };
     SchedulerService.prototype.update = function () {
-        console.log('updatin');
+        console.log(this.parent);
     };
     SchedulerService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [core_1.ElementRef])
+        __metadata('design:paramtypes', [core_1.ElementRef, core_1.Renderer])
     ], SchedulerService);
     return SchedulerService;
 }());

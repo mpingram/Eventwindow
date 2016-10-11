@@ -1,5 +1,18 @@
+/* Coolors Exported Palette - coolors.co/cca9a9-ed4912-707d84-fffaff-277a96 */
 :host {
   -webkit-flex: 1 1 600px;
       -ms-flex: 1 1 600px;
           flex: 1 1 600px;
-  border: 1px dashed green; }
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-family: "Helvetica", sans-serif;
+  margin-left: 1em; }
+
+.resource-header-container {
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto; }

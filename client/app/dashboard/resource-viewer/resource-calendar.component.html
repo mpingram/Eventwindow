@@ -1,1 +1,22 @@
-{{ events?.length }}
+<div class='time-axis-column'>
+	<div class='time-axis-column-heading'>
+	</div>
+
+	<div #timeAxis class='time-axis-body'>
+		<div class='timeslot' [style.height]='timeSlotHeight' *ngFor='let timeSlot of timeSlots'>
+			{{ timeSlot.format('h:mm') }}
+		</div>
+	</div>
+</div>
+
+<div class='column' id='{{resource}}' *ngFor='let resource of resources'>
+	
+	<div class='column-heading'>
+	{{ resource }}
+	</div>
+
+	<div class='column-body'>
+
+	</div>
+
+</div>

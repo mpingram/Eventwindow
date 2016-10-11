@@ -1,4 +1,16 @@
+@import '../../shared/styles/variables';
+
 :host{
 	flex: 1 1 600px;
-	border: 1px dashed green;
+
+	display: flex;
+	flex-direction: column;
+
+	font-family: $sans;
+
+	margin-left: 1em;
+}
+
+.resource-header-container{
+	flex: 0 0 auto;
 }

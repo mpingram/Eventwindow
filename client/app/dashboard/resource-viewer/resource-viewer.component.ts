@@ -14,10 +14,15 @@ export class ResourceViewerComponent {
 
 	private _today: Moment = moment().startOf('day');
 	private _date: Moment = this._today.clone();
-
-	public get date(): Moment{
+	get date(): Moment{
 		return this._date.clone();
 	}
+
+	private _resources: string[] = this.generateResources();
+	get resources(): String[] {
+		return this._resources;
+	}
+
 	public nextDay(){
 		this._date.add( 1, 'day' )
 	}
@@ -29,6 +34,16 @@ export class ResourceViewerComponent {
 	}
 	public goToToday(){
 		this._date = this._today.clone();
+	}
+
+	// debug
+	private generateResources(): string[] {
+		let resourceTemplate: string = 'Room';
+		let resources: string[] = [];
+		for ( let i = 0; i < 20; i++ ){
+			resources.push( resourceTemplate + ' ' + i );
+		}
+		return resources; 
 	}
 
 }

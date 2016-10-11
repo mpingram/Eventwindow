@@ -13,10 +13,18 @@ var ResourceViewerComponent = (function () {
     function ResourceViewerComponent() {
         this._today = moment().startOf('day');
         this._date = this._today.clone();
+        this._resources = this.generateResources();
     }
     Object.defineProperty(ResourceViewerComponent.prototype, "date", {
         get: function () {
             return this._date.clone();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ResourceViewerComponent.prototype, "resources", {
+        get: function () {
+            return this._resources;
         },
         enumerable: true,
         configurable: true
@@ -32,6 +40,15 @@ var ResourceViewerComponent = (function () {
     };
     ResourceViewerComponent.prototype.goToToday = function () {
         this._date = this._today.clone();
+    };
+    // debug
+    ResourceViewerComponent.prototype.generateResources = function () {
+        var resourceTemplate = 'Room';
+        var resources = [];
+        for (var i = 0; i < 20; i++) {
+            resources.push(resourceTemplate + ' ' + i);
+        }
+        return resources;
     };
     ResourceViewerComponent = __decorate([
         core_1.Component({

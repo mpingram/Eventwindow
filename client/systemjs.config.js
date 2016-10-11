@@ -44,6 +44,7 @@
         defaultExtension: 'js'
       },
       moment: {
+      	main: './min/moment.min.js',
       	type: 'cjs',
       	defaultExtension: 'js'
       }
