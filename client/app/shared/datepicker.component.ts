@@ -21,6 +21,6 @@ export class DatePickerComponent implements AfterViewInit {
 	constructor( private datepicker: DatePickerService ){}
 
 	ngAfterViewInit() {
-		this.datepicker.init(this.datepickerElement);
+		this.datepicker.init( this.datepickerElement );
 	}
 }

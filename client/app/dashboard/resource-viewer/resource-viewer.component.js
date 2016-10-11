@@ -11,7 +11,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var ResourceViewerComponent = (function () {
     function ResourceViewerComponent() {
+        this._today = moment().startOf('day');
+        this._date = this._today.clone();
     }
+    Object.defineProperty(ResourceViewerComponent.prototype, "date", {
+        get: function () {
+            return this._date.clone();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ResourceViewerComponent.prototype.nextDay = function () {
+        this._date.add(1, 'day');
+    };
+    ResourceViewerComponent.prototype.prevDay = function () {
+        this._date.subtract(1, 'day');
+    };
+    ResourceViewerComponent.prototype.goToDate = function (targetDate) {
+        this._date = targetDate.clone();
+    };
+    ResourceViewerComponent.prototype.goToToday = function () {
+        this._date = this._today.clone();
+    };
     ResourceViewerComponent = __decorate([
         core_1.Component({
             selector: 'em-resource-viewer',

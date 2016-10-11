@@ -20,7 +20,8 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'em-dashboard',
-            templateUrl: './app/dashboard/dashboard.component.html',
+            template: '<em-event-viewer></em-event-viewer> \n <em-resource-viewer></em-resource-viewer>',
+            // templateUrl: './app/dashboard/dashboard.component.html',
             styleUrls: ['./app/dashboard/dashboard.component.css'],
             providers: [event_service_1.EventService]
         }), 

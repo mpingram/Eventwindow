@@ -1,1 +1,11 @@
-<p> bar </p>
+<div class='resource-header-container'>
+	<button (click)='prevDay()'>Prev</button>
+	<button (click)='goToToday()'>Today</button>
+	<button (click)='nextDay()'>Next</button>
+
+	<div class='datepicker'>
+	{{ date.format('dddd MMMM DD, YYYY') }}
+	</div>
+</div>
+
+<em-resource-calendar [date]='date'></em-resource-calendar>
