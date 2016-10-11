@@ -6,7 +6,7 @@
 	</div>
 	<div class='day-inline num-events'>
 		<span class='text-emphasis'> {{ events?.length || 0 }}</span>
-		<span class='text-small'> events</span>
+		<span class='text-small'> {{ events?.length !== 1 ? 'events' : 'event' }}</span>
 	</div>
 
 	<div (click)='toggleDropdownState()' class='collapse-button-container'>
