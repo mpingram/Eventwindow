@@ -4,7 +4,13 @@
   height: 100%;
   -webkit-flex: 6 0 auto;
       -ms-flex: 6 0 auto;
-          flex: 6 0 auto; }
+          flex: 6 0 auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
 
 .event-list-header {
   width: 100%;
