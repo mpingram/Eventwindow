@@ -8,7 +8,7 @@ import { Component,
 
 import { Moment } 			from 'moment';
 
-import { FullcalendarWrapperService } from '../../shared/fullcalendar-wrapper.service'
+import { SchedulerService } from '../../shared/scheduler.service';
 import { EventService } from '../../shared/event.service';
 import { Event } 				from '../../shared/event';
 
@@ -20,7 +20,7 @@ declare const $: any;
 	selector: 'em-resource-calendar',
 	templateUrl: './resource-calendar.component.html',
 	styleUrls: [ '../../shared/styles/fullcalendar.css' ],
-	providers: [ FullcalendarWrapperService ]
+	providers: [ SchedulerService ]
 })
 export class ResourceCalendarComponent implements OnInit, OnChanges {
 
@@ -31,18 +31,21 @@ export class ResourceCalendarComponent implements OnInit, OnChanges {
 	}
 
 	constructor( private eventService: EventService,
-								private fullcalendar: FullcalendarWrapperService ) { }
+								private scheduler: SchedulerService ) { }
 
 	@Input() date: Moment;
-	@ViewChild( 'calendar' ) calendarElement: ElementRef;
 	
 	ngOnInit(){
-		this.fullcalendar.initialize( this.calendarElement );
+
+		this.scheduler.initialize();
+
 	}
 
 	ngOnChanges(){
+
 		this._events = this.eventService.getEventsByDay( this.date );
-		this.fullcalendar.update();
+		this.scheduler.update();
+
 	}
 
 }

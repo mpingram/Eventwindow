@@ -9,12 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var fullcalendar_wrapper_service_1 = require('../../shared/fullcalendar-wrapper.service');
+var scheduler_service_1 = require('../../shared/scheduler.service');
 var event_service_1 = require('../../shared/event.service');
 var ResourceCalendarComponent = (function () {
-    function ResourceCalendarComponent(eventService, fullcalendar) {
+    function ResourceCalendarComponent(eventService, scheduler) {
         this.eventService = eventService;
-        this.fullcalendar = fullcalendar;
+        this.scheduler = scheduler;
     }
     Object.defineProperty(ResourceCalendarComponent.prototype, "events", {
         get: function () {
@@ -24,29 +24,25 @@ var ResourceCalendarComponent = (function () {
         configurable: true
     });
     ResourceCalendarComponent.prototype.ngOnInit = function () {
-        this.fullcalendar.initialize(this.calendarElement);
+        this.scheduler.initialize();
     };
     ResourceCalendarComponent.prototype.ngOnChanges = function () {
         this._events = this.eventService.getEventsByDay(this.date);
-        this.fullcalendar.update();
+        this.scheduler.update();
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
     ], ResourceCalendarComponent.prototype, "date", void 0);
-    __decorate([
-        core_1.ViewChild('calendar'), 
-        __metadata('design:type', core_1.ElementRef)
-    ], ResourceCalendarComponent.prototype, "calendarElement", void 0);
     ResourceCalendarComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'em-resource-calendar',
             templateUrl: './resource-calendar.component.html',
             styleUrls: ['../../shared/styles/fullcalendar.css'],
-            providers: [fullcalendar_wrapper_service_1.FullcalendarWrapperService]
+            providers: [scheduler_service_1.SchedulerService]
         }), 
-        __metadata('design:paramtypes', [event_service_1.EventService, fullcalendar_wrapper_service_1.FullcalendarWrapperService])
+        __metadata('design:paramtypes', [event_service_1.EventService, scheduler_service_1.SchedulerService])
     ], ResourceCalendarComponent);
     return ResourceCalendarComponent;
 }());
