@@ -11,66 +11,92 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var event_service_1 = require('../../shared/event.service');
 var ResourceCalendarComponent = (function () {
+    // --------------------------
     function ResourceCalendarComponent(eventService) {
         this.eventService = eventService;
         // TODO: config object
-        this._defaultTimeRange = [7, 19];
-        this._numHoursInRange = this._defaultTimeRange[1] - this._defaultTimeRange[0];
+        this._defaultTimeRange = [7, 20];
+        this._timeRange = this._defaultTimeRange;
+        this._numHoursInRange = this._timeRange[1] - this._timeRange[0];
     }
-    Object.defineProperty(ResourceCalendarComponent.prototype, "events", {
-        get: function () { return this._events; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ResourceCalendarComponent.prototype, "resources", {
+    Object.defineProperty(ResourceCalendarComponent.prototype, "timeSlotList", {
         get: function () {
-            return this._resources;
-        },
-        set: function (resources) {
-            this._resources = resources;
+            return this._timeSlotList.slice(this._timeRange[0], this._timeRange[1]);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ResourceCalendarComponent.prototype, "timeSlots", {
+    Object.defineProperty(ResourceCalendarComponent.prototype, "timeSlotHeight", {
         get: function () {
-            return this._timeSlots;
+            if (this._timeSlotHeight !== undefined) {
+                return this._timeSlotHeight.toString() + 'px';
+            }
         },
         enumerable: true,
         configurable: true
     });
     ResourceCalendarComponent.prototype.ngOnInit = function () {
-        this._timeSlots = this.initializeTimeSlots();
+        this.initialize();
     };
     ResourceCalendarComponent.prototype.ngAfterViewInit = function () {
-        var height = this.calculateTimeSlotHeight();
-        this.timeSlotHeight = height.toString() + 'px';
-        console.log(this.timeSlotHeight);
+        this._hourInPx = this.measureHourInPixels();
+        this._timeSlotHeight = this._hourInPx;
     };
     ResourceCalendarComponent.prototype.ngOnChanges = function () {
-        this._events = this.eventService.getEventsByDay(this.date);
+        this.events = this.eventService.getEventsByDay(this.date);
     };
-    ResourceCalendarComponent.prototype.calculateTimeSlotHeight = function () {
+    // private methods
+    // --------------------------------------
+    ResourceCalendarComponent.prototype.initialize = function () {
+        this._timeSlotList = this.initializeTimeSlotList();
+    };
+    ResourceCalendarComponent.prototype.measureHourInPixels = function () {
         var columnHeight = this.timeAxisElement.nativeElement.offsetHeight;
         return columnHeight / this._numHoursInRange;
     };
-    ResourceCalendarComponent.prototype.initializeTimeSlots = function () {
-        var timeSlots = [];
+    ResourceCalendarComponent.prototype.initializeTimeSlotList = function () {
+        var timeSlotLookup = [];
         var firstTimeSlot = this.date.clone().startOf('day');
-        var start = this._defaultTimeRange[0];
-        var end = this._defaultTimeRange[1];
+        var start = this._timeRange[0];
+        var end = this._timeRange[1];
         for (var i = start; i < end; i++) {
             var timeSlot = firstTimeSlot.clone();
             timeSlot.add(i, 'hours');
-            timeSlots.push(timeSlot);
+            timeSlotLookup[i] = timeSlot;
         }
-        return timeSlots;
+        return timeSlotLookup;
+    };
+    ResourceCalendarComponent.prototype.displayEvent = function (event) {
+        // match event to resource column
+        // calculate dimensions
+        var pxFromTop = this.calculateEventPixelsFromTop(event);
+        var height = this.calculateEventHeight(event);
+        // create DOM element or draw SVG element, with hooks for 
+        // executing functions on click
+    };
+    ResourceCalendarComponent.prototype.calculateEventPixelsFromTop = function (event) {
+        var pixelsFromTop;
+        // FIXME: this is awful
+        var timeFromStartOfRange = event.start.diff(this.timeSlotList[0], 'minutes');
+        timeFromStartOfRange *= 60;
+        pixelsFromTop = timeFromStartOfRange * this._hourInPx;
+        return pixelsFromTop;
+    };
+    ResourceCalendarComponent.prototype.calculateEventHeight = function (event) {
+        var eventLengthInMinutes = event.end.diff(event.start, 'minutes');
+        var eventLengthInHours = eventLengthInMinutes * 60;
+        return eventLengthInHours * this._hourInPx;
+    };
+    ResourceCalendarComponent.prototype.updateEvents = function (events) {
+        var len = events.length;
+        for (var i = 0; i < len; i++) {
+            this.displayEvent(events[i]);
+        }
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Array), 
-        __metadata('design:paramtypes', [Array])
-    ], ResourceCalendarComponent.prototype, "resources", null);
+        __metadata('design:type', Array)
+    ], ResourceCalendarComponent.prototype, "resources", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)

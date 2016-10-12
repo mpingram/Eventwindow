@@ -3,8 +3,8 @@
 	</div>
 
 	<div #timeAxis class='time-axis-body'>
-		<div class='timeslot' [style.height]='timeSlotHeight' *ngFor='let timeSlot of timeSlots'>
-			{{ timeSlot.format('h:mm') }}
+		<div class='timeslot' [style.height]='timeSlotHeight' *ngFor='let timeSlot of timeSlotList'>
+			{{ timeSlot?.format('h:mm') }}
 		</div>
 	</div>
 </div>

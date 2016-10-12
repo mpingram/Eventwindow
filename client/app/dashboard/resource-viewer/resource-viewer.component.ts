@@ -40,7 +40,7 @@ export class ResourceViewerComponent {
 	private generateResources(): string[] {
 		let resourceTemplate: string = 'Room';
 		let resources: string[] = [];
-		for ( let i = 0; i < 20; i++ ){
+		for ( let i = 1; i < 20; i++ ){
 			resources.push( resourceTemplate + ' ' + i );
 		}
 		return resources; 

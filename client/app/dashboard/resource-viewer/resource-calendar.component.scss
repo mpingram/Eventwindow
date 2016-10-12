@@ -18,6 +18,9 @@
 
 	display: flex;
 	flex-direction: column;
+
+	box-shadow: 1px 0px 1px $gray-lightish;
+	z-index: 1;
 }
 .time-axis-column-heading{
 	height: 40px;

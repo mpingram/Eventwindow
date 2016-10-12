@@ -45,7 +45,7 @@ var ResourceViewerComponent = (function () {
     ResourceViewerComponent.prototype.generateResources = function () {
         var resourceTemplate = 'Room';
         var resources = [];
-        for (var i = 0; i < 20; i++) {
+        for (var i = 1; i < 20; i++) {
             resources.push(resourceTemplate + ' ' + i);
         }
         return resources;
