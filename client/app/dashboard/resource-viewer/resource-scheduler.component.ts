@@ -16,12 +16,12 @@ import { Event } 				from '../../shared/event';
 
 @Component({
 	moduleId: module.id,
-	selector: 'em-resource-calendar',
-	templateUrl: './resource-calendar.component.html',
-	styleUrls: [ './resource-calendar.component.css' ],
+	selector: 'em-resource-scheduler',
+	templateUrl: './resource-scheduler.component.html',
+	styleUrls: [ './resource-scheduler.component.css' ],
 })
 
-export class ResourceCalendarComponent implements AfterViewInit, OnChanges, OnInit {
+export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnInit {
 	
 	// properties
 	// -----------------------
@@ -30,7 +30,8 @@ export class ResourceCalendarComponent implements AfterViewInit, OnChanges, OnIn
 
 	private _timeSlotList: Moment[];
 	public get timeSlotList(): Moment[] {
-		return this._timeSlotList.slice( this._timeRange[0], this._timeRange[1] );
+		return this._timeSlotList;
+		//return this._timeSlotList.slice( this._timeRange[0], this._timeRange[1] );
 	}
 
 	private _hourInPx: number;
@@ -42,16 +43,16 @@ export class ResourceCalendarComponent implements AfterViewInit, OnChanges, OnIn
 		}
 	}
 
-
 	// TODO: config object
 	private _defaultTimeRange: number[] = [ 7, 20 ];
 	private _timeRange: number[] = this._defaultTimeRange;
 	private _numHoursInRange: number = this._timeRange[1] - this._timeRange[0];
 
+	private _filteredEvents: Object = {};
+
 
 	@Input() resources: String[]; 
 	@Input() date: Moment;
-
 
 	@ViewChild( 'timeAxis' ) timeAxisElement: ElementRef;
 
@@ -63,7 +64,9 @@ export class ResourceCalendarComponent implements AfterViewInit, OnChanges, OnIn
 	constructor( private eventService: EventService ) { }
 
 	ngOnInit(){
-		this.initialize();
+		this._timeSlotList = this.initializeTimeSlotList();
+		this._filteredEvents = this.filterEventsByResource();
+		console.log( this._filteredEvents );
 	}
 
 	ngAfterViewInit(){
@@ -76,21 +79,41 @@ export class ResourceCalendarComponent implements AfterViewInit, OnChanges, OnIn
 	}
 
 
+	// public methods
+	// ----------------------------------------
+	public getFilteredEvents( resourceName: string ) : Event[] {
+		if ( this._filteredEvents[ resourceName ] !== undefined ){
+			return this._filteredEvents[ resourceName ];
+		} else {
+			return [];
+		}
+	}
+
 
 	// private methods
 	// --------------------------------------
-	private initialize(): void {
-		this._timeSlotList = this.initializeTimeSlotList();
+	// 
+	private filterEventsByResource(): Object {
+		let filteredEvents: Object = {};
+
+		for ( let i = 0; i < this.events.length; i++ ) {
+			// COLOSSAL FIXME: ONLY WORKS WITH PRIMARY RESOURCE
+			let eventResource = this.events[i].primaryResource;
+			if ( filteredEvents[ eventResource ] === undefined ){
+				filteredEvents[ eventResource ] = [];
+			}
+			filteredEvents[ eventResource ].push( event );
+		}
+		return filteredEvents;
 	}
 
 	private measureHourInPixels(): number {
-
 		const columnHeight: number = this.timeAxisElement.nativeElement.offsetHeight;
 		return columnHeight / this._numHoursInRange;
 	}
 
 	private initializeTimeSlotList(): Moment[] {
-		let timeSlotLookup: Moment[] = [];
+		let timeSlotList: Moment[] = [];
 		const firstTimeSlot: Moment = this.date.clone().startOf('day');
 		const start = this._timeRange[0];
 		const end = this._timeRange[1];
@@ -98,48 +121,9 @@ export class ResourceCalendarComponent implements AfterViewInit, OnChanges, OnIn
 		for (let i = start; i < end; i++ ){
 			let timeSlot: Moment =  firstTimeSlot.clone();
 			timeSlot.add( i, 'hours' );
-			timeSlotLookup[i] = timeSlot;
+			timeSlotList.push( timeSlot );
 		}
-		return timeSlotLookup;
+		return timeSlotList;
 	}
 
-
-	private displayEvent( event: Event ): void {
-
-		// match event to resource column
-		
-		// calculate dimensions
-		const pxFromTop = this.calculateEventPixelsFromTop( event );
-		const height = this.calculateEventHeight( event );
-		
-
-		// create DOM element or draw SVG element, with hooks for 
-		// executing functions on click
-
-	}
-
-	private calculateEventPixelsFromTop( event: Event ): number {
-		let pixelsFromTop: number;
-		// FIXME: this is awful
-		let timeFromStartOfRange: number = event.start.diff( this.timeSlotList[0], 'minutes' );
-		timeFromStartOfRange *= 60;
-		pixelsFromTop = timeFromStartOfRange * this._hourInPx;
-		return pixelsFromTop;
-	}
-
-	private calculateEventHeight( event: Event ): number {
-		const eventLengthInMinutes: number = event.end.diff( event.start, 'minutes' );
-		const eventLengthInHours: number = eventLengthInMinutes * 60;
-
-		return eventLengthInHours * this._hourInPx;
-	}
-
-	private updateEvents( events: Event[] ): void {
-
-		let len = events.length;
-		for ( let i = 0; i < len; i++ ){
-			this.displayEvent( events[i] );
-		}
-
-	}
 }

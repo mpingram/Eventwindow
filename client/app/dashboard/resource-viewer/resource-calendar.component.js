@@ -77,6 +77,8 @@ var ResourceCalendarComponent = (function () {
     ResourceCalendarComponent.prototype.calculateEventPixelsFromTop = function (event) {
         var pixelsFromTop;
         // FIXME: this is awful
+        // Make sure it's tied to 'top', or else it'll break when given negative numbers,
+        // ie if event occurs before range displays
         var timeFromStartOfRange = event.start.diff(this.timeSlotList[0], 'minutes');
         timeFromStartOfRange *= 60;
         pixelsFromTop = timeFromStartOfRange * this._hourInPx;

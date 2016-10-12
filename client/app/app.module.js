@@ -14,7 +14,8 @@ var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
 var resource_viewer_component_1 = require('./dashboard/resource-viewer/resource-viewer.component');
-var resource_calendar_component_1 = require('./dashboard/resource-viewer/resource-calendar.component');
+var resource_scheduler_component_1 = require('./dashboard/resource-viewer/resource-scheduler.component');
+var resource_scheduler_item_component_1 = require('./dashboard/resource-viewer/resource-scheduler-item.component');
 var event_viewer_component_1 = require('./dashboard/event-viewer/event-viewer.component');
 var event_list_component_1 = require('./dashboard/event-viewer/event-list/event-list.component');
 var event_list_day_component_1 = require('./dashboard/event-viewer/event-list/event-list-day.component');
@@ -33,7 +34,8 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 dashboard_component_1.DashboardComponent,
                 resource_viewer_component_1.ResourceViewerComponent,
-                resource_calendar_component_1.ResourceCalendarComponent,
+                resource_scheduler_component_1.ResourceSchedulerComponent,
+                resource_scheduler_item_component_1.ResourceSchedulerItemComponent,
                 event_viewer_component_1.EventViewerComponent,
                 event_list_component_1.EventListComponent,
                 event_list_day_component_1.EventListDayComponent,

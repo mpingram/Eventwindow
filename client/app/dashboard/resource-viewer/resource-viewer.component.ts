@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Moment } from 'moment';
 declare const moment:any;
 
-import { ResourceCalendarComponent } from './resource-calendar.component';
+import { ResourceSchedulerComponent } from './resource-scheduler.component';
 
 @Component({
 	selector: 'em-resource-viewer',
@@ -38,11 +38,28 @@ export class ResourceViewerComponent {
 
 	// debug
 	private generateResources(): string[] {
+		/*
 		let resourceTemplate: string = 'Room';
 		let resources: string[] = [];
 		for ( let i = 1; i < 20; i++ ){
 			resources.push( resourceTemplate + ' ' + i );
 		}
+		*/
+		let resources: string[] = [
+			'120',
+			'129',
+			'WIa',
+			'WIb',
+			'WII',
+			'WIII',
+			'WIV',
+			'EI',
+			'EII',
+			'EIII',
+			'EIV',
+			'Lobby',
+			'Library'
+		]
 		return resources; 
 	}
 

@@ -43,11 +43,28 @@ var ResourceViewerComponent = (function () {
     };
     // debug
     ResourceViewerComponent.prototype.generateResources = function () {
-        var resourceTemplate = 'Room';
-        var resources = [];
-        for (var i = 1; i < 20; i++) {
-            resources.push(resourceTemplate + ' ' + i);
+        /*
+        let resourceTemplate: string = 'Room';
+        let resources: string[] = [];
+        for ( let i = 1; i < 20; i++ ){
+            resources.push( resourceTemplate + ' ' + i );
         }
+        */
+        var resources = [
+            '120',
+            '129',
+            'WIa',
+            'WIb',
+            'WII',
+            'WIII',
+            'WIV',
+            'EI',
+            'EII',
+            'EIII',
+            'EIV',
+            'Lobby',
+            'Library'
+        ];
         return resources;
     };
     ResourceViewerComponent = __decorate([

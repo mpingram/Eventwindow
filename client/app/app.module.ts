@@ -8,8 +8,8 @@ import { routing,
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { ResourceViewerComponent } from './dashboard/resource-viewer/resource-viewer.component';
-import { ResourceCalendarComponent } from './dashboard/resource-viewer/resource-calendar.component';
-
+import { ResourceSchedulerComponent } from './dashboard/resource-viewer/resource-scheduler.component';
+import { ResourceSchedulerItemComponent } from  './dashboard/resource-viewer/resource-scheduler-item.component';
 import { EventViewerComponent } from './dashboard/event-viewer/event-viewer.component';
 import { EventListComponent } from './dashboard/event-viewer/event-list/event-list.component';
 import { EventListDayComponent } from './dashboard/event-viewer/event-list/event-list-day.component';
@@ -27,7 +27,8 @@ import { EventListItemComponent } from './dashboard/event-viewer/event-list/even
 		DashboardComponent,
 
 		ResourceViewerComponent,
-		ResourceCalendarComponent,
+		ResourceSchedulerComponent,
+		ResourceSchedulerItemComponent,
 
 		EventViewerComponent,
 		EventListComponent,
