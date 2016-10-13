@@ -1,8 +1,8 @@
 /* Coolors Exported Palette - coolors.co/cca9a9-ed4912-707d84-fffaff-277a96 */
 :host {
-  -webkit-flex: 1 0 auto;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   display: block;
   border: 1px solid #c4c4c4;
   display: -webkit-flex;
@@ -46,6 +46,7 @@
   -webkit-flex: 0 0 84px;
       -ms-flex: 0 0 84px;
           flex: 0 0 84px;
+  width: 84px;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;

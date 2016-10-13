@@ -1,7 +1,7 @@
 @import '../../shared/styles/variables';
 
 :host{
-	flex: 1 0 auto;
+	flex: 1 1 auto;
 	display: block;
 
 	border: 1px solid $gray-lightish;
@@ -35,7 +35,7 @@
 .column{
 	border-right: 1px solid $gray-lightish;
 	flex: 0 0 84px;
-
+	width: 84px;
 	display: flex;
 	flex-direction: column;
 }

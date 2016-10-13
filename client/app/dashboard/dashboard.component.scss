@@ -6,5 +6,6 @@
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: flex-start;
-	overflow: auto;
+	// FIXME: is this a good idea?
+	overflow: hidden;
 }

@@ -48,6 +48,7 @@ var ResourceSchedulerComponent = (function () {
     };
     ResourceSchedulerComponent.prototype.ngOnChanges = function () {
         this.events = this.eventService.getEventsByDay(this.date);
+        this._filteredEvents = this.filterEventsByResource();
     };
     // public methods
     // ----------------------------------------
@@ -70,7 +71,7 @@ var ResourceSchedulerComponent = (function () {
             if (filteredEvents[eventResource] === undefined) {
                 filteredEvents[eventResource] = [];
             }
-            filteredEvents[eventResource].push(event);
+            filteredEvents[eventResource].push(this.events[i]);
         }
         return filteredEvents;
     };

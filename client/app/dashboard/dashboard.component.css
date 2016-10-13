@@ -13,4 +13,4 @@
   -webkit-justify-content: flex-start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  overflow: auto; }
+  overflow: hidden; }

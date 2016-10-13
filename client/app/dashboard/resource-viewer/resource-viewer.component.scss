@@ -1,10 +1,13 @@
 @import '../../shared/styles/variables';
 
 :host{
-	flex: 1 1 600px;
+	flex: 1 1 auto;
 
+	overflow: visible;
+	
 	display: flex;
 	flex-direction: column;
+	align-items: stretch;
 
 	font-family: $sans;
 
