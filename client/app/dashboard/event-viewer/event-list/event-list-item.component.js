@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var EventListItemComponent = (function () {
     function EventListItemComponent() {
-        this.event = Event;
     }
     EventListItemComponent.prototype.openEventDetail = function () {
         // DEBUG

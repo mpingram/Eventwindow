@@ -1,6 +1,6 @@
 import { Component, OnInit } 	from '@angular/core';
 
-import { Event } 							from '../shared/event';
+import { EmEvent } 							from '../shared/event';
 import { EventBuffer }				from '../shared/event-buffer';
 import { EventService }				from '../shared/event.service';
 

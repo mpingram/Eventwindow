@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Event } from '../../shared/event';
+import { EmEvent } from '../../shared/event';
 
 import { Moment } from 'moment';
 
@@ -18,7 +18,7 @@ export class ResourceSchedulerItemComponent {
 	@Input() rangeStart: Moment;
 
 	/*
-	private calculateEventPixelsFromTop( event: Event ): number {
+	private calculateEventPixelsFromTop( event:EmEvent): number {
 		let pixelsFromTop: number;
 		// FIXME: this is awful
 		// Make sure it's tied to 'top', or else it'll break when given negative numbers,
@@ -29,7 +29,7 @@ export class ResourceSchedulerItemComponent {
 		return pixelsFromTop;
 	}
 
-	private calculateEventHeight( event: Event ): number {
+	private calculateEventHeight( event:EmEvent): number {
 		const eventLengthInMinutes: number = event.end.diff( event.start, 'minutes' );
 		const eventLengthInHours: number = eventLengthInMinutes * 60;
 

@@ -6,7 +6,7 @@ import { BehaviorSubject } 	from 'rxjs/Rx';
 
 import { Moment } 				from 'moment';
 
-import { Event } 					from './event';
+import { EmEvent } 					from './event';
 import { EventBuffer } 		from './event-buffer';
 
 import { BackendService } from './backend.service';
@@ -23,7 +23,7 @@ export class EventService {
 	private _bufferStartDate: Moment;
 	private _defaultBufferSize: number = 14;
 
-	public getEventsByDay( day: Moment ): Event[] {
+	public getEventsByDay( day: Moment ): EmEvent[] {
 
 		const dayISOString = day.clone().startOf('day').format();
 		return this._eventBuffer[ dayISOString ];
@@ -49,7 +49,7 @@ export class EventService {
 	}
 
 
-	private _sortEventIntoBuffer( event: Event ): void {
+	private _sortEventIntoBuffer( event:EmEvent): void {
 
 		let eventISODateString = event.start.clone().startOf('day').format();
 
@@ -67,7 +67,7 @@ export class EventService {
     return Observable.throw(errMsg);
   }
 	
-	private _getEvents( start: Moment, end: Moment ): Observable<Event> {
+	private _getEvents( start: Moment, end: Moment ): Observable<EmEvent> {
 
 		return this.backend.getEvents( start, end );
 	}
@@ -76,7 +76,7 @@ export class EventService {
 
 		this._getEvents(start, end)
 			.subscribe( 
-			  ( event: Event ) => this._sortEventIntoBuffer( event ),
+			  ( event:EmEvent ) => this._sortEventIntoBuffer( event ),
 			  ( error: any ) => this._observableErrorHandler( error )
 			);
 

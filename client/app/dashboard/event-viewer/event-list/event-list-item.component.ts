@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { EmEvent } from '../../../shared/event';
 
 declare const moment: any;
 
@@ -10,7 +11,7 @@ declare const moment: any;
 })
 export class EventListItemComponent{
 
-	@Input() event = Event;
+	@Input() event: EmEvent;
 
 	public openEventDetail(){
 		// DEBUG

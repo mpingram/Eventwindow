@@ -12,7 +12,7 @@ import { Moment } 			from 'moment';
 declare const moment: any;
 
 import { EventService } from '../../shared/event.service';
-import { Event } 				from '../../shared/event';
+import { EmEvent } 				from '../../shared/event';
 
 @Component({
 	moduleId: module.id,
@@ -26,7 +26,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	// properties
 	// -----------------------
 	
-	public events: Event[];
+	public events: EmEvent[];
 
 	private _timeSlotList: Moment[];
 	public get timeSlotList(): Moment[] {
@@ -81,7 +81,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	// public methods
 	// ----------------------------------------
-	public getFilteredEvents( resourceName: string ) : Event[] {
+	public getFilteredEvents( resourceName: string ) : EmEvent[] {
 		if ( this._filteredEvents[ resourceName ] !== undefined ){
 			return this._filteredEvents[ resourceName ];
 		} else {

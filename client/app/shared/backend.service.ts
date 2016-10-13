@@ -3,7 +3,7 @@ import { Observable }				from 'rxjs/Observable';
 
 import { Moment }						from 'moment';
 
-import { Event } 						from './event';
+import { EmEvent } 						from './event';
 
 import { Logger } 					from './logger.service';
 
@@ -15,15 +15,15 @@ export class BackendService {
 
 	constructor(private logger: Logger) {}
 
-	public getEvents(rangeStart: Moment, rangeEnd: Moment): Observable<Event> {
+	public getEvents(rangeStart: Moment, rangeEnd: Moment): Observable<EmEvent> {
 
-		let eventObservable: Observable<Event>;
+		let eventObservable: Observable<EmEvent>;
 
 		if( rangeStart.isAfter(rangeEnd) ){
 			const errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
 			eventObservable = Observable.throw(errorMessage);
 		} else {
-			let eventArray: Event[] = this.generateEventArray( rangeStart, rangeEnd ); 
+			let eventArray: EmEvent[] = this.generateEventArray( rangeStart, rangeEnd ); 
 			eventObservable = Observable.from( eventArray );
 			this.logger.log( `Fetched ${ eventArray.length } events` );
 		}
@@ -66,9 +66,9 @@ export class BackendService {
 		return this.selectFrom(this.eventTitlePool) + ' ' + this.selectFrom(this.eventSubtitlePool);
 	}
 
-	private generateEvent(start: Moment, end: Moment, availResources: string[]): Event {
+	private generateEvent(start: Moment, end: Moment, availResources: string[]): EmEvent {
 
-		let event: Event = {
+		let event: EmEvent = {
 
 			id: 							Math.ceil(Math.random()*1000),
 			name:							this.generateEventName(),
@@ -83,9 +83,9 @@ export class BackendService {
 		return event;
 	}
 
-	private generateEventArray(rangeStart: Moment, rangeEnd: Moment): Event[] {
+	private generateEventArray(rangeStart: Moment, rangeEnd: Moment): EmEvent[] {
 		
-		let events: Event[] = [];
+		let events: EmEvent[] = [];
 
 		// set rangeStart to 12am on day of rangeStart,
 		// set rangeEnd to 11:59pm on day of rangeEnd

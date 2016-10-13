@@ -9,7 +9,7 @@ import {
 	animate
 } from '@angular/core';
 
-import { Event }							from '../../../shared/event';
+import { EmEvent }							from '../../../shared/event';
 import { EventService } 			from '../../../shared/event.service';
 
 import { Moment }							from 'moment';
@@ -36,7 +36,7 @@ import { Moment }							from 'moment';
 })
 export class EventListDayComponent implements OnInit {
 	
-	public events: Event[];
+	public events: EmEvent[];
 	public dropdownState: string;
 	public noEvents: boolean;
 

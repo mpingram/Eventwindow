@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { Moment } from 'moment';
 declare const moment:any;
 
-import { Event } from './event';
+import { EmEvent } from './event';
 import { EventBuffer } from './event-buffer';
 
 // for mocking
