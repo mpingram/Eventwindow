@@ -76,6 +76,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	ngOnChanges(){
 		this.events = this.eventService.getEventsByDay( this.date );
+		this._filteredEvents = this.filterEventsByResource();
 	}
 
 
@@ -102,7 +103,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 			if ( filteredEvents[ eventResource ] === undefined ){
 				filteredEvents[ eventResource ] = [];
 			}
-			filteredEvents[ eventResource ].push( event );
+			filteredEvents[ eventResource ].push( this.events[i] );
 		}
 		return filteredEvents;
 	}
