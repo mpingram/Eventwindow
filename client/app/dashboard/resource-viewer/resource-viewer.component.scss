@@ -2,9 +2,9 @@
 
 :host{
 	flex: 1 1 auto;
-
-	overflow: visible;
 	
+	overflow: hidden;
+
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;

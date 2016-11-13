@@ -1,11 +1,13 @@
 :host{
+
 	height: 100vh;
 	width: 100vw;
+
 	// flex parent for child components
 	display: flex;
 	flex-direction: row;
-	flex-wrap: nowrap;
 	justify-content: flex-start;
-	// FIXME: is this a good idea?
+
 	overflow: hidden;
+
 }

@@ -3,7 +3,7 @@
   -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  overflow: visible;
+  overflow: hidden;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;

@@ -9,15 +9,19 @@
 	</div>
 </div>
 
-<div class='column' id='{{resource}}' *ngFor='let resource of resources'>
-	
-	<div class='column-heading'>
-	{{ resource }}
-	</div>
+<div class='resource-columns-wrapper'>
 
-	<div class='column-body'>
+	<div class='column' id='{{resource}}' *ngFor='let resource of resources'>
+		
+		<div class='column-heading'>
+		{{ resource }}
+		</div>
 
-		<em-resource-scheduler-item *ngFor='let event of getFilteredEvents( resource )' [event]='event' [hourInPx]='hourInPx' [rangeStart]='timeSlotList[0]'></em-resource-scheduler-item>
+		<div class='column-body'>
+
+			<em-resource-scheduler-item *ngFor='let event of getFilteredEvents( resource )' [event]='event' [hourInPx]='hourInPx' [rangeStart]='timeSlotList[0]'></em-resource-scheduler-item>
+
+		</div>
 
 	</div>
 

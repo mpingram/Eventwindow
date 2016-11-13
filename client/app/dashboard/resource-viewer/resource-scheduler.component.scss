@@ -2,18 +2,24 @@
 
 :host{
 	flex: 1 1 auto;
-	display: block;
 
-	border: 1px solid $gray-lightish;
+	height: 100%;
+	max-width: 100%;
+	overflow-x: auto;
+
 	display: flex;
 	flex-direction: row;
+	justify-content: flex-start;
 	align-items: stretch;
 
-	overflow-x: auto;
+
+	border: 1px solid $gray-lightish;
 }
 
 .time-axis-column{
-	flex: 0 0 42px;
+
+	flex: 0 0 50px;
+
 	border-right: 1px solid $gray-lightish;
 
 	display: flex;
@@ -23,6 +29,7 @@
 	z-index: 1;
 }
 .time-axis-column-heading{
+	flex: 0 0 40px;
 	height: 40px;
 }
 .time-axis-body{
@@ -32,17 +39,30 @@
 	border-top: 1px solid $gray-lightish;
 }
 
+
+.resource-columns-wrapper{
+	
+	flex: 1 0 auto;
+
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+}
+
 .column{
 	border-right: 1px solid $gray-lightish;
 	flex: 0 0 84px;
 	width: 84px;
+
 	display: flex;
 	flex-direction: column;
 }
 
 .column-heading{
-	background-color: $col-bg;
 	height: 40px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	background-color: $col-bg;
 	border-bottom: 1px solid $gray-lightish;
 	box-shadow: 0px 1px 1px $gray-lightish;
 	z-index: 1;
