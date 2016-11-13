@@ -2,5 +2,20 @@
 :host {
   display: block;
   width: 100%;
-  height: 2em;
-  background-color: blue; }
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #eeeeee;
+  border: 2px solid #CCC;
+  border-radius: 2px;
+  font-size: 85%; }
+
+.event-time {
+  text-align: center;
+  color: #555555;
+  font-size: 65%;
+  margin: 5px 2px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #CCC; }
+
+.event-name {
+  text-align: center; }

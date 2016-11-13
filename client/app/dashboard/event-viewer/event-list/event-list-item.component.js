@@ -17,7 +17,7 @@ var EventListItemComponent = (function () {
         console.log(JSON.stringify(this.event, null, 4));
     };
     EventListItemComponent.prototype.dateToClockTime = function (momentObj) {
-        return momentObj.format('h mm');
+        return momentObj.format('h:mm');
     };
     EventListItemComponent.prototype.dateToAMPM = function (momentObj) {
         return momentObj.format('a');

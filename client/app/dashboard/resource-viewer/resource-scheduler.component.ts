@@ -22,11 +22,19 @@ import { EmEvent } 				from '../../shared/event';
 })
 
 export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnInit {
+
+	@Input() resources: String[]; 
+	@Input() date: Moment;
+
+	@ViewChild( 'timeAxis' ) timeAxisElement: ElementRef;
 	
 	// properties
 	// -----------------------
 	
 	public events: EmEvent[];
+
+	private now: Moment = moment();
+	public currentDayIsToday: boolean = this.now.isSame( this.date, 'day' );
 
 	private _timeSlotList: Moment[];
 	public get timeSlotList(): Moment[] {
@@ -50,11 +58,6 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	private _filteredEvents: Object = {};
 
-
-	@Input() resources: String[]; 
-	@Input() date: Moment;
-
-	@ViewChild( 'timeAxis' ) timeAxisElement: ElementRef;
 
 	// --------------------------
 	

@@ -13,7 +13,7 @@ import { Moment } from 'moment';
 
 export class ResourceSchedulerItemComponent {
 
-	@Input() event;
+	@Input() event: EmEvent;
 	@Input() hourInPx: number;
 	@Input() rangeStart: Moment;
 

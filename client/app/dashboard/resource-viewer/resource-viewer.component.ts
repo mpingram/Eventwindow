@@ -14,6 +14,10 @@ export class ResourceViewerComponent {
 
 	private _today: Moment = moment().startOf('day');
 	private _date: Moment = this._today.clone();
+
+	public currentDayIsToday = () => {
+		return this._today.isSame( this._date, 'day' );
+	}
 	get date(): Moment{
 		return this._date.clone();
 	}
@@ -33,7 +37,9 @@ export class ResourceViewerComponent {
 		this._date = targetDate.clone();
 	}
 	public goToToday(){
-		this._date = this._today.clone();
+		if ( !this.currentDayIsToday() ){
+			this._date = this._today.clone();
+		}
 	}
 
 	// debug

@@ -19,7 +19,7 @@ export class EventListItemComponent{
 	}
 
 	public dateToClockTime(momentObj){
-		return momentObj.format('h mm')
+		return momentObj.format('h:mm')
 	}
 
 	public dateToAMPM(momentObj){

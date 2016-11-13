@@ -15,5 +15,59 @@
 }
 
 .resource-header-container{
+
+	height: 40px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+
 	flex: 0 0 auto;
+
+}
+.nav-buttons-container{
+	margin-right: 1em;
+}
+
+.nav-button{
+	background: $gray-lighter;
+	border: 1px outset $col-border-light;
+	border-radius: 2px;
+	transition: background 200ms ease,
+							transform 100ms ease;
+}
+
+.nav-button:not(.disabled):hover{
+	background: darken( $gray-lighter, 5% );
+}
+
+.nav-button:not(.disabled):hover > .nav-next-day {
+	transform: translateX( 5% );
+}
+.nav-button:not(.disabled):hover > .nav-prev-day {
+	transform: translateX( -5% );
+}
+.nav-button:not(.disabled):active{
+	background: lighten( $gray-lighter, 5% );
+	transform: scale( 0.95 );
+}
+
+.nav-button.disabled{
+	border-style: inset;
+	background: $gray-lightest;
+}
+.nav-button.disabled > i {
+	color: $gray-light;
+}
+
+.nav-button-icon{
+	display: block;
+	padding: 2px;
+	vertical-align: center;
+
+	transition: transform 100ms ease;
+}
+
+.datepicker{
 }

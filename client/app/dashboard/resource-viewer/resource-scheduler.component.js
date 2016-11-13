@@ -14,6 +14,8 @@ var ResourceSchedulerComponent = (function () {
     // --------------------------
     function ResourceSchedulerComponent(eventService) {
         this.eventService = eventService;
+        this.now = moment();
+        this.currentDayIsToday = this.now.isSame(this.date, 'day');
         // TODO: config object
         this._defaultTimeRange = [7, 20];
         this._timeRange = this._defaultTimeRange;
