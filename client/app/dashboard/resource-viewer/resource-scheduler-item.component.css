@@ -1,6 +1,7 @@
 /* Coolors Exported Palette - coolors.co/cca9a9-ed4912-707d84-fffaff-277a96 */
 :host {
   display: block;
+  position: absolute;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;

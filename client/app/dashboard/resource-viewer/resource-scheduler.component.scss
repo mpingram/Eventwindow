@@ -72,6 +72,8 @@
 }
 
 .column-body{
+	position: relative;
+	
 	flex: 1 0 auto;
 	background-color: darken( $gray-lightest, 0.5% );
 }

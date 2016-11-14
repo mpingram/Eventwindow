@@ -16,14 +16,6 @@ var ResourceSchedulerItemComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], ResourceSchedulerItemComponent.prototype, "event", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Number)
-    ], ResourceSchedulerItemComponent.prototype, "hourInPx", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResourceSchedulerItemComponent.prototype, "rangeStart", void 0);
     ResourceSchedulerItemComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

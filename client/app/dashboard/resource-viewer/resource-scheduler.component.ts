@@ -51,6 +51,11 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 		}
 	}
 
+	private _firstTimeSlot: Moment;
+	public get firstTimeSlot() : Moment {
+		return this._timeSlotList[0];
+	} 
+
 	// TODO: config object
 	private _defaultTimeRange: number[] = [ 7, 20 ];
 	private _timeRange: number[] = this._defaultTimeRange;
@@ -91,6 +96,27 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 		} else {
 			return [];
 		}
+	}
+
+	public calculateEventPixelsFromTop( event:EmEvent ): number {
+		let pixelsFromTop: number;
+		// FIXME: this is awful
+		// Make sure it's tied to 'top', or else it'll break when given negative numbers,
+		// ie if event occurs before range displays
+		let timeFromStartOfRange: number = event.start.diff( this.firstTimeSlot, 'minutes' );
+
+		timeFromStartOfRange *= 60;
+		pixelsFromTop = timeFromStartOfRange * this._hourInPx;
+		console.log( event.name + ' pixels from top: ' + pixelsFromTop );
+		return pixelsFromTop;
+
+	}
+
+	public calculateEventHeight( event:EmEvent ): number {
+		const eventLengthInMinutes: number = event.end.diff( event.start, 'minutes' );
+		const eventLengthInHours: number = eventLengthInMinutes * 60;
+
+		return eventLengthInHours * this._hourInPx;
 	}
 
 

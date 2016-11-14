@@ -39,6 +39,13 @@ var ResourceSchedulerComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ResourceSchedulerComponent.prototype, "firstTimeSlot", {
+        get: function () {
+            return this._timeSlotList[0];
+        },
+        enumerable: true,
+        configurable: true
+    });
     ResourceSchedulerComponent.prototype.ngOnInit = function () {
         this._timeSlotList = this.initializeTimeSlotList();
         this._filteredEvents = this.filterEventsByResource();
@@ -61,6 +68,22 @@ var ResourceSchedulerComponent = (function () {
         else {
             return [];
         }
+    };
+    ResourceSchedulerComponent.prototype.calculateEventPixelsFromTop = function (event) {
+        var pixelsFromTop;
+        // FIXME: this is awful
+        // Make sure it's tied to 'top', or else it'll break when given negative numbers,
+        // ie if event occurs before range displays
+        var timeFromStartOfRange = event.start.diff(this.firstTimeSlot, 'minutes');
+        timeFromStartOfRange *= 60;
+        pixelsFromTop = timeFromStartOfRange * this._hourInPx;
+        console.log(event.name + ' pixels from top: ' + pixelsFromTop);
+        return pixelsFromTop;
+    };
+    ResourceSchedulerComponent.prototype.calculateEventHeight = function (event) {
+        var eventLengthInMinutes = event.end.diff(event.start, 'minutes');
+        var eventLengthInHours = eventLengthInMinutes * 60;
+        return eventLengthInHours * this._hourInPx;
     };
     // private methods
     // --------------------------------------
