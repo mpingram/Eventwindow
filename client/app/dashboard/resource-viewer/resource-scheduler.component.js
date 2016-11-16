@@ -14,46 +14,34 @@ var ResourceSchedulerComponent = (function () {
     // --------------------------
     function ResourceSchedulerComponent(eventService) {
         this.eventService = eventService;
-        this.now = moment();
-        this.currentDayIsToday = this.now.isSame(this.date, 'day');
-        // TODO: config object
+        this.currentDayIsToday = moment().isSame(this.date, 'day');
+        // private properties
+        // ------------------------
+        this._viewInitialized = false;
+        this._midnight = moment().startOf('day');
         this._defaultTimeRange = [7, 20];
         this._timeRange = this._defaultTimeRange;
         this._numHoursInRange = this._timeRange[1] - this._timeRange[0];
         this._filteredEvents = {};
     }
-    Object.defineProperty(ResourceSchedulerComponent.prototype, "timeSlotList", {
-        get: function () {
-            return this._timeSlotList;
-            //return this._timeSlotList.slice( this._timeRange[0], this._timeRange[1] );
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(ResourceSchedulerComponent.prototype, "timeSlotHeight", {
+        // allows lazy evaluation
         get: function () {
-            if (this._timeSlotHeight !== undefined) {
-                return this._timeSlotHeight.toString() + 'px';
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ResourceSchedulerComponent.prototype, "firstTimeSlot", {
-        get: function () {
-            return this._timeSlotList[0];
+            return this._hourInPx + 'px';
         },
         enumerable: true,
         configurable: true
     });
     ResourceSchedulerComponent.prototype.ngOnInit = function () {
-        this._timeSlotList = this.initializeTimeSlotList();
+        this.timeSlotList = this.initializeTimeSlotList();
+        this.firstTimeSlotStart = this.timeSlotList[0];
         this._filteredEvents = this.filterEventsByResource();
         console.log(this._filteredEvents);
     };
     ResourceSchedulerComponent.prototype.ngAfterViewInit = function () {
+        this._viewInitialized = true;
         this._hourInPx = this.measureHourInPixels();
-        this._timeSlotHeight = this._hourInPx;
+        console.log(this.timeSlotHeight);
     };
     ResourceSchedulerComponent.prototype.ngOnChanges = function () {
         this.events = this.eventService.getEventsByDay(this.date);
@@ -70,20 +58,34 @@ var ResourceSchedulerComponent = (function () {
         }
     };
     ResourceSchedulerComponent.prototype.calculateEventPixelsFromTop = function (event) {
-        var pixelsFromTop;
-        // FIXME: this is awful
-        // Make sure it's tied to 'top', or else it'll break when given negative numbers,
-        // ie if event occurs before range displays
-        var timeFromStartOfRange = event.start.diff(this.firstTimeSlot, 'minutes');
-        timeFromStartOfRange *= 60;
-        pixelsFromTop = timeFromStartOfRange * this._hourInPx;
-        console.log(event.name + ' pixels from top: ' + pixelsFromTop);
-        return pixelsFromTop;
+        if (this._viewInitialized) {
+            var pixelsFromTop = void 0;
+            var eventStartTime = this.minutesFromMidnight(event.start);
+            var minutesFromStart = eventStartTime - this.firstTimeSlotStart;
+            var hoursFromStart = minutesFromStart / 60;
+            pixelsFromTop = hoursFromStart * this._hourInPx;
+            return pixelsFromTop + 'px';
+        }
+        else {
+            return 0 + 'px';
+        }
     };
     ResourceSchedulerComponent.prototype.calculateEventHeight = function (event) {
-        var eventLengthInMinutes = event.end.diff(event.start, 'minutes');
-        var eventLengthInHours = eventLengthInMinutes * 60;
-        return eventLengthInHours * this._hourInPx;
+        if (this._viewInitialized) {
+            var eventLengthInMinutes = event.end.diff(event.start, 'minutes');
+            var eventLengthInHours = eventLengthInMinutes / 60;
+            var eventLengthInPx = eventLengthInHours * this._hourInPx;
+            console.log('eventLength' + eventLengthInPx);
+            return eventLengthInPx + 'px';
+        }
+        else {
+            return 0 + 'px';
+        }
+    };
+    ResourceSchedulerComponent.prototype.displayClockTimeFromTimeSlot = function (timeSlotMinutes) {
+        var time = this._midnight.clone();
+        time.add(timeSlotMinutes, 'minutes');
+        return time.format('h:mm');
     };
     // private methods
     // --------------------------------------
@@ -104,15 +106,18 @@ var ResourceSchedulerComponent = (function () {
         var columnHeight = this.timeAxisElement.nativeElement.offsetHeight;
         return columnHeight / this._numHoursInRange;
     };
+    ResourceSchedulerComponent.prototype.minutesFromMidnight = function (time) {
+        return time.diff(this._midnight, 'minutes');
+    };
     ResourceSchedulerComponent.prototype.initializeTimeSlotList = function () {
         var timeSlotList = [];
-        var firstTimeSlot = this.date.clone().startOf('day');
+        var firstTimeSlotMoment = this.date.clone().startOf('day');
         var start = this._timeRange[0];
         var end = this._timeRange[1];
         for (var i = start; i < end; i++) {
-            var timeSlot = firstTimeSlot.clone();
+            var timeSlot = firstTimeSlotMoment.clone();
             timeSlot.add(i, 'hours');
-            timeSlotList.push(timeSlot);
+            timeSlotList.push(this.minutesFromMidnight(timeSlot));
         }
         return timeSlotList;
     };

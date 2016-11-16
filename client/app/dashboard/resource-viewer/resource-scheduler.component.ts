@@ -25,42 +25,33 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	@Input() resources: String[]; 
 	@Input() date: Moment;
-
+	// used to measure height and compute hourInPx
 	@ViewChild( 'timeAxis' ) timeAxisElement: ElementRef;
 	
-	// properties
+	// public properties
 	// -----------------------
-	
 	public events: EmEvent[];
+	public currentDayIsToday: boolean = moment().isSame( this.date, 'day' );
 
-	private now: Moment = moment();
-	public currentDayIsToday: boolean = this.now.isSame( this.date, 'day' );
+	public firstTimeSlotStart: number;
+	public timeSlotList: number[];
 
-	private _timeSlotList: Moment[];
-	public get timeSlotList(): Moment[] {
-		return this._timeSlotList;
-		//return this._timeSlotList.slice( this._timeRange[0], this._timeRange[1] );
+	// allows lazy evaluation
+	public get timeSlotHeight(): string {
+		return this._hourInPx + 'px';
 	}
 
+	// private properties
+	// ------------------------
+
+	private _viewInitialized = false;
+	// TODO: config object to configure default time range
 	private _hourInPx: number;
+	private _midnight: Moment = moment().startOf( 'day' );
 
-	private _timeSlotHeight: number;
-	public get timeSlotHeight(){
-		if ( this._timeSlotHeight !== undefined ){
-			return this._timeSlotHeight.toString() + 'px';
-		}
-	}
-
-	private _firstTimeSlot: Moment;
-	public get firstTimeSlot() : Moment {
-		return this._timeSlotList[0];
-	} 
-
-	// TODO: config object
 	private _defaultTimeRange: number[] = [ 7, 20 ];
 	private _timeRange: number[] = this._defaultTimeRange;
 	private _numHoursInRange: number = this._timeRange[1] - this._timeRange[0];
-
 	private _filteredEvents: Object = {};
 
 
@@ -72,14 +63,16 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	constructor( private eventService: EventService ) { }
 
 	ngOnInit(){
-		this._timeSlotList = this.initializeTimeSlotList();
+		this.timeSlotList = this.initializeTimeSlotList();
+		this.firstTimeSlotStart = this.timeSlotList[ 0 ];
 		this._filteredEvents = this.filterEventsByResource();
 		console.log( this._filteredEvents );
 	}
 
 	ngAfterViewInit(){
+		this._viewInitialized = true;
 		this._hourInPx = this.measureHourInPixels();
-		this._timeSlotHeight = this._hourInPx;
+		console.log( this.timeSlotHeight );
 	}
 
 	ngOnChanges(){
@@ -98,25 +91,51 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 		}
 	}
 
-	public calculateEventPixelsFromTop( event:EmEvent ): number {
-		let pixelsFromTop: number;
-		// FIXME: this is awful
-		// Make sure it's tied to 'top', or else it'll break when given negative numbers,
-		// ie if event occurs before range displays
-		let timeFromStartOfRange: number = event.start.diff( this.firstTimeSlot, 'minutes' );
+	public calculateEventPixelsFromTop( event:EmEvent ): string {
 
-		timeFromStartOfRange *= 60;
-		pixelsFromTop = timeFromStartOfRange * this._hourInPx;
-		console.log( event.name + ' pixels from top: ' + pixelsFromTop );
-		return pixelsFromTop;
+		if ( this._viewInitialized ) {
+
+			let pixelsFromTop: number;
+
+			const eventStartTime = this.minutesFromMidnight( event.start );
+			const minutesFromStart: number = eventStartTime - this.firstTimeSlotStart;
+			const hoursFromStart = minutesFromStart / 60;
+
+			pixelsFromTop = hoursFromStart * this._hourInPx;
+
+			return pixelsFromTop + 'px';
+
+		} else {
+
+			return 0 + 'px';
+		}
 
 	}
 
-	public calculateEventHeight( event:EmEvent ): number {
-		const eventLengthInMinutes: number = event.end.diff( event.start, 'minutes' );
-		const eventLengthInHours: number = eventLengthInMinutes * 60;
+	public calculateEventHeight( event:EmEvent ): string {
 
-		return eventLengthInHours * this._hourInPx;
+		if ( this._viewInitialized ) {
+
+			const eventLengthInMinutes: number = event.end.diff( event.start, 'minutes' );
+			const eventLengthInHours: number = eventLengthInMinutes / 60;
+
+			const eventLengthInPx =  eventLengthInHours * this._hourInPx;
+			console.log( 'eventLength' + eventLengthInPx );
+			return eventLengthInPx + 'px';
+
+		} else {
+
+			return 0 + 'px';
+		}
+
+	}
+
+	public displayClockTimeFromTimeSlot( timeSlotMinutes: number ): string {
+
+		let time = this._midnight.clone();
+		time.add( timeSlotMinutes, 'minutes' );
+		return time.format( 'h:mm' );
+
 	}
 
 
@@ -142,17 +161,24 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 		return columnHeight / this._numHoursInRange;
 	}
 
-	private initializeTimeSlotList(): Moment[] {
-		let timeSlotList: Moment[] = [];
-		const firstTimeSlot: Moment = this.date.clone().startOf('day');
+	private minutesFromMidnight( time: Moment ): number {
+		return time.diff( this._midnight, 'minutes' );
+	}
+
+	private initializeTimeSlotList(): number[] {
+
+		let timeSlotList: number[] = [];
+
+		const firstTimeSlotMoment: Moment = this.date.clone().startOf('day');
 		const start = this._timeRange[0];
 		const end = this._timeRange[1];
 
 		for (let i = start; i < end; i++ ){
-			let timeSlot: Moment =  firstTimeSlot.clone();
+			let timeSlot: Moment = firstTimeSlotMoment.clone();
 			timeSlot.add( i, 'hours' );
-			timeSlotList.push( timeSlot );
+			timeSlotList.push( this.minutesFromMidnight( timeSlot ) );
 		}
+
 		return timeSlotList;
 	}
 
