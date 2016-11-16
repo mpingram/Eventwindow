@@ -63,6 +63,7 @@
           align-items: stretch; }
 
 .column {
+  position: relative;
   border-right: 1px solid #c4c4c4;
   -webkit-flex: 0 0 84px;
       -ms-flex: 0 0 84px;
@@ -92,3 +93,11 @@
       -ms-flex: 1 0 auto;
           flex: 1 0 auto;
   background-color: #fcfcfc; }
+
+.column-time-slot {
+  z-index: -1;
+  width: 100%;
+  border-bottom: 1px dotted #CCC; }
+
+.column-time-slot.strong-line {
+  border-style: dashed; }

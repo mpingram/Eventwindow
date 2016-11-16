@@ -3,7 +3,7 @@
 	</div>
 
 	<div #timeAxis class='time-axis-body'>
-		<div class='timeslot' [style.height]='timeSlotHeight' *ngFor='let timeSlot of timeSlotList'>
+		<div class='timeslot'  [style.height]='timeSlotHeight' *ngFor='let timeSlot of timeSlotList'>
 			{{ displayClockTimeFromTimeSlot( timeSlot ) }}
 		</div>
 	</div>
@@ -18,8 +18,21 @@
 		</div>
 
 		<div class='column-body'>
+			<div 
+					class='column-time-slot' 
+					[ngClass]="{ 'strong-line': isOdd }" *ngFor='let timeSlot of timeSlotList; let isOdd = odd ' 
+					[style.height]='timeSlotHeight'
+			>
+			</div>
 
-			<em-resource-scheduler-item *ngFor='let event of getFilteredEvents( resource )' [event]='event' [ngStyle]="{ 'top': calculateEventPixelsFromTop( event ), 'height': calculateEventHeight( event ) }" ></em-resource-scheduler-item>
+			<em-resource-scheduler-item 
+				*ngFor='let event of getFilteredEvents( resource )'
+				[event]='event' 
+				[ngStyle]="{ 
+					'top': calculateEventPixelsFromTop( event ), 'height': calculateEventHeight( event ) 
+				}"
+			>
+			</em-resource-scheduler-item>
 
 		</div>
 

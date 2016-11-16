@@ -50,6 +50,7 @@
 }
 
 .column{
+	position: relative;
 	border-right: 1px solid $gray-lightish;
 	flex: 0 0 84px;
 	width: 84px;
@@ -57,6 +58,8 @@
 	display: flex;
 	flex-direction: column;
 }
+
+
 
 .column-heading{
 	height: 40px;
@@ -77,4 +80,14 @@
 	flex: 1 0 auto;
 	background-color: darken( $gray-lightest, 0.5% );
 }
+
+.column-time-slot{
+	z-index: -1;
+	width: 100%;
+	border-bottom: 1px dotted $col-border-light;
+}
+.column-time-slot.strong-line{
+	border-style: dashed;
+}
+
 
