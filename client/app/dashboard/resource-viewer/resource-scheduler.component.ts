@@ -71,7 +71,6 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	ngAfterViewInit(){
 		this._viewInitialized = true;
 		this._hourInPx = this.measureHourInPixels();
-		console.log( this.timeSlotHeight );
 	}
 
 	ngOnChanges(){
@@ -102,7 +101,6 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 			pixelsFromTop = hoursFromStart * this._hourInPx;
 
-			console.log( pixelsFromTop );
 			return pixelsFromTop + 'px';
 
 		} else {

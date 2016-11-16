@@ -1,8 +1,7 @@
 import { Injectable } 		from '@angular/core';
 
 import { Observable } 		from 'rxjs/Observable';
-import { Subject }				from 'rxjs/Subject';
-import { BehaviorSubject } 	from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Moment } 				from 'moment';
 
@@ -14,71 +13,92 @@ import { Logger } 				from './logger.service';
 
 declare const moment:any;
 
+
 @Injectable()
 export class EventService {
 
+	// Public
+	// ==============================================
 
-	// TODO: understand
-	private _eventBuffer: EventBuffer = {};
-	private _bufferStartDate: Moment;
-	private _defaultBufferSize: number = 14;
+	// properties
+	public eventBuffer: Observable<EventBuffer> = this._eventBuffer.asObservable();
+	
+	public getEventsByDay( day: Moment ): Observable<EventBuffer> {
 
-	public getEventsByDay( day: Moment ): EmEvent[] {
-
-		const dayISOString = day.clone().startOf('day').format();
-		return this._eventBuffer[ dayISOString ];
+		return this.eventList.groupBy( ( eventBuffer: EventBuffer , index: number) => {
+			return eventBuffer[ index ].start.isSame( day, 'day' );
+		});
 
 	}
+	// ============================================
 
-	constructor( 
-	 private backend: BackendService,
-	 private logger: Logger ) {
 
-		this._init();
+
+	constructor( 	private backend: BackendService,
+								private logger: Logger ) {
+
+		this._eventBufferStartDate = this.today;
+		this._eventBufferEndDate = this._eventBufferStartDate.clone().add( this._defaultBufferRange, 'days' );
+
+		this.extendEventBufferFrom( this._eventBufferStartDate, this._eventBufferEndDate );
 		
 	}
 
-	private _init(): void {
 
-		this._bufferStartDate = moment().startOf('day');
+	// Private 
+	// ===================================================
 
-		// FIXME: hardcoded
-		let start = moment().startOf('day');
-		let end = start.clone().add( this._defaultBufferSize - 1, 'days' );
-		this._loadEventsIntoBuffer( start, end );
+
+	// private properties
+	// --------------------------
+	private _eventList: BehaviorSubject<EmEvent[]> = new BehaviorSubject( [] );
+
+	private _today: Moment = moment().startOf( 'day' );
+	private get today(): Moment {
+		return this._today.clone();
 	}
 
+	private _eventBufferStartDate: Moment;
+	private _eventBufferEndDate: Moment;
 
-	private _sortEventIntoBuffer( event:EmEvent): void {
+	private _defaultBufferRange: number = 14;
 
+
+	// private methods
+	// ---------------------------
+
+	private extendEventBufferFrom( start: Moment, end = start): void {
+
+		this.backend.getEvents( start, end ).subscribe(
+				( event:EmEvent ) => /*this.eventBuffer.add( event ),*/
+				( error:any ) => this.observableErrorHandler( error )
+		)
+	}
+
+	/*
+	private sortEventIntoBuffer( event:EmEvent): void {
+
+		// convert the event's start time to an ISO-formatted string representation
 		let eventISODateString = event.start.clone().startOf('day').format();
 
+		// if the property matching the ISO date string doesn't exist
+		// in the eventBuffer, initialize the value as an empty array.
+		// FIXME: no distinction between empty events in range and unloaded events out of range.
 		if ( this._eventBuffer[ eventISODateString ] === undefined ) {
 			this._eventBuffer[ eventISODateString ] = [];
 		}
+
+		// push that event onto the stack of events in that day.
 		this._eventBuffer[ eventISODateString ].push(event);
-
 	}
+	*/
 
-	private _observableErrorHandler(error:any): Observable<any> {
+	private observableErrorHandler(error:any): Observable<any> {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
   	this.logger.error(errMsg);
     return Observable.throw(errMsg);
   }
-	
-	private _getEvents( start: Moment, end: Moment ): Observable<EmEvent> {
 
-		return this.backend.getEvents( start, end );
-	}
 
-	private _loadEventsIntoBuffer( start: Moment, end: Moment ): void {
-
-		this._getEvents(start, end)
-			.subscribe( 
-			  ( event:EmEvent ) => this._sortEventIntoBuffer( event ),
-			  ( error: any ) => this._observableErrorHandler( error )
-			);
-
-	}
 }

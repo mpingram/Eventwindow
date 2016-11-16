@@ -40,7 +40,6 @@ var ResourceSchedulerComponent = (function () {
     ResourceSchedulerComponent.prototype.ngAfterViewInit = function () {
         this._viewInitialized = true;
         this._hourInPx = this.measureHourInPixels();
-        console.log(this.timeSlotHeight);
     };
     ResourceSchedulerComponent.prototype.ngOnChanges = function () {
         this.events = this.eventService.getEventsByDay(this.date);
@@ -63,7 +62,6 @@ var ResourceSchedulerComponent = (function () {
             var minutesFromStart = eventStartTime - this.firstTimeSlotStart;
             var hoursFromStart = minutesFromStart / 60;
             pixelsFromTop = hoursFromStart * this._hourInPx;
-            console.log(pixelsFromTop);
             return pixelsFromTop + 'px';
         }
         else {
