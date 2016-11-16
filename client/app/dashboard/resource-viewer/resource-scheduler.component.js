@@ -18,7 +18,6 @@ var ResourceSchedulerComponent = (function () {
         // private properties
         // ------------------------
         this._viewInitialized = false;
-        this._midnight = moment().startOf('day');
         this._defaultTimeRange = [7, 20];
         this._timeRange = this._defaultTimeRange;
         this._numHoursInRange = this._timeRange[1] - this._timeRange[0];
@@ -64,6 +63,7 @@ var ResourceSchedulerComponent = (function () {
             var minutesFromStart = eventStartTime - this.firstTimeSlotStart;
             var hoursFromStart = minutesFromStart / 60;
             pixelsFromTop = hoursFromStart * this._hourInPx;
+            console.log(pixelsFromTop);
             return pixelsFromTop + 'px';
         }
         else {
@@ -75,7 +75,6 @@ var ResourceSchedulerComponent = (function () {
             var eventLengthInMinutes = event.end.diff(event.start, 'minutes');
             var eventLengthInHours = eventLengthInMinutes / 60;
             var eventLengthInPx = eventLengthInHours * this._hourInPx;
-            console.log('eventLength' + eventLengthInPx);
             return eventLengthInPx + 'px';
         }
         else {
@@ -83,7 +82,7 @@ var ResourceSchedulerComponent = (function () {
         }
     };
     ResourceSchedulerComponent.prototype.displayClockTimeFromTimeSlot = function (timeSlotMinutes) {
-        var time = this._midnight.clone();
+        var time = moment().startOf('day');
         time.add(timeSlotMinutes, 'minutes');
         return time.format('h:mm');
     };
@@ -107,7 +106,8 @@ var ResourceSchedulerComponent = (function () {
         return columnHeight / this._numHoursInRange;
     };
     ResourceSchedulerComponent.prototype.minutesFromMidnight = function (time) {
-        return time.diff(this._midnight, 'minutes');
+        var midnight = time.clone().startOf('day');
+        return time.diff(midnight, 'minutes');
     };
     ResourceSchedulerComponent.prototype.initializeTimeSlotList = function () {
         var timeSlotList = [];

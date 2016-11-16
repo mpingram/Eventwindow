@@ -47,7 +47,6 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	private _viewInitialized = false;
 	// TODO: config object to configure default time range
 	private _hourInPx: number;
-	private _midnight: Moment = moment().startOf( 'day' );
 
 	private _defaultTimeRange: number[] = [ 7, 20 ];
 	private _timeRange: number[] = this._defaultTimeRange;
@@ -103,6 +102,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 			pixelsFromTop = hoursFromStart * this._hourInPx;
 
+			console.log( pixelsFromTop );
 			return pixelsFromTop + 'px';
 
 		} else {
@@ -120,7 +120,6 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 			const eventLengthInHours: number = eventLengthInMinutes / 60;
 
 			const eventLengthInPx =  eventLengthInHours * this._hourInPx;
-			console.log( 'eventLength' + eventLengthInPx );
 			return eventLengthInPx + 'px';
 
 		} else {
@@ -132,7 +131,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	public displayClockTimeFromTimeSlot( timeSlotMinutes: number ): string {
 
-		let time = this._midnight.clone();
+		let time = moment().startOf( 'day' );
 		time.add( timeSlotMinutes, 'minutes' );
 		return time.format( 'h:mm' );
 
@@ -162,7 +161,8 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	}
 
 	private minutesFromMidnight( time: Moment ): number {
-		return time.diff( this._midnight, 'minutes' );
+		let midnight = time.clone().startOf( 'day' );
+		return time.diff( midnight, 'minutes' );
 	}
 
 	private initializeTimeSlotList(): number[] {
