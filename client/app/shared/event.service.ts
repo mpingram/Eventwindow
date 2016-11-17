@@ -25,14 +25,19 @@ export class EventService {
 	// properties
 	public eventBuffer: Observable< GroupedObservable<string,EmEvent> >;
 	
-	public getEventsByDay( day: Moment ): GroupedObservable<string,EmEvent> {
+	public getEventsByDay( day: Moment ): Observable<EmEvent> {
+
 		let ISOStringKey = day.toISOString();
 
-		let daysEvents = this.eventBuffer.filter(
-			 ( obs: GroupedObservable<String,EmEvent> ) =>  obs.key === ISOStringKey
-		);
+		let daysEvents = this.eventBuffer.find(
+			 ( obs: GroupedObservable<string,EmEvent> ) =>  obs.key === ISOStringKey
+ 		).flatMap( 
+ 			( obs: GroupedObservable<string, EmEvent> ) => Observable.from( obs )
+ 		)
 
-		return daysEvents as GroupedObservable<string, EmEvent>;
+ 		console.log( daysEvents );
+ 		return daysEvents;
+
 
 	}
 	// ============================================

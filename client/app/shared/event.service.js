@@ -27,7 +27,8 @@ var EventService = (function () {
     }
     EventService.prototype.getEventsByDay = function (day) {
         var ISOStringKey = day.toISOString();
-        var daysEvents = this.eventBuffer.filter(function (obs) { return obs.key === ISOStringKey; });
+        var daysEvents = this.eventBuffer.find(function (obs) { return obs.key === ISOStringKey; }).flatMap(function (obs) { return Observable_1.Observable.from(obs); });
+        console.log(daysEvents);
         return daysEvents;
     };
     Object.defineProperty(EventService.prototype, "today", {
