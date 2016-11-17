@@ -35,7 +35,6 @@ var ResourceSchedulerComponent = (function () {
         this.timeSlotList = this.initializeTimeSlotList();
         this.firstTimeSlotStart = this.timeSlotList[0];
         this._filteredEvents = this.filterEventsByResource();
-        console.log(this._filteredEvents);
     };
     ResourceSchedulerComponent.prototype.ngAfterViewInit = function () {
         this._viewInitialized = true;
@@ -88,15 +87,24 @@ var ResourceSchedulerComponent = (function () {
     // --------------------------------------
     // 
     ResourceSchedulerComponent.prototype.filterEventsByResource = function () {
+        // FIXME: better to handle via groupBy?
         var filteredEvents = {};
-        for (var i = 0; i < this.events.length; i++) {
-            // COLOSSAL FIXME: ONLY WORKS WITH PRIMARY RESOURCE
-            var eventResource = this.events[i].primaryResource;
-            if (filteredEvents[eventResource] === undefined) {
-                filteredEvents[eventResource] = [];
-            }
-            filteredEvents[eventResource].push(this.events[i]);
-        }
+        /* DEBUG
+        this.events.subscribe(
+                              ( event ) => {
+                                let resource = event.primaryResource;
+                                if ( filteredEvents[ resource ] === undefined ){
+                                    filteredEvents[ resource ] = [];
+                                }
+                                filteredEvents[ resource ].push( event );
+                              },
+
+                              ( error ) => {
+                                    // FIXME: how to handle?
+                                console.error( error )
+                              }
+        )
+        */
         return filteredEvents;
     };
     ResourceSchedulerComponent.prototype.measureHourInPixels = function () {

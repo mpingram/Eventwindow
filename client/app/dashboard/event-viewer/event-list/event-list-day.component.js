@@ -14,6 +14,13 @@ var EventListDayComponent = (function () {
     function EventListDayComponent(eventService) {
         this.eventService = eventService;
     }
+    Object.defineProperty(EventListDayComponent.prototype, "eventsIsEmpty", {
+        get: function () {
+            return this.eventList.isEmpty();
+        },
+        enumerable: true,
+        configurable: true
+    });
     EventListDayComponent.prototype.toggleDropdownState = function () {
         if (this.dropdownState === 'open') {
             this.dropdownState = 'closed';
@@ -24,10 +31,8 @@ var EventListDayComponent = (function () {
     };
     EventListDayComponent.prototype.ngOnInit = function () {
         this.dropdownState = 'open';
-        this.events = this.eventService.getEventsByDay(this.day);
-        if (this.events === undefined || this.events.length === 0) {
-            this.noEvents = true;
-        }
+        this.eventList = this.eventService.getEventsByDay(this.day);
+        // noEvents?
     };
     __decorate([
         core_1.Input(), 

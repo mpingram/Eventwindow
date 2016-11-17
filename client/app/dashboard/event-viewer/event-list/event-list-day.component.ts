@@ -9,7 +9,10 @@ import {
 	animate
 } from '@angular/core';
 
-import { EmEvent }							from '../../../shared/event';
+import { Observable } 				from 'rxjs/Observable';
+
+import { EmEvent }						from '../../../shared/event';
+import { EventList }					from '../../../shared/event-list';
 import { EventService } 			from '../../../shared/event.service';
 
 import { Moment }							from 'moment';
@@ -36,9 +39,12 @@ import { Moment }							from 'moment';
 })
 export class EventListDayComponent implements OnInit {
 	
-	public events: EmEvent[];
+	public eventList: EventList;
+	public get eventsIsEmpty():Observable<boolean> {
+		return this.eventList.isEmpty();
+	}
+		
 	public dropdownState: string;
-	public noEvents: boolean;
 
 	public toggleDropdownState(): void {
 		if ( this.dropdownState === 'open'){
@@ -53,11 +59,9 @@ export class EventListDayComponent implements OnInit {
 
 	ngOnInit(){
 		this.dropdownState = 'open';
-		this.events = this.eventService.getEventsByDay( this.day );
+		this.eventList = this.eventService.getEventsByDay( this.day );
 
-		if ( this.events === undefined || this.events.length === 0 ){
-			this.noEvents = true;
-		}
+		// noEvents?
 	}
 
 }

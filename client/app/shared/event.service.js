@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Observable_1 = require('rxjs/Observable');
-var BehaviorSubject_1 = require('rxjs/BehaviorSubject');
 //import { EventList } 		from './event-list';
 var backend_service_1 = require('./backend.service');
 var logger_service_1 = require('./logger.service');
@@ -19,19 +18,17 @@ var EventService = (function () {
     function EventService(backend, logger) {
         this.backend = backend;
         this.logger = logger;
-        // Public
-        // ==============================================
-        // properties
-        this.eventBuffer = new BehaviorSubject_1.BehaviorSubject({});
         this._defaultBufferRange = 14;
         this._today = moment().startOf('day');
         this._eventBufferStartDate = this.today;
         this._eventBufferEndDate = this._eventBufferStartDate.clone().add(this._defaultBufferRange, 'days');
-        this.eventBufferFromRange(this._eventBufferStartDate, this._eventBufferEndDate);
+        this.loadEventBuffer(this._eventBufferStartDate, this._eventBufferEndDate);
+        this.getEventsByDay(this.today);
     }
     EventService.prototype.getEventsByDay = function (day) {
-        console.log(this.eventBuffer.toString());
-        return Observable_1.Observable.from([]);
+        var ISOStringKey = day.toISOString();
+        var daysEvents = this.eventBuffer.filter(function (obs) { return obs.key === ISOStringKey; });
+        return daysEvents;
     };
     Object.defineProperty(EventService.prototype, "today", {
         get: function () {
@@ -42,10 +39,11 @@ var EventService = (function () {
     });
     // private methods
     // ---------------------------
-    EventService.prototype.eventBufferFromRange = function (start, end) {
+    EventService.prototype.loadEventBuffer = function (start, end) {
         if (end === void 0) { end = start; }
-        // you can use .flatMap(group) to operate on a grouped observable.
-        this.backend.getEvents(start, end).groupBy(function (event) { return event.start.toISOString(); }).flatMap();
+        // configures eventBuffer with multiple streams ( Observers ), one for
+        // each day. Each stream can be selected using parentObservable.flatMap()
+        this.eventBuffer = this.backend.getEvents(start, end).groupBy(function (event) { return event.start.toISOString(); });
     };
     /*
     private sortEventIntoBuffer( event:EmEvent ): void {

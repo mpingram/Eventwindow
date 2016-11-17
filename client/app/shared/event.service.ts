@@ -1,6 +1,8 @@
 import { Injectable } 		from '@angular/core';
 
-import { Observable } 		from 'rxjs/Observable';
+import { Observable } 			from 'rxjs/Observable';
+import { GroupedObservable } from 'rxjs/Operator/groupBy';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Moment } 				from 'moment';
@@ -21,13 +23,16 @@ export class EventService {
 	// ==============================================
 
 	// properties
-	public eventBuffer: BehaviorSubject< Observable<EmEvent> > = new BehaviorSubject( {} as Observable<EmEvent> );
+	public eventBuffer: Observable< GroupedObservable<string,EmEvent> >;
 	
-	public getEventsByDay( day: Moment ): Observable<EmEvent> {
+	public getEventsByDay( day: Moment ): GroupedObservable<string,EmEvent> {
+		let ISOStringKey = day.toISOString();
 
-		console.log( this.eventBuffer.toString() );
+		let daysEvents = this.eventBuffer.filter(
+			 ( obs: GroupedObservable<String,EmEvent> ) =>  obs.key === ISOStringKey
+		);
 
-		return Observable.from( [] );	
+		return daysEvents as GroupedObservable<string, EmEvent>;
 
 	}
 	// ============================================
@@ -40,7 +45,9 @@ export class EventService {
 		this._eventBufferStartDate = this.today;
 		this._eventBufferEndDate = this._eventBufferStartDate.clone().add( this._defaultBufferRange, 'days' );
 
-		this.eventBufferFromRange( this._eventBufferStartDate, this._eventBufferEndDate );
+		this.loadEventBuffer( this._eventBufferStartDate, this._eventBufferEndDate );
+
+		this.getEventsByDay( this.today );
 		
 	}
 
@@ -65,12 +72,14 @@ export class EventService {
 	// private methods
 	// ---------------------------
 
-	private eventBufferFromRange( start: Moment, end = start): void {
+	private loadEventBuffer( start: Moment, end = start): void {
 
-		// you can use .flatMap(group) to operate on a grouped observable.
-		this.backend.getEvents( start, end ).groupBy(
+		// configures eventBuffer with multiple streams ( Observers ), one for
+		// each day. Each stream can be selected using parentObservable.flatMap()
+		this.eventBuffer = this.backend.getEvents( start, end ).groupBy(
 			( event: EmEvent ) => event.start.toISOString()
-		).flatMap()
+		)
+
 	}
 
 

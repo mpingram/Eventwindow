@@ -13,6 +13,7 @@ declare const moment: any;
 
 import { EventService } from '../../shared/event.service';
 import { EmEvent } 				from '../../shared/event';
+import { EventList }			from '../../shared/event-list';
 
 @Component({
 	moduleId: module.id,
@@ -30,7 +31,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	
 	// public properties
 	// -----------------------
-	public events: EmEvent[];
+	public events: EventList;
 	public currentDayIsToday: boolean = moment().isSame( this.date, 'day' );
 
 	public firstTimeSlotStart: number;
@@ -65,7 +66,6 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 		this.timeSlotList = this.initializeTimeSlotList();
 		this.firstTimeSlotStart = this.timeSlotList[ 0 ];
 		this._filteredEvents = this.filterEventsByResource();
-		console.log( this._filteredEvents );
 	}
 
 	ngAfterViewInit(){
@@ -140,16 +140,25 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	// --------------------------------------
 	// 
 	private filterEventsByResource(): Object {
-		let filteredEvents: Object = {};
 
-		for ( let i = 0; i < this.events.length; i++ ) {
-			// COLOSSAL FIXME: ONLY WORKS WITH PRIMARY RESOURCE
-			let eventResource = this.events[i].primaryResource;
-			if ( filteredEvents[ eventResource ] === undefined ){
-				filteredEvents[ eventResource ] = [];
-			}
-			filteredEvents[ eventResource ].push( this.events[i] );
-		}
+		// FIXME: better to handle via groupBy?
+		let filteredEvents: Object = {};
+		/* DEBUG
+		this.events.subscribe( 
+		                      ( event ) => {
+		                      	let resource = event.primaryResource;
+		                      	if ( filteredEvents[ resource ] === undefined ){
+		                      		filteredEvents[ resource ] = [];
+		                      	}
+		                      	filteredEvents[ resource ].push( event );
+		                      },
+
+		                      ( error ) => {
+		                    		// FIXME: how to handle?
+		                      	console.error( error )
+		                      }
+		)
+		*/
 		return filteredEvents;
 	}
 
