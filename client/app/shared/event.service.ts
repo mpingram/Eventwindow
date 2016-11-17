@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Moment } 				from 'moment';
 
 import { EmEvent } 					from './event';
-import { EventBuffer } 		from './event-buffer';
+//import { EventList } 		from './event-list';
 
 import { BackendService } from './backend.service';
 import { Logger } 				from './logger.service';
@@ -21,13 +21,13 @@ export class EventService {
 	// ==============================================
 
 	// properties
-	public eventBuffer: Observable<EventBuffer> = this._eventBuffer.asObservable();
+	public eventBuffer: BehaviorSubject< Observable<EmEvent> > = new BehaviorSubject( {} as Observable<EmEvent> );
 	
-	public getEventsByDay( day: Moment ): Observable<EventBuffer> {
+	public getEventsByDay( day: Moment ): Observable<EmEvent> {
 
-		return this.eventList.groupBy( ( eventBuffer: EventBuffer , index: number) => {
-			return eventBuffer[ index ].start.isSame( day, 'day' );
-		});
+		console.log( this.eventBuffer.toString() );
+
+		return Observable.from( [] );	
 
 	}
 	// ============================================
@@ -40,7 +40,7 @@ export class EventService {
 		this._eventBufferStartDate = this.today;
 		this._eventBufferEndDate = this._eventBufferStartDate.clone().add( this._defaultBufferRange, 'days' );
 
-		this.extendEventBufferFrom( this._eventBufferStartDate, this._eventBufferEndDate );
+		this.eventBufferFromRange( this._eventBufferStartDate, this._eventBufferEndDate );
 		
 	}
 
@@ -51,32 +51,31 @@ export class EventService {
 
 	// private properties
 	// --------------------------
-	private _eventList: BehaviorSubject<EmEvent[]> = new BehaviorSubject( [] );
+	private _eventList: Observable<EmEvent>
+	 
+	private _eventBufferStartDate: Moment;
+	private _eventBufferEndDate: Moment;
+	private _defaultBufferRange: number = 14;
 
 	private _today: Moment = moment().startOf( 'day' );
 	private get today(): Moment {
 		return this._today.clone();
 	}
 
-	private _eventBufferStartDate: Moment;
-	private _eventBufferEndDate: Moment;
-
-	private _defaultBufferRange: number = 14;
-
-
 	// private methods
 	// ---------------------------
 
-	private extendEventBufferFrom( start: Moment, end = start): void {
+	private eventBufferFromRange( start: Moment, end = start): void {
 
-		this.backend.getEvents( start, end ).subscribe(
-				( event:EmEvent ) => /*this.eventBuffer.add( event ),*/
-				( error:any ) => this.observableErrorHandler( error )
-		)
+		// you can use .flatMap(group) to operate on a grouped observable.
+		this.backend.getEvents( start, end ).groupBy(
+			( event: EmEvent ) => event.start.toISOString()
+		).flatMap()
 	}
 
+
 	/*
-	private sortEventIntoBuffer( event:EmEvent): void {
+	private sortEventIntoBuffer( event:EmEvent ): void {
 
 		// convert the event's start time to an ISO-formatted string representation
 		let eventISODateString = event.start.clone().startOf('day').format();

@@ -7,3 +7,5 @@ import 'rxjs/add/observable/topromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/groupBy';
+import 'rxjs/add/operator/flatMap';

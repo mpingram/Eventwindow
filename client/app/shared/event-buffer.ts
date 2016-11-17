@@ -1,11 +1,4 @@
-import { EmEvent } from './event';
+import { EmEvent } 					from './event';
+import { Observable } 			from 'rxjs/Observable';
 
-
-export interface EventBuffer {
-
-	[ ISO8601date: string ] : EmEvent[];
-
-}
-
-
-//export type EventBuffer = EmEvent[];
+export type EventList = Observable<EmEvent>
