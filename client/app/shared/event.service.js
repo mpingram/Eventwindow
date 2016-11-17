@@ -23,12 +23,15 @@ var EventService = (function () {
         this._eventBufferStartDate = this.today;
         this._eventBufferEndDate = this._eventBufferStartDate.clone().add(this._defaultBufferRange, 'days');
         this.loadEventBuffer(this._eventBufferStartDate, this._eventBufferEndDate);
-        this.getEventsByDay(this.today);
+        //this.getEventsByDay( this.today );
     }
     EventService.prototype.getEventsByDay = function (day) {
-        var ISOStringKey = day.toISOString();
-        var daysEvents = this.eventBuffer.find(function (obs) { return obs.key === ISOStringKey; }).flatMap(function (obs) { return Observable_1.Observable.from(obs); });
-        console.log(daysEvents);
+        var ISOStringKey = day.clone().startOf('day').toISOString();
+        console.log(ISOStringKey);
+        var daysEvents = this.eventBuffer.first(function (obs) { return obs.key === ISOStringKey; }).flatMap(function (obs) { return Observable_1.Observable.from(obs); });
+        /* DEBUG */
+        var displayArray = [];
+        console.log(daysEvents.subscribe(function (event) { return console.log(event); }, function (error) { return console.error(error); }));
         return daysEvents;
     };
     Object.defineProperty(EventService.prototype, "today", {
@@ -44,7 +47,7 @@ var EventService = (function () {
         if (end === void 0) { end = start; }
         // configures eventBuffer with multiple streams ( Observers ), one for
         // each day. Each stream can be selected using parentObservable.flatMap()
-        this.eventBuffer = this.backend.getEvents(start, end).groupBy(function (event) { return event.start.toISOString(); });
+        this.eventBuffer = this.backend.getEvents(start, end).groupBy(function (event) { return event.start.clone().startOf('day').toISOString(); });
     };
     /*
     private sortEventIntoBuffer( event:EmEvent ): void {

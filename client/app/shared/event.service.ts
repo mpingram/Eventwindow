@@ -27,15 +27,23 @@ export class EventService {
 	
 	public getEventsByDay( day: Moment ): Observable<EmEvent> {
 
-		let ISOStringKey = day.toISOString();
+		let ISOStringKey = day.clone().startOf('day').toISOString();
+		console.log( ISOStringKey );
 
-		let daysEvents = this.eventBuffer.find(
-			 ( obs: GroupedObservable<string,EmEvent> ) =>  obs.key === ISOStringKey
+		let daysEvents = this.eventBuffer.first(
+			 ( obs: GroupedObservable<string,EmEvent> ) => obs.key === ISOStringKey
  		).flatMap( 
  			( obs: GroupedObservable<string, EmEvent> ) => Observable.from( obs )
  		)
 
- 		console.log( daysEvents );
+ 		/* DEBUG */
+ 		let displayArray: Array<EmEvent> = [];
+ 		console.log( daysEvents.subscribe(
+ 		  	( event: EmEvent ) => console.log( event ),
+ 		  	( error: any ) => console.error( error ),	
+ 		 ) 
+		);
+
  		return daysEvents;
 
 
@@ -52,7 +60,7 @@ export class EventService {
 
 		this.loadEventBuffer( this._eventBufferStartDate, this._eventBufferEndDate );
 
-		this.getEventsByDay( this.today );
+		//this.getEventsByDay( this.today );
 		
 	}
 
@@ -82,7 +90,7 @@ export class EventService {
 		// configures eventBuffer with multiple streams ( Observers ), one for
 		// each day. Each stream can be selected using parentObservable.flatMap()
 		this.eventBuffer = this.backend.getEvents( start, end ).groupBy(
-			( event: EmEvent ) => event.start.toISOString()
+			( event: EmEvent ) => event.start.clone().startOf('day').toISOString()
 		)
 
 	}
