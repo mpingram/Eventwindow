@@ -1,24 +1,23 @@
 
-<div class='day-header-container' [class.inactive]='noEvents'>
-
+<div class='day-header-container' [class.inactive]='eventListIsEmpty | async'>
 	<div class='day-inline date' >
 	{{ day.format('MMMM D, YYYY') }}
 	</div>
 	<div class='day-inline num-events'>
-		<span class='text-emphasis'> {{ events?.length || 0 }}</span>
-		<span class='text-small'> {{ events?.length !== 1 ? 'events' : 'event' }}</span>
+		<span class='text-emphasis'> {{ ( eventList | async )?.length || 0 }} </span>
+		<span class='text-small'> {{ ( eventList | async )?.length !== 1 ? 'events' : 'event' }}</span>
 	</div>
 
 	<div (click)='toggleDropdownState()' class='collapse-button-container'>
-		<i class='collapse-button material-icons md-dark' [class.md-inactive]='noEvents'> {{ dropdownState === 'open' && !noEvents ? "expand_less" : "expand_more" }} </i>
+		<i class='collapse-button material-icons md-dark' [class.md-inactive]='eventListIsEmpty | async'> {{ dropdownState === 'open' && ( !eventListIsEmpty | async ) ? "expand_less" : "expand_more" }} </i>
 	</div>
 
 </div>
 
 
-<div class='day-events-container' *ngIf='!noEvents' [@openClosed]='dropdownState'>
+<div class='day-events-container' *ngIf='!(eventListIsEmpty | async)' [@openClosed]='dropdownState'>
 
-	<em-event-list-item  *ngFor='let event of events' [event]='event'></em-event-list-item>
+	<em-event-list-item  *ngFor='let event of ( eventList | async )' [event]='event'></em-event-list-item>
 
 </div>
 

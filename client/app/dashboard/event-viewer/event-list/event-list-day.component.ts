@@ -38,12 +38,11 @@ import { Moment }							from 'moment';
 
 })
 export class EventListDayComponent implements OnInit {
+
+	@Input() day: Moment;
 	
 	public eventList: EventList;
-	public get eventsIsEmpty():Observable<boolean> {
-		return this.eventList.isEmpty();
-	}
-		
+	public eventListIsEmpty: Observable<boolean>;
 	public dropdownState: string;
 
 	public toggleDropdownState(): void {
@@ -54,14 +53,14 @@ export class EventListDayComponent implements OnInit {
 		}
 	}
 
-	constructor( private eventService: EventService ) { }
-	@Input() day: Moment;
+	constructor( private eventService: EventService ) {
+		this.dropdownState = 'open';
+	}
+	
 
 	ngOnInit(){
-		this.dropdownState = 'open';
 		this.eventList = this.eventService.getEventsByDay( this.day );
-
-		// noEvents?
+		this.eventListIsEmpty = this.eventList.isEmpty();
 	}
 
 }

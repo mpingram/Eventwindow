@@ -1,6 +1,6 @@
-import { Component, OnInit } 	from '@angular/core';
+import { Component } 	from '@angular/core';
 
-import { EmEvent } 							from '../shared/event';
+//import { EmEvent } 							from '../shared/event';
 import { EventService }				from '../shared/event.service';
 
 import { EventViewerComponent } from './event-viewer/event-viewer.component';
@@ -14,12 +14,9 @@ import { ResourceViewerComponent } from './resource-viewer/resource-viewer.compo
 	styleUrls: ['./app/dashboard/dashboard.component.css'],
 	providers: [ EventService ]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
 
 		constructor(private eventService: EventService) {};
 
-		ngOnInit(){
-			
-		}
 }

@@ -12,24 +12,22 @@ var core_1 = require('@angular/core');
 var EventListComponent = (function () {
     function EventListComponent() {
         this.days = [];
-        // FIXME: hardcoded? Should be set by dashboard?
+        this._today = moment().startOf('day');
         this._defaultNumDays = 14;
+        this.days = this.initializeDays();
     }
     ;
-    EventListComponent.prototype.ngOnInit = function () {
-        this.days = this.initializeDays();
-    };
     EventListComponent.prototype.initializeDays = function () {
-        var days = [];
         var numDays = this._defaultNumDays;
-        // FIXME: hardcoded to start at present
-        var startDay = moment().startOf('day');
-        for (var i = 0; i < numDays; i++) {
-            var day = startDay.clone();
-            day.add(i, 'days');
-            days.push(day);
-        }
-        return days;
+        var lastDayIndex = this._defaultNumDays - 1;
+        var days = Array(numDays);
+        days.fill(undefined);
+        var currDay = this._today.clone();
+        return days.map(function (day, index) {
+            day = currDay.clone();
+            currDay.add(1, 'day');
+            return day;
+        });
     };
     EventListComponent = __decorate([
         core_1.Component({

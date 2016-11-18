@@ -10,4 +10,4 @@ export interface EventBuffer {
 }
 */
 
-export type EventList = Observable<EmEvent>
+export type EventList = Observable<EmEvent[]>

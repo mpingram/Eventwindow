@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Observable_1 = require('rxjs/Observable');
-//import { EventList } 		from './event-list';
 var backend_service_1 = require('./backend.service');
 var logger_service_1 = require('./logger.service');
 var EventService = (function () {
@@ -27,11 +26,15 @@ var EventService = (function () {
     }
     EventService.prototype.getEventsByDay = function (day) {
         var ISOStringKey = day.clone().startOf('day').toISOString();
-        console.log(ISOStringKey);
-        var daysEvents = this.eventBuffer.first(function (obs) { return obs.key === ISOStringKey; }).flatMap(function (obs) { return Observable_1.Observable.from(obs); });
-        /* DEBUG */
-        var displayArray = [];
-        console.log(daysEvents.subscribe(function (event) { return console.log(event); }, function (error) { return console.error(error); }));
+        var daysEvents = this.eventBuffer.find(function (obs) { return obs.key === ISOStringKey; }).flatMap(function (obs) {
+            // if no result from find() method
+            if (obs === undefined) {
+                return Observable_1.Observable.from([]);
+            }
+            else {
+                return Observable_1.Observable.from(obs.toArray());
+            }
+        });
         return daysEvents;
     };
     Object.defineProperty(EventService.prototype, "today", {

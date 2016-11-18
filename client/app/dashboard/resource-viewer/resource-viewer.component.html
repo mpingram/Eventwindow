@@ -6,7 +6,7 @@
 			<i class='nav-button-icon nav-prev-day material-icons md-18'>chevron_left</i> 
 		</button>
 
-		<button [ngClass]='{ "disabled": currentDayIsToday() }' class='nav-button' (click)='goToToday();'>
+		<button [ngClass]='{ "disabled": currentDayIsToday }' class='nav-button' (click)='goToToday();'>
 			<i class='nav-button-icon nav-today material-icons md-18'>today</i>
 		</button>
 

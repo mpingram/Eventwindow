@@ -1,4 +1,4 @@
-import { Component, OnInit } 	from '@angular/core';
+import { Component } 	from '@angular/core';
 
 import { Moment }							from 'moment';
 declare const moment: any;
@@ -9,34 +9,33 @@ declare const moment: any;
 	templateUrl: 'event-list.component.html',
 	styleUrls: [ 'event-list.component.css' ],
 })
-export class EventListComponent implements OnInit {
+export class EventListComponent {
 
 	public days: Moment[] = [];
 
-	// FIXME: hardcoded? Should be set by dashboard?
-	private _defaultNumDays: number = 14;
 
-	constructor(){};
-
-	ngOnInit(){
-
+	constructor(){ 
 		this.days = this.initializeDays();
-		
-	}
+	};
+
+	private _today: Moment = moment().startOf('day');
+	private _defaultNumDays: number = 14;
 
 	private initializeDays(): Moment[] {
 
-		let days: Moment[] = [];
-		const numDays: number = this._defaultNumDays;
-		// FIXME: hardcoded to start at present
-		const startDay: Moment = moment().startOf('day');
+		const numDays = this._defaultNumDays;
+		const lastDayIndex = this._defaultNumDays - 1;
 
-		for (let i = 0; i < numDays; i++ ){
-			let day = startDay.clone();
-			day.add( i, 'days');
-			days.push(day);
-		}
+		let days: Moment[] = Array( numDays );
+		days.fill( undefined );
 
-		return days;
+		let currDay = this._today.clone();
+		return days.map( ( day: Moment, index: number ) => {
+			day = currDay.clone();
+			currDay.add( 1, 'day' );
+			return day;
+		});
+
+
 	}
 }

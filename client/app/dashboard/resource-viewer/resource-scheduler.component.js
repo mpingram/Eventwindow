@@ -9,24 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Observable_1 = require('rxjs/Observable');
 var event_service_1 = require('../../shared/event.service');
 var ResourceSchedulerComponent = (function () {
     // --------------------------
     function ResourceSchedulerComponent(eventService) {
         this.eventService = eventService;
         this.currentDayIsToday = moment().isSame(this.date, 'day');
-        // private properties
-        // ------------------------
         this._viewInitialized = false;
+        // TODO: config object to configure default time range
         this._defaultTimeRange = [7, 20];
         this._timeRange = this._defaultTimeRange;
         this._numHoursInRange = this._timeRange[1] - this._timeRange[0];
-        this._filteredEvents = {};
     }
     Object.defineProperty(ResourceSchedulerComponent.prototype, "timeSlotHeight", {
         // allows lazy evaluation
         get: function () {
-            return this._hourInPx + 'px';
+            if (this._hourInPx !== undefined) {
+                return this._hourInPx + 'px';
+            }
+            else {
+                return '40px';
+            }
         },
         enumerable: true,
         configurable: true
@@ -34,28 +38,31 @@ var ResourceSchedulerComponent = (function () {
     ResourceSchedulerComponent.prototype.ngOnInit = function () {
         this.timeSlotList = this.initializeTimeSlotList();
         this.firstTimeSlotStart = this.timeSlotList[0];
-        this._filteredEvents = this.filterEventsByResource();
+        this.eventList = this.eventService.getEventsByDay(this.date);
+        this._eventsGroupedByResource = this.groupEventsByResource();
     };
     ResourceSchedulerComponent.prototype.ngAfterViewInit = function () {
         this._viewInitialized = true;
         this._hourInPx = this.measureHourInPixels();
     };
     ResourceSchedulerComponent.prototype.ngOnChanges = function () {
-        this.events = this.eventService.getEventsByDay(this.date);
-        this._filteredEvents = this.filterEventsByResource();
+        this.eventList = this.eventService.getEventsByDay(this.date);
+        this._eventsGroupedByResource = this.groupEventsByResource();
     };
     // public methods
     // ----------------------------------------
-    ResourceSchedulerComponent.prototype.getFilteredEvents = function (resourceName) {
-        if (this._filteredEvents[resourceName] !== undefined) {
-            return this._filteredEvents[resourceName];
-        }
-        else {
-            return [];
-        }
+    ResourceSchedulerComponent.prototype.getEventsByResource = function (resourceName) {
+        return this._eventsGroupedByResource.find(function (eventGroup) { return eventGroup.key === resourceName; }).flatMap(function (eventGroup) {
+            if (eventGroup === undefined) {
+                return Observable_1.Observable.from([]);
+            }
+            else {
+                return Observable_1.Observable.from(eventGroup.toArray());
+            }
+        });
     };
     ResourceSchedulerComponent.prototype.calculateEventPixelsFromTop = function (event) {
-        if (this._viewInitialized) {
+        if (this._viewInitialized && event !== undefined) {
             var pixelsFromTop = void 0;
             var eventStartTime = this.minutesFromMidnight(event.start);
             var minutesFromStart = eventStartTime - this.firstTimeSlotStart;
@@ -68,7 +75,7 @@ var ResourceSchedulerComponent = (function () {
         }
     };
     ResourceSchedulerComponent.prototype.calculateEventHeight = function (event) {
-        if (this._viewInitialized) {
+        if (this._viewInitialized && event !== undefined) {
             var eventLengthInMinutes = event.end.diff(event.start, 'minutes');
             var eventLengthInHours = eventLengthInMinutes / 60;
             var eventLengthInPx = eventLengthInHours * this._hourInPx;
@@ -86,26 +93,8 @@ var ResourceSchedulerComponent = (function () {
     // private methods
     // --------------------------------------
     // 
-    ResourceSchedulerComponent.prototype.filterEventsByResource = function () {
-        // FIXME: better to handle via groupBy?
-        var filteredEvents = {};
-        /* DEBUG
-        this.events.subscribe(
-                              ( event ) => {
-                                let resource = event.primaryResource;
-                                if ( filteredEvents[ resource ] === undefined ){
-                                    filteredEvents[ resource ] = [];
-                                }
-                                filteredEvents[ resource ].push( event );
-                              },
-
-                              ( error ) => {
-                                    // FIXME: how to handle?
-                                console.error( error )
-                              }
-        )
-        */
-        return filteredEvents;
+    ResourceSchedulerComponent.prototype.groupEventsByResource = function () {
+        return this.eventList.flatMap(function (eventArr) { return Observable_1.Observable.from(eventArr); }).groupBy(function (event) { return event.primaryResource; });
     };
     ResourceSchedulerComponent.prototype.measureHourInPixels = function () {
         var columnHeight = this.timeAxisElement.nativeElement.offsetHeight;

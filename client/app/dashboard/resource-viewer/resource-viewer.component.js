@@ -11,14 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var ResourceViewerComponent = (function () {
     function ResourceViewerComponent() {
-        var _this = this;
         this._today = moment().startOf('day');
         this._date = this._today.clone();
-        this.currentDayIsToday = function () {
-            return _this._today.isSame(_this._date, 'day');
-        };
         this._resources = this.generateResources();
     }
+    Object.defineProperty(ResourceViewerComponent.prototype, "currentDayIsToday", {
+        get: function () {
+            return this._today.isSame(this._date, 'day');
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ResourceViewerComponent.prototype, "date", {
         get: function () {
             return this._date.clone();
@@ -43,7 +46,7 @@ var ResourceViewerComponent = (function () {
         this._date = targetDate.clone();
     };
     ResourceViewerComponent.prototype.goToToday = function () {
-        if (!this.currentDayIsToday()) {
+        if (!this.currentDayIsToday) {
             this._date = this._today.clone();
         }
     };

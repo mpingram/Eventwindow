@@ -9,14 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+//import { EmEvent } 							from '../shared/event';
 var event_service_1 = require('../shared/event.service');
 var DashboardComponent = (function () {
     function DashboardComponent(eventService) {
         this.eventService = eventService;
     }
     ;
-    DashboardComponent.prototype.ngOnInit = function () {
-    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'em-dashboard',

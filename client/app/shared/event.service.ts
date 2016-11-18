@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Moment } 				from 'moment';
 
 import { EmEvent } 					from './event';
-//import { EventList } 		from './event-list';
+import { EventList } 		from './event-list';
 
 import { BackendService } from './backend.service';
 import { Logger } 				from './logger.service';
@@ -25,27 +25,24 @@ export class EventService {
 	// properties
 	public eventBuffer: Observable< GroupedObservable<string,EmEvent> >;
 	
-	public getEventsByDay( day: Moment ): Observable<EmEvent> {
+	public getEventsByDay( day: Moment ): EventList {
 
 		let ISOStringKey = day.clone().startOf('day').toISOString();
-		console.log( ISOStringKey );
-
-		let daysEvents = this.eventBuffer.first(
+		
+		let daysEvents = this.eventBuffer.find(
 			 ( obs: GroupedObservable<string,EmEvent> ) => obs.key === ISOStringKey
  		).flatMap( 
- 			( obs: GroupedObservable<string, EmEvent> ) => Observable.from( obs )
+ 			( obs: GroupedObservable<string, EmEvent> ) => {
+ 				// if no result from find() method
+ 				if ( obs === undefined ){
+ 					return Observable.from( [] );
+ 				} else {
+ 					return Observable.from( obs.toArray() );
+ 				}
+ 			}
  		)
 
- 		/* DEBUG */
- 		let displayArray: Array<EmEvent> = [];
- 		console.log( daysEvents.subscribe(
- 		  	( event: EmEvent ) => console.log( event ),
- 		  	( error: any ) => console.error( error ),	
- 		 ) 
-		);
-
  		return daysEvents;
-
 
 	}
 	// ============================================

@@ -7,6 +7,9 @@ import { Component,
 	ElementRef,
 } from '@angular/core';
 
+import { Observable } 			from 'rxjs/Observable';
+import { GroupedObservable } 	from 'rxjs/operator/groupBy';
+
 
 import { Moment } 			from 'moment';
 declare const moment: any;
@@ -31,7 +34,8 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	
 	// public properties
 	// -----------------------
-	public events: EventList;
+
+	public eventList: EventList;
 	public currentDayIsToday: boolean = moment().isSame( this.date, 'day' );
 
 	public firstTimeSlotStart: number;
@@ -39,21 +43,26 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	// allows lazy evaluation
 	public get timeSlotHeight(): string {
-		return this._hourInPx + 'px';
+
+		if ( this._hourInPx !== undefined ){
+			return this._hourInPx + 'px';
+		} else {
+			return '40px';
+		}
 	}
 
 	// private properties
 	// ------------------------
+	private _eventsGroupedByResource: Observable< GroupedObservable<string, EmEvent> >;
 
 	private _viewInitialized = false;
-	// TODO: config object to configure default time range
-	private _hourInPx: number;
 
+	private _hourInPx: number;
+	// TODO: config object to configure default time range
 	private _defaultTimeRange: number[] = [ 7, 20 ];
 	private _timeRange: number[] = this._defaultTimeRange;
 	private _numHoursInRange: number = this._timeRange[1] - this._timeRange[0];
-	private _filteredEvents: Object = {};
-
+	
 
 	// --------------------------
 	
@@ -63,9 +72,12 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	constructor( private eventService: EventService ) { }
 
 	ngOnInit(){
+
 		this.timeSlotList = this.initializeTimeSlotList();
 		this.firstTimeSlotStart = this.timeSlotList[ 0 ];
-		this._filteredEvents = this.filterEventsByResource();
+
+		this.eventList = this.eventService.getEventsByDay( this.date );
+		this._eventsGroupedByResource = this.groupEventsByResource();
 	}
 
 	ngAfterViewInit(){
@@ -74,24 +86,32 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	}
 
 	ngOnChanges(){
-		this.events = this.eventService.getEventsByDay( this.date );
-		this._filteredEvents = this.filterEventsByResource();
+		this.eventList = this.eventService.getEventsByDay( this.date );
+		this._eventsGroupedByResource = this.groupEventsByResource();
 	}
 
 
 	// public methods
 	// ----------------------------------------
-	public getFilteredEvents( resourceName: string ) : EmEvent[] {
-		if ( this._filteredEvents[ resourceName ] !== undefined ){
-			return this._filteredEvents[ resourceName ];
-		} else {
-			return [];
-		}
+	public getEventsByResource( resourceName: string ) : EventList {
+
+		return this._eventsGroupedByResource.find(
+			( eventGroup: GroupedObservable<string, EmEvent> ) => eventGroup.key === resourceName,
+		).flatMap(
+			( eventGroup: GroupedObservable<string, EmEvent>) => {
+				if ( eventGroup === undefined ) {
+					return Observable.from( [] ); 
+				} else {
+					return Observable.from( eventGroup.toArray() )
+				}
+			}
+		)
+
 	}
 
-	public calculateEventPixelsFromTop( event:EmEvent ): string {
+	public calculateEventPixelsFromTop( event: EmEvent ): string {
 
-		if ( this._viewInitialized ) {
+		if ( this._viewInitialized && event !== undefined) {
 
 			let pixelsFromTop: number;
 
@@ -112,7 +132,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	public calculateEventHeight( event:EmEvent ): string {
 
-		if ( this._viewInitialized ) {
+		if ( this._viewInitialized && event !== undefined ) {
 
 			const eventLengthInMinutes: number = event.end.diff( event.start, 'minutes' );
 			const eventLengthInHours: number = eventLengthInMinutes / 60;
@@ -139,27 +159,14 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	// private methods
 	// --------------------------------------
 	// 
-	private filterEventsByResource(): Object {
-
-		// FIXME: better to handle via groupBy?
-		let filteredEvents: Object = {};
-		/* DEBUG
-		this.events.subscribe( 
-		                      ( event ) => {
-		                      	let resource = event.primaryResource;
-		                      	if ( filteredEvents[ resource ] === undefined ){
-		                      		filteredEvents[ resource ] = [];
-		                      	}
-		                      	filteredEvents[ resource ].push( event );
-		                      },
-
-		                      ( error ) => {
-		                    		// FIXME: how to handle?
-		                      	console.error( error )
-		                      }
+	private groupEventsByResource(): Observable< GroupedObservable <string, EmEvent > > {
+		
+		return this.eventList.flatMap( 
+			( eventArr: EmEvent[] ) => Observable.from( eventArr ) 
+		).groupBy(
+		  ( event: EmEvent ) => event.primaryResource
 		)
-		*/
-		return filteredEvents;
+
 	}
 
 	private measureHourInPixels(): number {
