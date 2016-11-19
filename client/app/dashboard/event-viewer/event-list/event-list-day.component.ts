@@ -15,6 +15,8 @@ import { EmEvent }						from '../../../shared/event';
 import { EventList }					from '../../../shared/event-list';
 import { EventService } 			from '../../../shared/event.service';
 
+import { DashboardStateObject }		from '../../dashboard-state-object';
+
 import { Moment }							from 'moment';
 
 @Component({
@@ -25,8 +27,8 @@ import { Moment }							from 'moment';
 
 	animations: [
 		trigger('openClosed', [
-			state('open', style({ height: '*' })),
-			state('closed', style({ height: 0 })),
+			state( 'open', style({ height: '*' })),
+			state( 'closed', style({ height: 0 })),
 			transition( 'open => closed',
 				animate( '350ms ease-in-out' ) 
 			),
@@ -40,21 +42,51 @@ import { Moment }							from 'moment';
 export class EventListDayComponent implements OnInit {
 
 	@Input() day: Moment;
+	@Input() dashboardState: DashboardStateObject;
 	
 	public eventList: EventList;
 	public eventListIsEmpty: Observable<boolean>;
-	public dropdownState: string;
+	public eventListOpen: boolean = true;
 
-	public toggleDropdownState(): void {
-		if ( this.dropdownState === 'open'){
-			this.dropdownState = 'closed';
-		} else {
-			this.dropdownState = 'open';
+	public isFocusedEvent( event: EmEvent ): boolean {
+		return this.dashboardState.focusedEvent === event.id;
+	}
+
+	public setTodayAsActiveDay( $event: Event ): void {
+
+		if ( ! this.eventListOpen ){
+			this.eventListOpen = true;
 		}
+
+	}
+
+	public toggleDropdownState( $event: Event ): void {
+		// prevent event from triggering setTodayAsActiveDay
+		$event.stopPropagation();
+		this.eventListOpen = !this.eventListOpen;
+	}
+
+	public animationStateFrom( bool: boolean ): string {
+		return bool ? 'open' : 'closed';
+	}
+
+	public setFocusedEventTo( emEvent: EmEvent): void {
+		// FIXME: think re best way to implement this.
+		// can use @Output to send a dom event out. Does state become an issue, then?
+		// Yeah, it totally does. How does an event-list-item know it's not the
+		// focused event any more?
+		// Service that manages all this bs / focuses events across different components?
+		// Bc it's quite a bridge between the Event-list and the resource-viewer. A lot easier
+		// to have events keep an eye on a shared focusedEvent variable that may match their id -
+		// also an easy way to implement repeated/grouped events highlighting. That may not even
+		// need a service.... OK, share state through object it is. Nvm about the service.
+
+		// NVM you already learned that passing a fucking state variable down the component tree
+		// is brittle and dumb. Use a damn service ugh
+		this.dashboardState.focusedEvent = emEvent.id;
 	}
 
 	constructor( private eventService: EventService ) {
-		this.dropdownState = 'open';
 	}
 	
 

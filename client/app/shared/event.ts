@@ -2,7 +2,7 @@ import { Moment } from 'moment';
 
 export interface EmEvent {
 
-	id: 				number;
+	id: 				string;
 	name: 			string;
 	organizer: 	string;
 	start: 			Moment;

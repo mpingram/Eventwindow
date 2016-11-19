@@ -5,7 +5,28 @@
   height: 3.5em;
   display: block;
   font-family: "Helvetica", sans-serif;
-  border-bottom: 1px solid #CCC; }
+  border-bottom: 1px solid #CCC;
+  overflow: visible;
+  cursor: pointer;
+  transition: background-color 200ms ease, -webkit-transform 200ms ease;
+  transition: background-color 200ms ease, transform 200ms ease;
+  transition: background-color 200ms ease, transform 200ms ease, -webkit-transform 200ms ease; }
+
+:host:hover {
+  -webkit-transform: translateX(1%);
+      -ms-transform: translateX(1%);
+          transform: translateX(1%);
+  background-color: #f6f6f6; }
+
+:host:active {
+  -webkit-transform: translateX(0%);
+      -ms-transform: translateX(0%);
+          transform: translateX(0%); }
+
+:host.focused {
+  -webkit-transform: translateX(2%);
+      -ms-transform: translateX(2%);
+          transform: translateX(2%); }
 
 .block {
   display: block;
@@ -13,9 +34,19 @@
   height: 100%;
   overflow: hidden; }
 
-.event-type {
+.event-type-container {
+  position: relative;
   width: 3%;
-  background-color: red; }
+  height: 100%;
+  overflow: visible; }
+
+.event-type {
+  position: absolute;
+  left: -6px;
+  width: 10px;
+  height: 100%;
+  background-color: red;
+  border-radius: 2px; }
 
 .event-name {
   width: 47%; }
@@ -57,7 +88,7 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  cursor: default;
+  cursor: pointer;
   float: right;
   line-height: 65px;
   width: 10%;

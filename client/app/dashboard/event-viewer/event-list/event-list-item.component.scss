@@ -10,7 +10,29 @@
 	font-family: $sans;
 	border-bottom: 1px solid $col-border-light;
 
+	overflow: visible;
+
+	cursor: pointer;
+
+	transition: background-color 200ms ease,
+							transform 200ms ease;
+
+
 }
+
+:host:hover{
+	transform: translateX(1%);
+	background-color: lighten( $gray-lighter, 3%);
+}
+
+:host:active{
+	transform: translateX(0%);
+}
+
+:host.focused{
+	transform: translateX(2%);
+}
+
 .block{
 	display: block;
 	float: left;
@@ -18,10 +40,21 @@
 	overflow: hidden;
 }
 
-.event-type{
+.event-type-container{
+	position: relative;
 	width: 3%;
-	background-color: red;
+	height: 100%;
+	overflow: visible;
 }
+.event-type{
+	position: absolute;
+	left: -6px;
+	width: 10px;
+	height: 100%;
+	background-color: red;
+	border-radius: 2px;
+}
+
 .event-name{
 	width: 47%;
 }
@@ -64,7 +97,7 @@
 
 .event-link{
 	user-select: none;
-	cursor: default;
+	cursor: pointer;
 
 	float: right;
 	// FIXME: hard-coded

@@ -13,15 +13,37 @@ var event_service_1 = require('../../../shared/event.service');
 var EventListDayComponent = (function () {
     function EventListDayComponent(eventService) {
         this.eventService = eventService;
-        this.dropdownState = 'open';
+        this.eventListOpen = true;
     }
-    EventListDayComponent.prototype.toggleDropdownState = function () {
-        if (this.dropdownState === 'open') {
-            this.dropdownState = 'closed';
+    EventListDayComponent.prototype.isFocusedEvent = function (event) {
+        return this.dashboardState.focusedEvent === event.id;
+    };
+    EventListDayComponent.prototype.setTodayAsActiveDay = function ($event) {
+        if (!this.eventListOpen) {
+            this.eventListOpen = true;
         }
-        else {
-            this.dropdownState = 'open';
-        }
+    };
+    EventListDayComponent.prototype.toggleDropdownState = function ($event) {
+        // prevent event from triggering setTodayAsActiveDay
+        $event.stopPropagation();
+        this.eventListOpen = !this.eventListOpen;
+    };
+    EventListDayComponent.prototype.animationStateFrom = function (bool) {
+        return bool ? 'open' : 'closed';
+    };
+    EventListDayComponent.prototype.setFocusedEventTo = function (emEvent) {
+        // FIXME: think re best way to implement this.
+        // can use @Output to send a dom event out. Does state become an issue, then?
+        // Yeah, it totally does. How does an event-list-item know it's not the
+        // focused event any more?
+        // Service that manages all this bs / focuses events across different components?
+        // Bc it's quite a bridge between the Event-list and the resource-viewer. A lot easier
+        // to have events keep an eye on a shared focusedEvent variable that may match their id -
+        // also an easy way to implement repeated/grouped events highlighting. That may not even
+        // need a service.... OK, share state through object it is. Nvm about the service.
+        // NVM you already learned that passing a fucking state variable down the component tree
+        // is brittle and dumb. Use a damn service ugh
+        this.dashboardState.focusedEvent = emEvent.id;
     };
     EventListDayComponent.prototype.ngOnInit = function () {
         this.eventList = this.eventService.getEventsByDay(this.day);
@@ -31,6 +53,10 @@ var EventListDayComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], EventListDayComponent.prototype, "day", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], EventListDayComponent.prototype, "dashboardState", void 0);
     EventListDayComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

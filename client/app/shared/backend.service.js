@@ -60,7 +60,7 @@ var BackendService = (function () {
     };
     BackendService.prototype.generateEvent = function (start, end, availResources) {
         var event = {
-            id: Math.ceil(Math.random() * 1000),
+            id: Math.ceil(Math.random() * 10000).toString(16),
             name: this.generateEventName(),
             organizer: this.generateHumanName(),
             start: start,

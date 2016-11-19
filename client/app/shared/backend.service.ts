@@ -70,7 +70,7 @@ export class BackendService {
 
 		let event: EmEvent = {
 
-			id: 							Math.ceil(Math.random()*1000),
+			id: 							Math.ceil(Math.random()*10000).toString(16),
 			name:							this.generateEventName(),
 			organizer: 				this.generateHumanName(),
 			start:						start,
