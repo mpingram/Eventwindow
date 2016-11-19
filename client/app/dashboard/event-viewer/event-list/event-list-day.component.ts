@@ -15,8 +15,6 @@ import { EmEvent }						from '../../../shared/event';
 import { EventList }					from '../../../shared/event-list';
 import { EventService } 			from '../../../shared/event.service';
 
-import { DashboardStateObject }		from '../../dashboard-state-object';
-
 import { Moment }							from 'moment';
 
 @Component({
@@ -42,14 +40,14 @@ import { Moment }							from 'moment';
 export class EventListDayComponent implements OnInit {
 
 	@Input() day: Moment;
-	@Input() dashboardState: DashboardStateObject;
 	
 	public eventList: EventList;
 	public eventListIsEmpty: Observable<boolean>;
 	public eventListOpen: boolean = true;
 
 	public isFocusedEvent( event: EmEvent ): boolean {
-		return this.dashboardState.focusedEvent === event.id;
+		// debug
+		return false;
 	}
 
 	public setTodayAsActiveDay( $event: Event ): void {
@@ -83,10 +81,9 @@ export class EventListDayComponent implements OnInit {
 
 		// NVM you already learned that passing a fucking state variable down the component tree
 		// is brittle and dumb. Use a damn service ugh
-		this.dashboardState.focusedEvent = emEvent.id;
 	}
 
-	constructor( private eventService: EventService ) {
+	constructor( 	private eventService: EventService ) {
 	}
 	
 

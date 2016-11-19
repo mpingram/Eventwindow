@@ -11,9 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 //import { EmEvent } 							from '../shared/event';
 var event_service_1 = require('../shared/event.service');
+var dashboard_state_service_1 = require('./shared-dashboard/dashboard-state.service');
 var DashboardComponent = (function () {
-    function DashboardComponent(eventService) {
-        this.eventService = eventService;
+    function DashboardComponent() {
     }
     ;
     DashboardComponent = __decorate([
@@ -22,9 +22,9 @@ var DashboardComponent = (function () {
             template: '<em-event-viewer></em-event-viewer> \n <em-resource-viewer></em-resource-viewer>',
             // templateUrl: './app/dashboard/dashboard.component.html',
             styleUrls: ['./app/dashboard/dashboard.component.css'],
-            providers: [event_service_1.EventService]
+            providers: [event_service_1.EventService, dashboard_state_service_1.DashboardStateService]
         }), 
-        __metadata('design:paramtypes', [event_service_1.EventService])
+        __metadata('design:paramtypes', [])
     ], DashboardComponent);
     return DashboardComponent;
 }());

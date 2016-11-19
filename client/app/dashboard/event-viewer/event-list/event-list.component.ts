@@ -1,5 +1,7 @@
 import { Component } 	from '@angular/core';
 
+import { DashboardStateService }	from '../../shared-dashboard/dashboard-state.service';
+
 import { Moment }							from 'moment';
 declare const moment: any;
 
@@ -11,16 +13,27 @@ declare const moment: any;
 })
 export class EventListComponent {
 
+	// ----
 	public days: Moment[] = [];
+	public get focusedDay(): Moment {
+		return this.dashboardState.focusedDay;
+	};
+
+	// ----
+	public isFocusedDay( day: Moment ): boolean {
+		return day.isSame( this.focusedDay, 'day' );
+	}
 
 
-	constructor(){ 
+	constructor( private dashboardState: DashboardStateService ){ 
 		this.days = this.initializeDays();
 	};
 
+	// ----
 	private _today: Moment = moment().startOf('day');
 	private _defaultNumDays: number = 14;
 
+	// ----
 	private initializeDays(): Moment[] {
 
 		const numDays = this._defaultNumDays;

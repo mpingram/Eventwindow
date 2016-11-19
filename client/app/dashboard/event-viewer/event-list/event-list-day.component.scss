@@ -10,8 +10,14 @@
 
 	overflow: hidden;
 
-
 }
+
+:host.focused-day > .day-header-container > .date{
+	background-color: lighten( $gray-lighter, 3% );
+	//font-weight: bold;
+	//color: $col-focused-day-text-highlight;
+}
+
 .day-header-container{
 
 	padding: 0.5em 0.25em 0.5em 0;
@@ -39,7 +45,10 @@
 
 .day-inline{
 	float: left;
-	margin-left: 10px;
+	padding: 2px 5px;
+	margin-left: 5px;
+	border-radius: 4px;
+
 	display: inline-block;
 	text-align: center;
 
@@ -64,12 +73,18 @@
 	width: 35px;
 	border-radius: 4px;
 	//background-color: $col-bg;
-	border: 1px solid $gray-lightish;
+	border: 1px outset $gray-lightish;
 
 	transition: background-color 200ms ease,
 							border-color 200ms ease,
 							transform 200ms ease;
 }
+
+.collapse-button-container.expand-less{
+	border-style: inset;
+	background-color: darken( $col-bg, 5% );
+}
+
 
 .collapse-button-container:not(.inactive):hover{
 	background-color: darken( $gray-lighter, 5% );

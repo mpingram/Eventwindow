@@ -8,8 +8,9 @@
 		<span class='text-small'> {{ ( eventList | async )?.length !== 1 ? 'events' : 'event' }}</span>
 	</div>
 
-	<div (click)='toggleDropdownState( $event )' class='collapse-button-container' [class.inactive]='eventListIsEmpty | async'>
-		<i class='collapse-button material-icons md-dark'> {{ eventListOpen ? "expand_less" : "expand_more" }} </i>
+	<div (click)='toggleDropdownState( $event )' class='collapse-button-container' [class.inactive]='eventListIsEmpty | async' [class.expand-less]='eventListOpen' >
+		<!-- <i class='collapse-button material-icons md-dark' > {{ eventListOpen ? "expand_less" : "expand_more" }} </i> -->
+		<i class='collapse-button material-icons md-dark' >expand_more</i>
 	</div>
 
 </div>

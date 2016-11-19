@@ -9,13 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var dashboard_state_service_1 = require('../shared-dashboard/dashboard-state.service');
 var ResourceViewerComponent = (function () {
-    function ResourceViewerComponent() {
+    function ResourceViewerComponent(dashboardState) {
+        this.dashboardState = dashboardState;
+        this.resources = this.generateResources();
+        // private properties
+        // ------------------------------------------
         this._today = moment().startOf('day');
         this._date = this._today.clone();
-        this._resources = this.generateResources();
     }
     Object.defineProperty(ResourceViewerComponent.prototype, "currentDayIsToday", {
+        // public properties
+        // --------------------------------------
         get: function () {
             return this._today.isSame(this._date, 'day');
         },
@@ -29,36 +35,34 @@ var ResourceViewerComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ResourceViewerComponent.prototype, "resources", {
-        get: function () {
-            return this._resources;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    // public methods
+    // --------------------------------------
     ResourceViewerComponent.prototype.nextDay = function () {
         this._date.add(1, 'day');
+        this.setFocusedDay(this._date);
     };
     ResourceViewerComponent.prototype.prevDay = function () {
         this._date.subtract(1, 'day');
+        this.setFocusedDay(this._date);
     };
     ResourceViewerComponent.prototype.goToDate = function (targetDate) {
         this._date = targetDate.clone();
+        this.setFocusedDay(this._date);
     };
     ResourceViewerComponent.prototype.goToToday = function () {
         if (!this.currentDayIsToday) {
             this._date = this._today.clone();
+            this.setFocusedDay(this._date);
         }
+    };
+    ;
+    // private methods
+    // ------------------------------------------
+    ResourceViewerComponent.prototype.setFocusedDay = function (focusedDay) {
+        this.dashboardState.focusedDay = focusedDay;
     };
     // debug
     ResourceViewerComponent.prototype.generateResources = function () {
-        /*
-        let resourceTemplate: string = 'Room';
-        let resources: string[] = [];
-        for ( let i = 1; i < 20; i++ ){
-            resources.push( resourceTemplate + ' ' + i );
-        }
-        */
         var resources = [
             '120',
             '129',
@@ -82,7 +86,7 @@ var ResourceViewerComponent = (function () {
             templateUrl: './app/dashboard/resource-viewer/resource-viewer.component.html',
             styleUrls: ['./app/dashboard/resource-viewer/resource-viewer.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [dashboard_state_service_1.DashboardStateService])
     ], ResourceViewerComponent);
     return ResourceViewerComponent;
 }());

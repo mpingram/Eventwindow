@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
+import { DashboardStateService } from '../shared-dashboard/dashboard-state.service';
+
 import { Moment } from 'moment';
 declare const moment:any;
 
-import { ResourceSchedulerComponent } from './resource-scheduler.component';
 
 @Component({
 	selector: 'em-resource-viewer',
@@ -12,46 +13,57 @@ import { ResourceSchedulerComponent } from './resource-scheduler.component';
 })
 export class ResourceViewerComponent {
 
-	private _today: Moment = moment().startOf('day');
-	private _date: Moment = this._today.clone();
-
+	// public properties
+	// --------------------------------------
 	public get currentDayIsToday(): boolean{
 		return this._today.isSame( this._date, 'day' );
 	}
-
 	public get date(): Moment{
 		return this._date.clone();
 	}
+	public resources: string[] = this.generateResources();
 
-	private _resources: string[] = this.generateResources();
-	get resources(): String[] {
-		return this._resources;
+	// public methods
+	// --------------------------------------
+	public nextDay(): void {
+		this._date.add( 1, 'day' );
+		this.setFocusedDay( this._date );
 	}
-
-	public nextDay(){
-		this._date.add( 1, 'day' )
+	public prevDay(): void {
+		this._date.subtract( 1, 'day' );
+		this.setFocusedDay( this._date );
 	}
-	public prevDay(){
-		this._date.subtract( 1, 'day' )
-	}
-	public goToDate( targetDate: Moment ){
+	public goToDate( targetDate: Moment ): void {
 		this._date = targetDate.clone();
+		this.setFocusedDay( this._date );
 	}
-	public goToToday(){
+	public goToToday(): void {
 		if ( !this.currentDayIsToday ){
 			this._date = this._today.clone();
+			this.setFocusedDay( this._date );
 		}
+	}
+
+
+	constructor( private dashboardState: DashboardStateService ){ };
+
+
+	// private properties
+	// ------------------------------------------
+	private _today: Moment = moment().startOf('day');
+	private _date: Moment = this._today.clone();
+
+
+	// private methods
+	// ------------------------------------------
+	
+	private setFocusedDay( focusedDay: Moment ): void {
+		this.dashboardState.focusedDay = focusedDay;
 	}
 
 	// debug
 	private generateResources(): string[] {
-		/*
-		let resourceTemplate: string = 'Room';
-		let resources: string[] = [];
-		for ( let i = 1; i < 20; i++ ){
-			resources.push( resourceTemplate + ' ' + i );
-		}
-		*/
+
 		let resources: string[] = [
 			'120',
 			'129',

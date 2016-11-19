@@ -9,14 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var dashboard_state_service_1 = require('../../shared-dashboard/dashboard-state.service');
 var EventListComponent = (function () {
-    function EventListComponent() {
+    function EventListComponent(dashboardState) {
+        this.dashboardState = dashboardState;
+        // ----
         this.days = [];
+        // ----
         this._today = moment().startOf('day');
         this._defaultNumDays = 14;
         this.days = this.initializeDays();
     }
+    Object.defineProperty(EventListComponent.prototype, "focusedDay", {
+        get: function () {
+            return this.dashboardState.focusedDay;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ;
+    // ----
+    EventListComponent.prototype.isFocusedDay = function (day) {
+        return day.isSame(this.focusedDay, 'day');
+    };
+    ;
+    // ----
     EventListComponent.prototype.initializeDays = function () {
         var numDays = this._defaultNumDays;
         var lastDayIndex = this._defaultNumDays - 1;
@@ -36,7 +53,7 @@ var EventListComponent = (function () {
             templateUrl: 'event-list.component.html',
             styleUrls: ['event-list.component.css'],
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [dashboard_state_service_1.DashboardStateService])
     ], EventListComponent);
     return EventListComponent;
 }());

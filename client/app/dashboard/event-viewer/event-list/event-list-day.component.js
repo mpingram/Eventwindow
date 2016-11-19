@@ -16,7 +16,8 @@ var EventListDayComponent = (function () {
         this.eventListOpen = true;
     }
     EventListDayComponent.prototype.isFocusedEvent = function (event) {
-        return this.dashboardState.focusedEvent === event.id;
+        // debug
+        return false;
     };
     EventListDayComponent.prototype.setTodayAsActiveDay = function ($event) {
         if (!this.eventListOpen) {
@@ -43,7 +44,6 @@ var EventListDayComponent = (function () {
         // need a service.... OK, share state through object it is. Nvm about the service.
         // NVM you already learned that passing a fucking state variable down the component tree
         // is brittle and dumb. Use a damn service ugh
-        this.dashboardState.focusedEvent = emEvent.id;
     };
     EventListDayComponent.prototype.ngOnInit = function () {
         this.eventList = this.eventService.getEventsByDay(this.day);
@@ -53,10 +53,6 @@ var EventListDayComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], EventListDayComponent.prototype, "day", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], EventListDayComponent.prototype, "dashboardState", void 0);
     EventListDayComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
