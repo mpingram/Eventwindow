@@ -17,7 +17,7 @@ var ResourceViewerComponent = (function () {
         // private properties
         // ------------------------------------------
         this._today = moment().startOf('day');
-        this._date = this._today.clone();
+        this._date = this.dashboardState.focusedDay.clone();
     }
     Object.defineProperty(ResourceViewerComponent.prototype, "currentDayIsToday", {
         // public properties
@@ -30,7 +30,7 @@ var ResourceViewerComponent = (function () {
     });
     Object.defineProperty(ResourceViewerComponent.prototype, "date", {
         get: function () {
-            return this._date.clone();
+            return this.dashboardState.focusedDay.clone();
         },
         enumerable: true,
         configurable: true

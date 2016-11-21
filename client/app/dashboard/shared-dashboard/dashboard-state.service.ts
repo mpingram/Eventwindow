@@ -8,8 +8,12 @@ declare const moment:any;
 export class DashboardStateService {
 
 	public focusedEvent: string = '';
-	public focusedDay: Moment = this._today;
+	public focusedDay: Moment;
 
+	constructor(){
+		this.focusedDay = this._today.clone();
+	}
+	
 	private _today: Moment = moment().startOf('day');
 	
 }

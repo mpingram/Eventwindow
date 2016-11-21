@@ -12,8 +12,8 @@ var core_1 = require('@angular/core');
 var DashboardStateService = (function () {
     function DashboardStateService() {
         this.focusedEvent = '';
-        this.focusedDay = this._today;
         this._today = moment().startOf('day');
+        this.focusedDay = this._today.clone();
     }
     DashboardStateService = __decorate([
         core_1.Injectable(), 

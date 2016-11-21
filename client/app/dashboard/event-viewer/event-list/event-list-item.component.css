@@ -13,20 +13,24 @@
   transition: background-color 200ms ease, transform 200ms ease, -webkit-transform 200ms ease; }
 
 :host:hover {
-  -webkit-transform: translateX(1%);
-      -ms-transform: translateX(1%);
-          transform: translateX(1%);
+  -webkit-transform: translateX(0.5%);
+      -ms-transform: translateX(0.5%);
+          transform: translateX(0.5%);
   background-color: #f6f6f6; }
 
 :host:active {
-  -webkit-transform: translateX(0%);
-      -ms-transform: translateX(0%);
-          transform: translateX(0%); }
+  background-color: #f1f1f1 !important; }
 
 :host.focused {
   -webkit-transform: translateX(2%);
       -ms-transform: translateX(2%);
-          transform: translateX(2%); }
+          transform: translateX(2%);
+  background-color: #f9f9f9; }
+
+:host.focused > .event-link {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0); }
 
 .block {
   display: block;
@@ -84,6 +88,9 @@
   text-align: center; }
 
 .event-link {
+  -webkit-transform: translateX(80%);
+      -ms-transform: translateX(80%);
+          transform: translateX(80%);
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -99,17 +106,17 @@
   -webkit-transform-origin: center right;
       -ms-transform-origin: center right;
           transform-origin: center right;
-  transition: background-color 200ms ease, -webkit-transform 100ms ease;
-  transition: background-color 200ms ease, transform 100ms ease;
-  transition: background-color 200ms ease, transform 100ms ease, -webkit-transform 100ms ease; }
+  transition: background-color 200ms ease, -webkit-transform 150ms ease;
+  transition: background-color 200ms ease, transform 150ms ease;
+  transition: background-color 200ms ease, transform 150ms ease, -webkit-transform 150ms ease; }
 
 .event-link:hover {
   background-color: #d7d7d7;
-  -webkit-transform: scaleX(1.1);
-      -ms-transform: scaleX(1.1);
-          transform: scaleX(1.1); }
+  -webkit-transform: scaleX(1.1) !important;
+      -ms-transform: scaleX(1.1) !important;
+          transform: scaleX(1.1) !important; }
 
 .event-link:active {
-  -webkit-transform: scaleX(0.97);
-      -ms-transform: scaleX(0.97);
-          transform: scaleX(0.97); }
+  -webkit-transform: scaleX(0.97) !important;
+      -ms-transform: scaleX(0.97) !important;
+          transform: scaleX(0.97) !important; }

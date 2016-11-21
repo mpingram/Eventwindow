@@ -106,5 +106,10 @@
 	width: 24px;
 	display: block;
 	margin: 0 auto;
-}
 
+	transition: transform 200ms ease;
+
+}
+.collapse-button.point-up{
+	transform: scaleY(-1);
+}

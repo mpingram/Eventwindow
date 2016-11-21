@@ -12,7 +12,8 @@ var core_1 = require('@angular/core');
 var EventListItemComponent = (function () {
     function EventListItemComponent() {
     }
-    EventListItemComponent.prototype.openEventDetail = function () {
+    EventListItemComponent.prototype.openEventDetail = function ($event) {
+        $event.stopPropagation();
         // DEBUG
         console.log(JSON.stringify(this.event, null, 4));
     };

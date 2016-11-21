@@ -16,22 +16,24 @@
 
 	transition: background-color 200ms ease,
 							transform 200ms ease;
-
-
 }
 
 :host:hover{
-	transform: translateX(1%);
-	background-color: lighten( $gray-lighter, 3%);
+	transform: translateX(0.5%);
+	background-color: lighten( $gray-lighter, 3% );
 }
 
 :host:active{
-	transform: translateX(0%);
+	background-color: lighten( $gray-lighter, 1% ) !important;
 }
 
 :host.focused{
 	transform: translateX(2%);
+	background-color: lighten( $gray-lighter, 4% );
 }
+:host.focused > .event-link {
+	transform: translateX(0);
+} 
 
 .block{
 	display: block;
@@ -96,6 +98,8 @@
 }
 
 .event-link{
+	transform: translateX(80%);
+
 	user-select: none;
 	cursor: pointer;
 
@@ -110,12 +114,12 @@
 
 	transform-origin: center right;
 	transition: background-color 200ms ease,
-							transform 100ms ease;
+							transform 150ms ease;
 } 
 .event-link:hover{
 	background-color: darken( $gray-lighter, 9% );
-	transform: scaleX(1.1);
+	transform: scaleX(1.1) !important;
 }
 .event-link:active{
-	transform: scaleX(0.97);
+	transform: scaleX(0.97) !important;
 }

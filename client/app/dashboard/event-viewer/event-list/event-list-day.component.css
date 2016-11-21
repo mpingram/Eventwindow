@@ -87,4 +87,12 @@
           user-select: none;
   width: 24px;
   display: block;
-  margin: 0 auto; }
+  margin: 0 auto;
+  transition: -webkit-transform 200ms ease;
+  transition: transform 200ms ease;
+  transition: transform 200ms ease, -webkit-transform 200ms ease; }
+
+.collapse-button.point-up {
+  -webkit-transform: scaleY(-1);
+      -ms-transform: scaleY(-1);
+          transform: scaleY(-1); }

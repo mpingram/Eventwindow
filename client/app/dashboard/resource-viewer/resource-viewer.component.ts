@@ -19,7 +19,7 @@ export class ResourceViewerComponent {
 		return this._today.isSame( this._date, 'day' );
 	}
 	public get date(): Moment{
-		return this._date.clone();
+		return this.dashboardState.focusedDay.clone();
 	}
 	public resources: string[] = this.generateResources();
 
@@ -45,14 +45,17 @@ export class ResourceViewerComponent {
 	}
 
 
-	constructor( private dashboardState: DashboardStateService ){ };
+	constructor( private dashboardState: DashboardStateService ){ 
+		this._date = this.dashboardState.focusedDay.clone();
+	};
 
 
 	// private properties
 	// ------------------------------------------
 	private _today: Moment = moment().startOf('day');
-	private _date: Moment = this._today.clone();
-
+	// internal state tracker
+	// FIXME: possible synchronization errors?
+	private _date: Moment;
 
 	// private methods
 	// ------------------------------------------

@@ -9,8 +9,7 @@
 	</div>
 
 	<div (click)='toggleDropdownState( $event )' class='collapse-button-container' [class.inactive]='eventListIsEmpty | async' [class.expand-less]='eventListOpen' >
-		<!-- <i class='collapse-button material-icons md-dark' > {{ eventListOpen ? "expand_less" : "expand_more" }} </i> -->
-		<i class='collapse-button material-icons md-dark' >expand_more</i>
+		<i class='collapse-button material-icons md-dark' [class.point-up]='eventListOpen'>expand_more</i>
 	</div>
 
 </div>
@@ -21,7 +20,7 @@
 	<em-event-list-item 
 	*ngFor='let event of ( eventList | async )'
 	[event]='event'
-	(click)='setFocusedEventTo( event )'
+	(click)='toggleFocusedEvent( event )'
 	[class.focused]='isFocusedEvent( event )' >
 		
 	</em-event-list-item>
