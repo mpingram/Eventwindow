@@ -43,12 +43,14 @@ var BackendService = (function () {
         return arr[selection];
     };
     BackendService.prototype.selectFromAndRemove = function (arr) {
+        if (arr === undefined) {
+            return [undefined, undefined];
+        }
         var len = arr.length;
-        var selection = Math.floor(Math.random() * len);
-        var output = arr[selection];
-        // side effect: remove selection from array
-        arr = arr.slice(0, selection).concat(arr.slice(selection + 1));
-        return output;
+        var selectionIndex = Math.floor(Math.random() * len);
+        var selection = arr[selectionIndex];
+        var mutatedArray = arr.slice(0, selectionIndex).concat(arr.slice(selectionIndex + 1));
+        return [selection, mutatedArray];
     };
     BackendService.prototype.shallowCopyArray = function (arr) {
         return arr.slice();
@@ -62,7 +64,7 @@ var BackendService = (function () {
     BackendService.prototype.generateEventType = function () {
         return this.selectFrom(this.eventTypePool);
     };
-    BackendService.prototype.generateEvent = function (start, end, availResources) {
+    BackendService.prototype.generateEvent = function (start, end, selectedResource) {
         var event = {
             id: Math.ceil(Math.random() * 10000000).toString(16),
             name: this.generateEventName(),
@@ -71,7 +73,7 @@ var BackendService = (function () {
             start: start,
             end: end,
             repeating: false,
-            primaryResource: this.selectFrom(availResources)
+            primaryResource: selectedResource,
         };
         return event;
     };
@@ -89,9 +91,18 @@ var BackendService = (function () {
                 var eventEnd = currentDay.clone();
                 eventStart.hour(startTime);
                 eventEnd.hour(startTime).add(2, 'hours');
-                while (Math.random() > 0.1) {
-                    var event_1 = this.generateEvent(eventStart, eventEnd, availResources);
-                    events.push(event_1);
+                var continueProbability = 0.9;
+                while (Math.random() > (1 - continueProbability)) {
+                    var _a = this.selectFromAndRemove(availResources), resource = _a[0], mutatedArray = _a[1];
+                    var event_1 = void 0;
+                    if (resource !== undefined) {
+                        event_1 = this.generateEvent(eventStart, eventEnd, resource);
+                        events.push(event_1);
+                        availResources = mutatedArray;
+                    }
+                    // probability of further events falls as events are generated
+                    // to even out distribution across days
+                    continueProbability -= 0.02;
                 }
             }
             // increment while loop

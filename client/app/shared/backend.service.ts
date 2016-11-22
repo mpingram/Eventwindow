@@ -48,12 +48,18 @@ export class BackendService {
 	}
 
 	private selectFromAndRemove( arr: any[] ): any {
-		const len = arr.length;
-		const selection = Math.floor(Math.random()*len);
-		let output = arr[selection];
-		// side effect: remove selection from array
-		arr = arr.slice(0,selection).concat(arr.slice(selection+1));
-		return output;
+
+		if ( arr === undefined ){
+			return [ undefined , undefined ];
+		}
+
+		const len: number = arr.length;
+		const selectionIndex: number = Math.floor(Math.random()*len);
+
+		const selection: any = arr[selectionIndex];
+		let mutatedArray: any[] = arr.slice(0,selectionIndex).concat(arr.slice(selectionIndex+1));
+
+		return [ selection, mutatedArray ];
 	}
 
 	private shallowCopyArray( arr: any[] ): any[] {
@@ -70,7 +76,7 @@ export class BackendService {
 		return this.selectFrom( this.eventTypePool );
 	}
 
-	private generateEvent( start: Moment, end: Moment, availResources: string[] ): EmEvent {
+	private generateEvent( start: Moment, end: Moment, selectedResource: string ): EmEvent {
 
 		let event: EmEvent = {
 
@@ -82,7 +88,7 @@ export class BackendService {
 			end : 						end,
 			repeating: 				false,
 
-			primaryResource: 	this.selectFrom( availResources )
+			primaryResource: 	selectedResource,
 
 		}
 		return event;
@@ -99,19 +105,32 @@ export class BackendService {
 
 		let currentDay = rangeStart.clone();
 
-		while( currentDay.isBefore(rangeEnd) ) {
+		while( currentDay.isBefore( rangeEnd ) ) {
 
 			for ( let startTime = 8; startTime < 16; startTime += 4 ){
-				let availResources = this.shallowCopyArray(this.resourcesPool);
+
+				let availResources = this.shallowCopyArray( this.resourcesPool );
 				let eventStart = currentDay.clone();
 				let eventEnd = currentDay.clone();
 
 				eventStart.hour(startTime);
 				eventEnd.hour(startTime).add(2,'hours');
 				
-				while ( Math.random() > 0.1 ){
-					let event = this.generateEvent( eventStart, eventEnd, availResources );
-					events.push( event );
+				let continueProbability = 0.9;
+				while ( Math.random() > ( 1 - continueProbability ) ){
+
+					let [ resource, mutatedArray ] = this.selectFromAndRemove( availResources );
+					let event: EmEvent;
+
+					if ( resource !== undefined ){
+						event = this.generateEvent( eventStart, eventEnd, resource );
+						events.push( event );
+						availResources = mutatedArray;
+					}
+
+					// probability of further events falls as events are generated
+					// to even out distribution across days
+					continueProbability -= 0.02;
 				}
 			}
 
