@@ -10,11 +10,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var DashboardStateService = (function () {
+    // ------------------------------------------
     function DashboardStateService() {
-        this.focusedEvent = '';
+        this._focusedEvent = '';
+        this._highlightedEvent = '';
         this._today = moment().startOf('day');
+        this._eventTypeColorMap = {
+            'Class': '#2E86AB',
+            'Meeting': '#4B3F72',
+            'Internal Event': '#FFC857',
+            'External Event': '#FF1500'
+        };
         this.focusedDay = this._today.clone();
     }
+    Object.defineProperty(DashboardStateService.prototype, "focusedEvent", {
+        // get and set event focus
+        // -------------------------------------
+        get: function () { return this._focusedEvent; },
+        set: function (eventId) {
+            this._focusedEvent = eventId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(DashboardStateService.prototype, "highlightedEvent", {
+        get: function () { return this._highlightedEvent; },
+        set: function (eventId) {
+            if (this._focusedEvent !== eventId) {
+                this._highlightedEvent = eventId;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(DashboardStateService.prototype, "focusedDay", {
+        get: function () { return this._focusedDay; },
+        set: function (day) {
+            this._focusedDay = day;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    //--------------------------------------
+    // event color map
+    // -----------------------------------------
+    DashboardStateService.prototype.getColorOf = function (eventType) {
+        return this._eventTypeColorMap[eventType];
+    };
     DashboardStateService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

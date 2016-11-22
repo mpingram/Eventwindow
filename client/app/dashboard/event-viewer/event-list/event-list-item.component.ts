@@ -20,6 +20,9 @@ export class EventListItemComponent{
 		// DEBUG
 		console.log( JSON.stringify( this.event, null, 4 ) );
 	}
+	public getColorOf( eventType: string ){
+		return this.dashboardState.getColorOf( eventType );
+	}
 
 	public dateToClockTime(momentObj): string {
 		return momentObj.format('h:mm')
@@ -29,5 +32,9 @@ export class EventListItemComponent{
 		return momentObj.format('a');
 	}
 
+
+	constructor( private dashboardState: DashboardStateService ){
+		
+	}
 
 }

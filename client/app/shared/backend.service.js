@@ -48,6 +48,7 @@ var BackendService = (function () {
         var output = arr[selection];
         // side effect: remove selection from array
         arr = arr.slice(0, selection).concat(arr.slice(selection + 1));
+        return output;
     };
     BackendService.prototype.shallowCopyArray = function (arr) {
         return arr.slice();
@@ -58,11 +59,15 @@ var BackendService = (function () {
     BackendService.prototype.generateEventName = function () {
         return this.selectFrom(this.eventTitlePool) + ' ' + this.selectFrom(this.eventSubtitlePool);
     };
+    BackendService.prototype.generateEventType = function () {
+        return this.selectFrom(this.eventTypePool);
+    };
     BackendService.prototype.generateEvent = function (start, end, availResources) {
         var event = {
             id: Math.ceil(Math.random() * 10000000).toString(16),
             name: this.generateEventName(),
             organizer: this.generateHumanName(),
+            type: this.generateEventType(),
             start: start,
             end: end,
             repeating: false,

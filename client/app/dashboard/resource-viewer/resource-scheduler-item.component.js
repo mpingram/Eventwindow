@@ -9,9 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var dashboard_state_service_1 = require('../shared-dashboard/dashboard-state.service');
 var ResourceSchedulerItemComponent = (function () {
-    function ResourceSchedulerItemComponent() {
+    function ResourceSchedulerItemComponent(dashboardState) {
+        this.dashboardState = dashboardState;
     }
+    ResourceSchedulerItemComponent.prototype.getColorOf = function (eventType) {
+        return this.dashboardState.getColorOf(eventType);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -23,7 +28,7 @@ var ResourceSchedulerItemComponent = (function () {
             templateUrl: './resource-scheduler-item.component.html',
             styleUrls: ['./resource-scheduler-item.component.css'],
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [dashboard_state_service_1.DashboardStateService])
     ], ResourceSchedulerItemComponent);
     return ResourceSchedulerItemComponent;
 }());

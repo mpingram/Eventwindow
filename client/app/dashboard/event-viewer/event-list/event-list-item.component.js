@@ -9,13 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var dashboard_state_service_1 = require('../../shared-dashboard/dashboard-state.service');
 var EventListItemComponent = (function () {
-    function EventListItemComponent() {
+    function EventListItemComponent(dashboardState) {
+        this.dashboardState = dashboardState;
     }
     EventListItemComponent.prototype.openEventDetail = function ($event) {
         $event.stopPropagation();
         // DEBUG
         console.log(JSON.stringify(this.event, null, 4));
+    };
+    EventListItemComponent.prototype.getColorOf = function (eventType) {
+        return this.dashboardState.getColorOf(eventType);
     };
     EventListItemComponent.prototype.dateToClockTime = function (momentObj) {
         return momentObj.format('h:mm');
@@ -34,7 +39,7 @@ var EventListItemComponent = (function () {
             templateUrl: 'event-list-item.component.html',
             styleUrls: ['event-list-item.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [dashboard_state_service_1.DashboardStateService])
     ], EventListItemComponent);
     return EventListItemComponent;
 }());

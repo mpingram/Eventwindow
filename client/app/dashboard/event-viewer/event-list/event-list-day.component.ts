@@ -72,7 +72,6 @@ export class EventListDayComponent implements OnInit {
 		} else {
 			this.setFocusedEventTo( event );
 		}
-
 	}
 
 
