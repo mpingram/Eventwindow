@@ -18,6 +18,8 @@ import { EventService } from '../../shared/event.service';
 import { EmEvent } 				from '../../shared/event';
 import { EventList }			from '../../shared/event-list';
 
+import { DashboardStateService } from '../shared-dashboard/dashboard-state.service';
+
 @Component({
 	moduleId: module.id,
 	selector: 'em-resource-scheduler',
@@ -31,6 +33,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 	@Input() date: Moment;
 	// used to measure height and compute hourInPx
 	@ViewChild( 'timeAxis' ) timeAxisElement: ElementRef;
+
 	
 	// public properties
 	// -----------------------
@@ -51,48 +54,14 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 		}
 	}
 
-	// private properties
-	// ------------------------
-	private _eventsGroupedByResource: Observable< GroupedObservable<string, EmEvent> >;
-
-	private _viewInitialized = false;
-
-	private _hourInPx: number;
-	// TODO: config object to configure default time range
-	private _defaultTimeRange: number[] = [ 7, 20 ];
-	private _timeRange: number[] = this._defaultTimeRange;
-	private _numHoursInRange: number = this._timeRange[1] - this._timeRange[0];
 	
-
-	// --------------------------
-	
-
-
-
-	constructor( private eventService: EventService ) { }
-
-	ngOnInit(){
-
-		this.timeSlotList = this.initializeTimeSlotList();
-		this.firstTimeSlotStart = this.timeSlotList[ 0 ];
-
-		this.eventList = this.eventService.getEventsByDay( this.date );
-		this._eventsGroupedByResource = this.groupEventsByResource();
-	}
-
-	ngAfterViewInit(){
-		this._viewInitialized = true;
-		this._hourInPx = this.measureHourInPixels();
-	}
-
-	ngOnChanges(){
-		this.eventList = this.eventService.getEventsByDay( this.date );
-		this._eventsGroupedByResource = this.groupEventsByResource();
-	}
-
 
 	// public methods
 	// ----------------------------------------
+	public isFocusedEvent( event: EmEvent ): boolean {
+		return this.dashboardState.focusedEvent === event.id;
+	}
+
 	public getEventsByResource( resourceName: string ) : EventList {
 
 		return this._eventsGroupedByResource.find(
@@ -155,6 +124,49 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	}
 
+	// ==============================================================
+
+
+	constructor( private eventService: EventService,
+								private dashboardState: DashboardStateService ) { }
+
+	ngOnInit(){
+
+		this.timeSlotList = this.initializeTimeSlotList();
+		this.firstTimeSlotStart = this.timeSlotList[ 0 ];
+
+		this.eventList = this.eventService.getEventsByDay( this.date );
+		this._eventsGroupedByResource = this.groupEventsByResource();
+	}
+
+	ngAfterViewInit(){
+		this._viewInitialized = true;
+		this._hourInPx = this.measureHourInPixels();
+	}
+
+	ngOnChanges(){
+		this.eventList = this.eventService.getEventsByDay( this.date );
+		this._eventsGroupedByResource = this.groupEventsByResource();
+	}
+
+
+
+	// ===========================================================
+
+	// private properties
+	// ------------------------
+	private _eventsGroupedByResource: Observable< GroupedObservable<string, EmEvent> >;
+
+	private _viewInitialized = false;
+
+	private _hourInPx: number;
+	// TODO: config object to configure default time range
+	private _defaultTimeRange: number[] = [ 7, 20 ];
+	private _timeRange: number[] = this._defaultTimeRange;
+	private _numHoursInRange: number = this._timeRange[1] - this._timeRange[0];
+	
+
+	// --------------------------
 
 	// private methods
 	// --------------------------------------

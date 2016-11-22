@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Observable_1 = require('rxjs/Observable');
 var event_service_1 = require('../../shared/event.service');
+var dashboard_state_service_1 = require('../shared-dashboard/dashboard-state.service');
 var ResourceSchedulerComponent = (function () {
-    // --------------------------
-    function ResourceSchedulerComponent(eventService) {
+    // ==============================================================
+    function ResourceSchedulerComponent(eventService, dashboardState) {
         this.eventService = eventService;
+        this.dashboardState = dashboardState;
         this.currentDayIsToday = moment().isSame(this.date, 'day');
         this._viewInitialized = false;
         // TODO: config object to configure default time range
@@ -35,22 +37,11 @@ var ResourceSchedulerComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    ResourceSchedulerComponent.prototype.ngOnInit = function () {
-        this.timeSlotList = this.initializeTimeSlotList();
-        this.firstTimeSlotStart = this.timeSlotList[0];
-        this.eventList = this.eventService.getEventsByDay(this.date);
-        this._eventsGroupedByResource = this.groupEventsByResource();
-    };
-    ResourceSchedulerComponent.prototype.ngAfterViewInit = function () {
-        this._viewInitialized = true;
-        this._hourInPx = this.measureHourInPixels();
-    };
-    ResourceSchedulerComponent.prototype.ngOnChanges = function () {
-        this.eventList = this.eventService.getEventsByDay(this.date);
-        this._eventsGroupedByResource = this.groupEventsByResource();
-    };
     // public methods
     // ----------------------------------------
+    ResourceSchedulerComponent.prototype.isFocusedEvent = function (event) {
+        return this.dashboardState.focusedEvent === event.id;
+    };
     ResourceSchedulerComponent.prototype.getEventsByResource = function (resourceName) {
         return this._eventsGroupedByResource.find(function (eventGroup) { return eventGroup.key === resourceName; }).flatMap(function (eventGroup) {
             if (eventGroup === undefined) {
@@ -90,6 +81,21 @@ var ResourceSchedulerComponent = (function () {
         time.add(timeSlotMinutes, 'minutes');
         return time.format('h:mm');
     };
+    ResourceSchedulerComponent.prototype.ngOnInit = function () {
+        this.timeSlotList = this.initializeTimeSlotList();
+        this.firstTimeSlotStart = this.timeSlotList[0];
+        this.eventList = this.eventService.getEventsByDay(this.date);
+        this._eventsGroupedByResource = this.groupEventsByResource();
+    };
+    ResourceSchedulerComponent.prototype.ngAfterViewInit = function () {
+        this._viewInitialized = true;
+        this._hourInPx = this.measureHourInPixels();
+    };
+    ResourceSchedulerComponent.prototype.ngOnChanges = function () {
+        this.eventList = this.eventService.getEventsByDay(this.date);
+        this._eventsGroupedByResource = this.groupEventsByResource();
+    };
+    // --------------------------
     // private methods
     // --------------------------------------
     // 
@@ -135,7 +141,7 @@ var ResourceSchedulerComponent = (function () {
             templateUrl: './resource-scheduler.component.html',
             styleUrls: ['./resource-scheduler.component.css'],
         }), 
-        __metadata('design:paramtypes', [event_service_1.EventService])
+        __metadata('design:paramtypes', [event_service_1.EventService, dashboard_state_service_1.DashboardStateService])
     ], ResourceSchedulerComponent);
     return ResourceSchedulerComponent;
 }());

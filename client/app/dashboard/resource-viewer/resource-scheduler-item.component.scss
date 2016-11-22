@@ -1,6 +1,8 @@
 @import '../../shared/styles/variables';
 
 :host{
+	z-index: 1;
+
 
 	display: block;
 	position: absolute;
@@ -15,6 +17,11 @@
 
 	font-size: 85%;
 
+	transition: background-color 200ms ease;
+}
+
+:host.focused{
+	background-color: lighten( $nice-blue-lighter, 10% );
 }
 
 .event-type{
@@ -25,12 +32,15 @@
 	text-align: center;
 	color: $gray;
 	font-size: 65%;
-	margin: 5px 2px;
+	margin: 5px 2px 0;
 	padding-bottom: 2px;
 	border-bottom: 1px solid $col-border-light;
 }
 
 .event-name{
+	padding: 4px 2px;
+	width: 100%;
+	height: 100%;
 	text-align: center;
 	
 }
