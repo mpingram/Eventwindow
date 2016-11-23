@@ -3,11 +3,9 @@
   "version": "0.0.0",
   "dependencies": {
     "moment": "^2.12.0",
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.3",
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "appPath": "app",
   "moduleName": "clientApp"
-  }
 }
