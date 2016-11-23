@@ -1,12 +1,12 @@
-<div class='block event-type-container'>
-	<div class='event-type' [style.background-color]='getColorOf(event.type)'>
+<div class='block event-type-color-bar-container'>
+	<div class='event-type-color-bar' [style.background-color]='eventTypeColor'>
 	</div>
 </div>
 <div class='block event-name'>
 	<div class='horizontal-block event-title'>
 	{{event.name}}
 	</div>
-	<div class='horizontal-block event-organizer text-light'>
+	<div class='horizontal-block float-left event-organizer text-light'>
 	{{event.organizer}}
 	</div>
 </div>

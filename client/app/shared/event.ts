@@ -5,6 +5,7 @@ export interface EmEvent {
 	id: 				string;
 	name: 			string;
 	type:				string;
+	typeAbbreviation: string;
 	organizer: 	string;
 	start: 			Moment;
 	end: 				Moment;

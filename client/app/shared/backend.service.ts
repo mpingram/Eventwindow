@@ -40,6 +40,12 @@ export class BackendService {
 	private lastNamePool: string[] = ['Nye', 'Hatfield', 'Herring', 'Lee', 'Li', 'Heaton', 'Cohen', 'Tomlinson', 'Brenner', 'Butler', 'King', 'Morris', 'Bungleton', 'Powerhat', 'Dolphin', 'the Goblin King', 'Goethe', 'Yang', 'Brown', 'Foghorn', 'Colton', 'Dongus'];
 	private resourcesPool: string[] = ['EI', 'EII', 'EIII','EIV', 'WIa', 'WIb', 'WII', 'WIII', 'WIV', 'Lobby', 'Library', '120', '129'];
 	private eventTypePool: string[] = ['Class', 'Meeting', 'Internal Event', 'External Event'];
+	private abbreviationMap: Object = {
+		'Class':'C',
+		'Meeting': 'M',
+		'Internal Event': 'IE',
+		'External Event': 'EE'
+	}
 
 	private selectFrom( arr: any[] ): any {
 		const len = arr.length;
@@ -78,12 +84,16 @@ export class BackendService {
 
 	private generateEvent( start: Moment, end: Moment, selectedResource: string ): EmEvent {
 
+		const generatedEventType = this.generateEventType();
+		const eventTypeAbbreviation = this.abbreviationMap[ generatedEventType ];
+
 		let event: EmEvent = {
 
 			id: 							Math.ceil( Math.random()*10000000 ).toString(16),
 			name:							this.generateEventName(),
 			organizer: 				this.generateHumanName(),
-			type: 						this.generateEventType(),
+			type: 						generatedEventType,
+			typeAbbreviation: eventTypeAbbreviation,
 			start:						start,
 			end : 						end,
 			repeating: 				false,

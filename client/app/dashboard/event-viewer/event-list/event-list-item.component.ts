@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EmEvent } from '../../../shared/event';
 
 import { DashboardStateService } from '../../shared-dashboard/dashboard-state.service';
@@ -11,17 +11,16 @@ declare const moment: any;
 	templateUrl: 'event-list-item.component.html',
 	styleUrls: ['event-list-item.component.css']
 })
-export class EventListItemComponent{
+export class EventListItemComponent implements OnInit {
 
 	@Input() event: EmEvent;
+
+	public eventTypeColor: string;
 
 	public openEventDetail( $event ): void {
 		$event.stopPropagation();
 		// DEBUG
 		console.log( JSON.stringify( this.event, null, 4 ) );
-	}
-	public getColorOf( eventType: string ){
-		return this.dashboardState.getColorOf( eventType );
 	}
 
 	public dateToClockTime(momentObj): string {
@@ -34,7 +33,9 @@ export class EventListItemComponent{
 
 
 	constructor( private dashboardState: DashboardStateService ){
-		
 	}
 
+	ngOnInit(){
+		this.eventTypeColor = this.dashboardState.getColorOf( this.event.type );
+	}
 }

@@ -19,14 +19,14 @@ var EventListItemComponent = (function () {
         // DEBUG
         console.log(JSON.stringify(this.event, null, 4));
     };
-    EventListItemComponent.prototype.getColorOf = function (eventType) {
-        return this.dashboardState.getColorOf(eventType);
-    };
     EventListItemComponent.prototype.dateToClockTime = function (momentObj) {
         return momentObj.format('h:mm');
     };
     EventListItemComponent.prototype.dateToAMPM = function (momentObj) {
         return momentObj.format('a');
+    };
+    EventListItemComponent.prototype.ngOnInit = function () {
+        this.eventTypeColor = this.dashboardState.getColorOf(this.event.type);
     };
     __decorate([
         core_1.Input(), 
