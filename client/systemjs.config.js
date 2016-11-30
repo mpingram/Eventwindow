@@ -51,12 +51,6 @@
       	type: 'cjs',
       	defaultExtension: 'js'
       },
-      /*
-      'web-animations-js': {
-      	main: './web-animations-next.min.js',
-      	defaultExtension: 'js'
-      }
-      */
     }
   });
 })(this);

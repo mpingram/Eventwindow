@@ -17,11 +17,17 @@
 
 	font-size: 85%;
 
-	transition: background-color 200ms ease;
+	transition: background-color 200ms ease,
+							transform 200ms ease,
+							box-shadow 200ms ease;
 }
 
 :host.focused{
-	background-color: lighten( $nice-blue-lighter, 10% );
+	transform: translateY(-1%);
+	z-index: 21;
+	//border-color: yellow;
+	//background-color: #a5caff;
+	box-shadow: 3px 3px 5px 2px #777;
 }
 
 .event-type{
