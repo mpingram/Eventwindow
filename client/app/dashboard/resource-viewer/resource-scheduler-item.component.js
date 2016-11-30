@@ -13,17 +13,7 @@ var dashboard_state_service_1 = require('../shared-dashboard/dashboard-state.ser
 var ResourceSchedulerItemComponent = (function () {
     function ResourceSchedulerItemComponent(dashboardState) {
         this.dashboardState = dashboardState;
-        this.hostFocused = this.isFocusedEvent;
     }
-    Object.defineProperty(ResourceSchedulerItemComponent.prototype, "isFocusedEvent", {
-        get: function () {
-            if (this.event !== undefined) {
-                return this.dashboardState.focusedEvent === this.event.id;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     ResourceSchedulerItemComponent.prototype.getColorOf = function (eventType) {
         return this.dashboardState.getColorOf(eventType);
     };
@@ -31,10 +21,6 @@ var ResourceSchedulerItemComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], ResourceSchedulerItemComponent.prototype, "event", void 0);
-    __decorate([
-        core_1.HostBinding('class.focused'), 
-        __metadata('design:type', Boolean)
-    ], ResourceSchedulerItemComponent.prototype, "hostFocused", void 0);
     ResourceSchedulerItemComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

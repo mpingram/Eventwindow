@@ -1,5 +1,5 @@
 
-<div class='day-header-container' (click)='setTodayAsActiveDay( $event )' [class.inactive]='eventListIsEmpty | async'>
+<div class='day-header-container' (click)='dayHeaderClickHandler()' [class.inactive]='eventListIsEmpty | async'>
 	<div class='day-inline date' >
 	{{ day.format('MMMM D, YYYY') }}
 	</div>

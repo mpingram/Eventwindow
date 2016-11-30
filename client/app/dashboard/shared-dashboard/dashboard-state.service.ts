@@ -14,7 +14,13 @@ export class DashboardStateService {
 	public get focusedDay(): Moment  				{ return this._focusedDay };
 
 	public set focusedEvent( eventId: string ){
-		this._focusedEvent = eventId;
+		// toggle focus event
+		if ( this._focusedEvent !== eventId ){
+			this._focusedEvent = eventId;
+
+		} else {
+			this._focusedEvent = '';
+		}
 	}
 	public set focusedDay( day: Moment ){
 		this._focusedDay = day;

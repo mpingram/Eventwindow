@@ -37,8 +37,9 @@
 				[ngStyle]="{ 
 					'top': calculateEventPixelsFromTop( event ), 'height': calculateEventHeight( event ) 
 				}"
-				[class.focused]='isFocusedEvent( event )'
-				(click)='toggleFocusedEvent( event )'
+				[ngClass]="{
+					'focused': isFocusedEvent( event )
+				}"
 			>
 			</em-resource-scheduler-item>
 			

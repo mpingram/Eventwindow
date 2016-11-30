@@ -19,3 +19,9 @@
   -webkit-align-content: stretch;
       -ms-flex-line-pack: stretch;
           align-content: stretch; }
+
+.event-viewer-header {
+  -webkit-flex: 0 0 41px;
+      -ms-flex: 0 0 41px;
+          flex: 0 0 41px;
+  width: 100%; }

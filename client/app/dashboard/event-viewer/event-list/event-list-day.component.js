@@ -20,13 +20,22 @@ var EventListDayComponent = (function () {
     EventListDayComponent.prototype.isFocusedEvent = function (event) {
         return this.dashboardState.focusedEvent === event.id;
     };
-    EventListDayComponent.prototype.setTodayAsActiveDay = function ($event) {
-        this.dashboardState.focusedDay = this.day;
-        this.eventListOpen = !this.eventListOpen;
+    EventListDayComponent.prototype.setActiveDay = function (day) {
+        this.dashboardState.focusedDay = day;
     };
-    EventListDayComponent.prototype.toggleDropdownState = function ($event) {
-        // prevent event from triggering setTodayAsActiveDay
-        $event.stopPropagation();
+    EventListDayComponent.prototype.dayHeaderClickHandler = function () {
+        // open event list if closed
+        if (this.eventListOpen === false) {
+            this.eventListOpen = true;
+        }
+        // set active day
+        this.setActiveDay(this.day);
+    };
+    EventListDayComponent.prototype.toggleDropdownState = function (domEvent) {
+        if (domEvent !== undefined) {
+            // prevent event from triggering setTodayAsActiveDay
+            domEvent.stopPropagation();
+        }
         this.eventListOpen = !this.eventListOpen;
     };
     EventListDayComponent.prototype.animationStateFrom = function (bool) {
@@ -37,6 +46,7 @@ var EventListDayComponent = (function () {
             this.unsetFocusedEvent();
         }
         else {
+            this.setActiveDay(event.start);
             this.setFocusedEventTo(event);
         }
     };

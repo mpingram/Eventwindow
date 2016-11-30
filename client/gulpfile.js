@@ -108,7 +108,7 @@ gulp.task('watch', ['browserSync','sassCompile'], function(){
 
 // build production dist dir
 gulp.task('build', function(callback){
-	runSequence('clean:dist', ['moveBowerComponents','moveFavicon','sassCompile', 'imagemin','useref'], callback );
+	runSequence('clean:dist', ['moveBowerComponents','moveFavicon','sassCompile','imagemin','useref'], callback );
 });
 
 // compile sass, launch server, and watch

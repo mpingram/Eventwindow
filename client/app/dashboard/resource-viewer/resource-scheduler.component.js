@@ -40,6 +40,7 @@ var ResourceSchedulerComponent = (function () {
     // public methods
     // ----------------------------------------
     ResourceSchedulerComponent.prototype.isFocusedEvent = function (event) {
+        ;
         return this.dashboardState.focusedEvent === event.id;
     };
     ResourceSchedulerComponent.prototype.toggleFocusedEvent = function (event) {

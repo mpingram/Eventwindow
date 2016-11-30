@@ -7,14 +7,15 @@ import { Component,
 	ElementRef,
 } from '@angular/core';
 
-import { Observable } 			from 'rxjs/Observable';
+
+import { Observable } 				from 'rxjs/Observable';
 import { GroupedObservable } 	from 'rxjs/operator/groupBy';
 
 
-import { Moment } 			from 'moment';
+import { Moment } from 'moment';
 declare const moment: any;
 
-import { EventService } from '../../shared/event.service';
+import { EventService }		from '../../shared/event.service';
 import { EmEvent } 				from '../../shared/event';
 import { EventList }			from '../../shared/event-list';
 
@@ -58,7 +59,7 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 
 	// public methods
 	// ----------------------------------------
-	public isFocusedEvent( event: EmEvent ): boolean {
+	public isFocusedEvent( event: EmEvent ): boolean {;
 		return this.dashboardState.focusedEvent === event.id;
 	}
 

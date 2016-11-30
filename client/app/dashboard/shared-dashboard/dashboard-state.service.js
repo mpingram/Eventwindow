@@ -28,7 +28,13 @@ var DashboardStateService = (function () {
         // -------------------------------------
         get: function () { return this._focusedEvent; },
         set: function (eventId) {
-            this._focusedEvent = eventId;
+            // toggle focus event
+            if (this._focusedEvent !== eventId) {
+                this._focusedEvent = eventId;
+            }
+            else {
+                this._focusedEvent = '';
+            }
         },
         enumerable: true,
         configurable: true

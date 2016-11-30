@@ -51,14 +51,26 @@ export class EventListDayComponent implements OnInit {
 		return this.dashboardState.focusedEvent === event.id;
 	}
 
-	public setTodayAsActiveDay( $event: Event ): void {
-		this.dashboardState.focusedDay = this.day;
-		this.eventListOpen = !this.eventListOpen;
+	public setActiveDay( day: Moment ): void {
+		this.dashboardState.focusedDay = day;
 	}
 
-	public toggleDropdownState( $event: Event ): void {
-		// prevent event from triggering setTodayAsActiveDay
-		$event.stopPropagation();
+	public dayHeaderClickHandler(): void {
+		
+		// open event list if closed
+		if ( this.eventListOpen === false  ){
+			this.eventListOpen = true;
+		}
+		// set active day
+		this.setActiveDay( this.day );
+	}
+
+	public toggleDropdownState( domEvent?: Event ): void {
+		
+		if ( domEvent !== undefined ){
+			// prevent event from triggering setTodayAsActiveDay
+			domEvent.stopPropagation();
+		} 
 		this.eventListOpen = !this.eventListOpen;
 	}
 
@@ -70,6 +82,7 @@ export class EventListDayComponent implements OnInit {
 		if ( this.dashboardState.focusedEvent === event.id ){
 			this.unsetFocusedEvent();
 		} else {
+			this.setActiveDay( event.start );
 			this.setFocusedEventTo( event );
 		}
 	}
