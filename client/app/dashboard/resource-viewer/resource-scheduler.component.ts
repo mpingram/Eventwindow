@@ -62,6 +62,16 @@ export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnI
 		return this.dashboardState.focusedEvent === event.id;
 	}
 
+	public toggleFocusedEvent( event: EmEvent ): void {
+
+		if ( this.isFocusedEvent( event ) === false ){
+			this.dashboardState.focusedEvent = event.id;
+
+		} else {
+			this.dashboardState.focusedEvent = undefined;
+		}
+	}
+
 	public getEventsByResource( resourceName: string ) : EventList {
 
 		return this._eventsGroupedByResource.find(

@@ -42,6 +42,14 @@ var ResourceSchedulerComponent = (function () {
     ResourceSchedulerComponent.prototype.isFocusedEvent = function (event) {
         return this.dashboardState.focusedEvent === event.id;
     };
+    ResourceSchedulerComponent.prototype.toggleFocusedEvent = function (event) {
+        if (this.isFocusedEvent(event) === false) {
+            this.dashboardState.focusedEvent = event.id;
+        }
+        else {
+            this.dashboardState.focusedEvent = undefined;
+        }
+    };
     ResourceSchedulerComponent.prototype.getEventsByResource = function (resourceName) {
         return this._eventsGroupedByResource.find(function (eventGroup) { return eventGroup.key === resourceName; }).flatMap(function (eventGroup) {
             if (eventGroup === undefined) {
