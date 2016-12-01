@@ -22,10 +22,9 @@ import { EventList }			from '../../shared/event-list';
 import { DashboardStateService } from '../shared-dashboard/dashboard-state.service';
 
 @Component({
-	moduleId: module.id,
 	selector: 'em-resource-scheduler',
-	templateUrl: './resource-scheduler.component.html',
-	styleUrls: [ './resource-scheduler.component.css' ],
+	templateUrl: './app/dashboard/resource-viewer/resource-scheduler.component.html',
+	styleUrls: [ './app/dashboard/resource-viewer/resource-scheduler.component.css' ],
 })
 
 export class ResourceSchedulerComponent implements AfterViewInit, OnChanges, OnInit {

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var Observable_1 = require('rxjs/Observable');
-var backend_service_1 = require('./backend.service');
-var logger_service_1 = require('./logger.service');
-var EventService = (function () {
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BackendService } from './backend.service';
+import { Logger } from './logger.service';
+export let EventService = class EventService {
     // ============================================
-    function EventService(backend, logger) {
+    constructor(backend, logger) {
         this.backend = backend;
         this.logger = logger;
         this._defaultBufferRange = 14;
@@ -24,34 +23,29 @@ var EventService = (function () {
         this.loadEventBuffer(this._eventBufferStartDate, this._eventBufferEndDate);
         //this.getEventsByDay( this.today );
     }
-    EventService.prototype.getEventsByDay = function (day) {
-        var ISOStringKey = day.clone().startOf('day').toISOString();
-        var daysEvents = this.eventBuffer.find(function (obs) { return obs.key === ISOStringKey; }).flatMap(function (obs) {
+    getEventsByDay(day) {
+        let ISOStringKey = day.clone().startOf('day').toISOString();
+        let daysEvents = this.eventBuffer.find((obs) => obs.key === ISOStringKey).flatMap((obs) => {
             // if no result from find() method
             if (obs === undefined) {
-                return Observable_1.Observable.from([]);
+                return Observable.from([]);
             }
             else {
-                return Observable_1.Observable.from(obs.toArray());
+                return Observable.from(obs.toArray());
             }
         });
         return daysEvents;
-    };
-    Object.defineProperty(EventService.prototype, "today", {
-        get: function () {
-            return this._today.clone();
-        },
-        enumerable: true,
-        configurable: true
-    });
+    }
+    get today() {
+        return this._today.clone();
+    }
     // private methods
     // ---------------------------
-    EventService.prototype.loadEventBuffer = function (start, end) {
-        if (end === void 0) { end = start; }
+    loadEventBuffer(start, end = start) {
         // configures eventBuffer with multiple streams ( Observers ), one for
         // each day. Each stream can be selected using parentObservable.flatMap()
-        this.eventBuffer = this.backend.getEvents(start, end).groupBy(function (event) { return event.start.clone().startOf('day').toISOString(); });
-    };
+        this.eventBuffer = this.backend.getEvents(start, end).groupBy((event) => event.start.clone().startOf('day').toISOString());
+    }
     /*
     private sortEventIntoBuffer( event:EmEvent ): void {
 
@@ -69,17 +63,15 @@ var EventService = (function () {
         this._eventBuffer[ eventISODateString ].push(event);
     }
     */
-    EventService.prototype.observableErrorHandler = function (error) {
-        var errMsg = (error.message) ? error.message :
-            error.status ? error.status + " - " + error.statusText : 'Server error';
+    observableErrorHandler(error) {
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         this.logger.error(errMsg);
-        return Observable_1.Observable.throw(errMsg);
-    };
-    EventService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [backend_service_1.BackendService, logger_service_1.Logger])
-    ], EventService);
-    return EventService;
-}());
-exports.EventService = EventService;
+        return Observable.throw(errMsg);
+    }
+};
+EventService = __decorate([
+    Injectable(), 
+    __metadata('design:paramtypes', [BackendService, Logger])
+], EventService);
 //# sourceMappingURL=event.service.js.map

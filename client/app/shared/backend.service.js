@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var Observable_1 = require('rxjs/Observable');
-var logger_service_1 = require('./logger.service');
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Logger } from './logger.service';
 // FIXME: mock
-var BackendService = (function () {
-    function BackendService(logger) {
+export let BackendService = class BackendService {
+    constructor(logger) {
         this.logger = logger;
         // event generator
         // ------------------------
@@ -30,50 +29,50 @@ var BackendService = (function () {
             'External Event': 'EE'
         };
     }
-    BackendService.prototype.getEvents = function (rangeStart, rangeEnd) {
-        var eventObservable;
+    getEvents(rangeStart, rangeEnd) {
+        let eventObservable;
         if (rangeStart.isAfter(rangeEnd)) {
-            var errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
-            eventObservable = Observable_1.Observable.throw(errorMessage);
+            const errorMessage = 'Incorrect Moment arguments @ backendService.getEvents';
+            eventObservable = Observable.throw(errorMessage);
         }
         else {
-            var eventArray = this.generateEventArray(rangeStart, rangeEnd);
-            eventObservable = Observable_1.Observable.from(eventArray);
-            this.logger.log("Fetched " + eventArray.length + " events");
+            let eventArray = this.generateEventArray(rangeStart, rangeEnd);
+            eventObservable = Observable.from(eventArray);
+            this.logger.log(`Fetched ${eventArray.length} events`);
         }
         return eventObservable;
-    };
-    BackendService.prototype.selectFrom = function (arr) {
-        var len = arr.length;
-        var selection = Math.floor(Math.random() * len);
+    }
+    selectFrom(arr) {
+        const len = arr.length;
+        const selection = Math.floor(Math.random() * len);
         return arr[selection];
-    };
-    BackendService.prototype.selectFromAndRemove = function (arr) {
+    }
+    selectFromAndRemove(arr) {
         if (arr === undefined) {
             return [undefined, undefined];
         }
-        var len = arr.length;
-        var selectionIndex = Math.floor(Math.random() * len);
-        var selection = arr[selectionIndex];
-        var mutatedArray = arr.slice(0, selectionIndex).concat(arr.slice(selectionIndex + 1));
+        const len = arr.length;
+        const selectionIndex = Math.floor(Math.random() * len);
+        const selection = arr[selectionIndex];
+        let mutatedArray = arr.slice(0, selectionIndex).concat(arr.slice(selectionIndex + 1));
         return [selection, mutatedArray];
-    };
-    BackendService.prototype.shallowCopyArray = function (arr) {
+    }
+    shallowCopyArray(arr) {
         return arr.slice();
-    };
-    BackendService.prototype.generateHumanName = function () {
+    }
+    generateHumanName() {
         return this.selectFrom(this.firstNamePool) + ' ' + this.selectFrom(this.lastNamePool);
-    };
-    BackendService.prototype.generateEventName = function () {
+    }
+    generateEventName() {
         return this.selectFrom(this.eventTitlePool) + ' ' + this.selectFrom(this.eventSubtitlePool);
-    };
-    BackendService.prototype.generateEventType = function () {
+    }
+    generateEventType() {
         return this.selectFrom(this.eventTypePool);
-    };
-    BackendService.prototype.generateEvent = function (start, end, selectedResource) {
-        var generatedEventType = this.generateEventType();
-        var eventTypeAbbreviation = this.abbreviationMap[generatedEventType];
-        var event = {
+    }
+    generateEvent(start, end, selectedResource) {
+        const generatedEventType = this.generateEventType();
+        const eventTypeAbbreviation = this.abbreviationMap[generatedEventType];
+        let event = {
             id: Math.ceil(Math.random() * 10000000).toString(16),
             name: this.generateEventName(),
             organizer: this.generateHumanName(),
@@ -85,28 +84,28 @@ var BackendService = (function () {
             primaryResource: selectedResource,
         };
         return event;
-    };
-    BackendService.prototype.generateEventArray = function (rangeStart, rangeEnd) {
-        var events = [];
+    }
+    generateEventArray(rangeStart, rangeEnd) {
+        let events = [];
         // set rangeStart to 12am on day of rangeStart,
         // set rangeEnd to 11:59pm on day of rangeEnd
         rangeStart.startOf('day');
         rangeEnd.endOf('day');
-        var currentDay = rangeStart.clone();
+        let currentDay = rangeStart.clone();
         while (currentDay.isBefore(rangeEnd)) {
-            for (var startTime = 8; startTime < 16; startTime += 4) {
-                var availResources = this.shallowCopyArray(this.resourcesPool);
-                var eventStart = currentDay.clone();
-                var eventEnd = currentDay.clone();
+            for (let startTime = 8; startTime < 16; startTime += 4) {
+                let availResources = this.shallowCopyArray(this.resourcesPool);
+                let eventStart = currentDay.clone();
+                let eventEnd = currentDay.clone();
                 eventStart.hour(startTime);
                 eventEnd.hour(startTime).add(2, 'hours');
-                var continueProbability = 0.9;
+                let continueProbability = 0.9;
                 while (Math.random() > (1 - continueProbability)) {
-                    var _a = this.selectFromAndRemove(availResources), resource = _a[0], mutatedArray = _a[1];
-                    var event_1 = void 0;
+                    let [resource, mutatedArray] = this.selectFromAndRemove(availResources);
+                    let event;
                     if (resource !== undefined) {
-                        event_1 = this.generateEvent(eventStart, eventEnd, resource);
-                        events.push(event_1);
+                        event = this.generateEvent(eventStart, eventEnd, resource);
+                        events.push(event);
                         availResources = mutatedArray;
                     }
                     // probability of further events falls as events are generated
@@ -118,12 +117,10 @@ var BackendService = (function () {
             currentDay.add(1, 'day');
         }
         return events;
-    };
-    BackendService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [logger_service_1.Logger])
-    ], BackendService);
-    return BackendService;
-}());
-exports.BackendService = BackendService;
+    }
+};
+BackendService = __decorate([
+    Injectable(), 
+    __metadata('design:paramtypes', [Logger])
+], BackendService);
 //# sourceMappingURL=backend.service.js.map

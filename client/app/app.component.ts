@@ -11,7 +11,7 @@ import './shared/rxjs-operators';
 @Component({
 	selector: 'em-app',
 	templateUrl: './app/app.component.html',
-	styleUrls: [ './app/app.component.css', './app/shared/styles/ionicons.css' ],
+	styleUrls: [ './app/app.component.css'],
 	// register utility services for general use
 	providers: [BackendService, Logger]
 })

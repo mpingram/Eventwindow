@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,47 +7,43 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var app_routing_1 = require('./app.routing');
-var dashboard_component_1 = require('./dashboard/dashboard.component');
-var resource_viewer_component_1 = require('./dashboard/resource-viewer/resource-viewer.component');
-var resource_scheduler_component_1 = require('./dashboard/resource-viewer/resource-scheduler.component');
-var resource_scheduler_item_component_1 = require('./dashboard/resource-viewer/resource-scheduler-item.component');
-var event_viewer_component_1 = require('./dashboard/event-viewer/event-viewer.component');
-var event_list_component_1 = require('./dashboard/event-viewer/event-list/event-list.component');
-var event_list_day_component_1 = require('./dashboard/event-viewer/event-list/event-list-day.component');
-var event_list_item_component_1 = require('./dashboard/event-viewer/event-list/event-list-item.component');
-var AppModule = (function () {
-    function AppModule() {
-    }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                platform_browser_1.BrowserModule,
-                app_routing_1.routing
-            ],
-            // FIXME: organize into feature modules? Cut down on the # of components?
-            declarations: [
-                app_component_1.AppComponent,
-                dashboard_component_1.DashboardComponent,
-                resource_viewer_component_1.ResourceViewerComponent,
-                resource_scheduler_component_1.ResourceSchedulerComponent,
-                resource_scheduler_item_component_1.ResourceSchedulerItemComponent,
-                event_viewer_component_1.EventViewerComponent,
-                event_list_component_1.EventListComponent,
-                event_list_day_component_1.EventListDayComponent,
-                event_list_item_component_1.EventListItemComponent,
-            ],
-            providers: [
-                app_routing_1.appRoutingProviders
-            ],
-            bootstrap: [app_component_1.AppComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
-}());
-exports.AppModule = AppModule;
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { routing, appRoutingProviders } from './app.routing';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ResourceViewerComponent } from './dashboard/resource-viewer/resource-viewer.component';
+import { ResourceSchedulerComponent } from './dashboard/resource-viewer/resource-scheduler.component';
+import { ResourceSchedulerItemComponent } from './dashboard/resource-viewer/resource-scheduler-item.component';
+import { EventViewerComponent } from './dashboard/event-viewer/event-viewer.component';
+import { EventListComponent } from './dashboard/event-viewer/event-list/event-list.component';
+import { EventListDayComponent } from './dashboard/event-viewer/event-list/event-list-day.component';
+import { EventListItemComponent } from './dashboard/event-viewer/event-list/event-list-item.component';
+export let AppModule = class AppModule {
+};
+AppModule = __decorate([
+    NgModule({
+        imports: [
+            BrowserModule,
+            routing
+        ],
+        // FIXME: organize into feature modules? Cut down on the # of components?
+        declarations: [
+            AppComponent,
+            DashboardComponent,
+            ResourceViewerComponent,
+            ResourceSchedulerComponent,
+            ResourceSchedulerItemComponent,
+            EventViewerComponent,
+            EventListComponent,
+            EventListDayComponent,
+            EventListItemComponent,
+        ],
+        providers: [
+            appRoutingProviders
+        ],
+        bootstrap: [AppComponent]
+    }), 
+    __metadata('design:paramtypes', [])
+], AppModule);
 //# sourceMappingURL=app.module.js.map

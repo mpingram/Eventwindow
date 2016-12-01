@@ -6,10 +6,9 @@ import { Moment }							from 'moment';
 declare const moment: any;
 
 @Component({
-	moduleId: module.id,
 	selector: 'em-event-list',
-	templateUrl: 'event-list.component.html',
-	styleUrls: [ 'event-list.component.css' ],
+	templateUrl: './app/dashboard/event-viewer/event-list/event-list.component.html',
+	styleUrls: [ './app/dashboard/event-viewer/event-list/event-list.component.css' ],
 })
 export class EventListComponent {
 

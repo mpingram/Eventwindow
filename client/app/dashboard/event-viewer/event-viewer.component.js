@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,21 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var EventViewerComponent = (function () {
-    function EventViewerComponent() {
-    }
-    EventViewerComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'em-event-viewer',
-            templateUrl: 'event-viewer.component.html',
-            styleUrls: ['event-viewer.component.css',
-                '../../shared/styles/datepicker.component.css']
-        }), 
-        __metadata('design:paramtypes', [])
-    ], EventViewerComponent);
-    return EventViewerComponent;
-}());
-exports.EventViewerComponent = EventViewerComponent;
+import { Component } from '@angular/core';
+export let EventViewerComponent = class EventViewerComponent {
+};
+EventViewerComponent = __decorate([
+    Component({
+        selector: 'em-event-viewer',
+        templateUrl: './app/dashboard/event-viewer/event-viewer.component.html',
+        styleUrls: ['./app/dashboard/event-viewer/event-viewer.component.css']
+    }), 
+    __metadata('design:paramtypes', [])
+], EventViewerComponent);
 //# sourceMappingURL=event-viewer.component.js.map

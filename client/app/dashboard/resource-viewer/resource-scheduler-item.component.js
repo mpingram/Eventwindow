@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,29 +7,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var dashboard_state_service_1 = require('../shared-dashboard/dashboard-state.service');
-var ResourceSchedulerItemComponent = (function () {
-    function ResourceSchedulerItemComponent(dashboardState) {
+import { Component, Input } from '@angular/core';
+import { DashboardStateService } from '../shared-dashboard/dashboard-state.service';
+export let ResourceSchedulerItemComponent = class ResourceSchedulerItemComponent {
+    constructor(dashboardState) {
         this.dashboardState = dashboardState;
     }
-    ResourceSchedulerItemComponent.prototype.getColorOf = function (eventType) {
+    getColorOf(eventType) {
         return this.dashboardState.getColorOf(eventType);
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResourceSchedulerItemComponent.prototype, "event", void 0);
-    ResourceSchedulerItemComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'em-resource-scheduler-item',
-            templateUrl: './resource-scheduler-item.component.html',
-            styleUrls: ['./resource-scheduler-item.component.css'],
-        }), 
-        __metadata('design:paramtypes', [dashboard_state_service_1.DashboardStateService])
-    ], ResourceSchedulerItemComponent);
-    return ResourceSchedulerItemComponent;
-}());
-exports.ResourceSchedulerItemComponent = ResourceSchedulerItemComponent;
+    }
+};
+__decorate([
+    Input(), 
+    __metadata('design:type', Object)
+], ResourceSchedulerItemComponent.prototype, "event", void 0);
+ResourceSchedulerItemComponent = __decorate([
+    Component({
+        selector: 'em-resource-scheduler-item',
+        templateUrl: './app/dashboard/resource-viewer/resource-scheduler-item.component.html',
+        styleUrls: ['./app/dashboard/resource-viewer/resource-scheduler-item.component.css'],
+    }), 
+    __metadata('design:paramtypes', [DashboardStateService])
+], ResourceSchedulerItemComponent);
 //# sourceMappingURL=resource-scheduler-item.component.js.map

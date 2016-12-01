@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,25 +7,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-//import { EmEvent } 							from '../shared/event';
-var event_service_1 = require('../shared/event.service');
-var dashboard_state_service_1 = require('./shared-dashboard/dashboard-state.service');
-var DashboardComponent = (function () {
-    function DashboardComponent() {
+import { Component } from '@angular/core';
+import { EventService } from '../shared/event.service';
+import { DashboardStateService } from './shared-dashboard/dashboard-state.service';
+export let DashboardComponent = class DashboardComponent {
+    constructor() {
     }
     ;
-    DashboardComponent = __decorate([
-        core_1.Component({
-            selector: 'em-dashboard',
-            template: '<em-event-viewer></em-event-viewer> \n <em-resource-viewer></em-resource-viewer>',
-            // templateUrl: './app/dashboard/dashboard.component.html',
-            styleUrls: ['./app/dashboard/dashboard.component.css'],
-            providers: [event_service_1.EventService, dashboard_state_service_1.DashboardStateService]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], DashboardComponent);
-    return DashboardComponent;
-}());
-exports.DashboardComponent = DashboardComponent;
+};
+DashboardComponent = __decorate([
+    Component({
+        selector: 'em-dashboard',
+        template: '<em-event-viewer></em-event-viewer> \n <em-resource-viewer></em-resource-viewer>',
+        // templateUrl: './app/dashboard/dashboard.component.html',
+        styleUrls: ['./app/dashboard/dashboard.component.css'],
+        providers: [EventService, DashboardStateService]
+    }), 
+    __metadata('design:paramtypes', [])
+], DashboardComponent);
 //# sourceMappingURL=dashboard.component.js.map

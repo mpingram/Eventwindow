@@ -1,11 +1,9 @@
 import { 	Component } from '@angular/core';
 
 @Component({
-	moduleId: module.id,
 	selector: 'em-event-viewer',
-	templateUrl: 'event-viewer.component.html',
-	styleUrls: ['event-viewer.component.css',
-							'../../shared/styles/datepicker.component.css']
+	templateUrl: './app/dashboard/event-viewer/event-viewer.component.html',
+	styleUrls: ['./app/dashboard/event-viewer/event-viewer.component.css']
 })
 export class EventViewerComponent {
 }

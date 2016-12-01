@@ -20,10 +20,9 @@ import { DashboardStateService }	from '../../shared-dashboard/dashboard-state.se
 import { Moment }							from 'moment';
 
 @Component({
-	moduleId: module.id,
 	selector: 'em-event-list-day',
-	templateUrl: 'event-list-day.component.html',
-	styleUrls: [ 'event-list-day.component.css' ],
+	templateUrl: './app/dashboard/event-viewer/event-list/event-list-day.component.html',
+	styleUrls: [ './app/dashboard/event-viewer/event-list/event-list-day.component.css' ],
 
 	animations: [
 		trigger('openClosed', [

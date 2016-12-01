@@ -7,10 +7,9 @@ import { DashboardStateService } from '../shared-dashboard/dashboard-state.servi
 import { Moment } from 'moment';
 
 @Component({
-	moduleId: module.id,
 	selector: 'em-resource-scheduler-item',
-	templateUrl: './resource-scheduler-item.component.html',
-	styleUrls: [ './resource-scheduler-item.component.css' ],
+	templateUrl: './app/dashboard/resource-viewer/resource-scheduler-item.component.html',
+	styleUrls: [ './app/dashboard/resource-viewer/resource-scheduler-item.component.css' ],
 })
 
 export class ResourceSchedulerItemComponent {

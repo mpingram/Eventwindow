@@ -1,7 +1,6 @@
-"use strict";
-var router_1 = require('@angular/router');
-var dashboard_component_1 = require('./dashboard/dashboard.component');
-var appRoutes = [
+import { RouterModule } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+const appRoutes = [
     {
         path: '',
         redirectTo: 'dashboard',
@@ -9,9 +8,9 @@ var appRoutes = [
     },
     {
         path: 'dashboard',
-        component: dashboard_component_1.DashboardComponent
+        component: DashboardComponent
     }
 ];
-exports.appRoutingProviders = [];
-exports.routing = router_1.RouterModule.forRoot(appRoutes);
+export const appRoutingProviders = [];
+export const routing = RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routing.js.map

@@ -1,6 +1,3 @@
-import 'rxjs/Rx';   //all
-
-
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/from'; // FIXME: might be able to remove
 
@@ -10,3 +7,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/groupBy';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/find';
+import 'rxjs/add/operator/isEmpty';
+import 'rxjs/add/operator/toArray';

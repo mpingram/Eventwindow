@@ -6,10 +6,9 @@ import { DashboardStateService } from '../../shared-dashboard/dashboard-state.se
 declare const moment: any;
 
 @Component({
-	moduleId: module.id,
 	selector: 'em-event-list-item',
-	templateUrl: 'event-list-item.component.html',
-	styleUrls: ['event-list-item.component.css']
+	templateUrl: './app/dashboard/event-viewer/event-list/event-list-item.component.html',
+	styleUrls: ['./app/dashboard/event-viewer/event-list/event-list-item.component.css']
 })
 export class EventListItemComponent implements OnInit {
 

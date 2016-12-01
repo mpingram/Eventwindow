@@ -10,9 +10,11 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "clean": "gulp clean:dist",
-    "build": "npm run clean && npm run tsc",
-    "build:p": "npm run build && browserify -s main ../server/dist/main.js > dist/app-bundle.js && npm run minify" ,
-    "minify": " uglifyjs ../server/dist/bundle.js --screw-ie8 --compress --mangle --output dist/app-bundle.min.js" ,
+    "rollup": "rollup -f iife -c rollup.config.js -o ../server/dist/bundle.es2015.js",
+    "es5": "tsc --target es5 --allowJs ../server/dist/bundle.es2015.js --out ../server/dist/bundle.js",
+    "build": "tsc -p tsconfig.json",
+    "build:p": "gulp build && npm run build && npm run rollup && npm run es5 && npm run minify && gulp browserSync",
+    "minify": "uglifyjs ../server/dist/bundle.js --screw-ie8 --compress --mangle --output ../server/dist/app/main.js",
     "gulp": "gulp",
     "typings": "typings"
   },
@@ -31,10 +33,12 @@
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
+    "rxjs-es": "^5.0.0-beta.12",
     "systemjs": "0.19.39",
     "zone.js": "^0.6.25"
   },
   "devDependencies": {
+    "@types/node": "0.0.2",
     "autoprefixer": "^6.3.7",
     "autoprefixer-core": "^5.2.1",
     "browser-sync": "^2.12.10",
@@ -59,6 +63,8 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.2",
     "phantomjs-prebuilt": "^2.1.12",
+    "rollup": "^0.36.4",
+    "rollup-plugin-node-resolve": "^2.0.0",
     "run-sequence": "^1.2.1",
     "uglify-js": "^2.7.5"
   },

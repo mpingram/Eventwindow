@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var Observable_1 = require('rxjs/Observable');
-var event_service_1 = require('../../shared/event.service');
-var dashboard_state_service_1 = require('../shared-dashboard/dashboard-state.service');
-var ResourceSchedulerComponent = (function () {
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { EventService } from '../../shared/event.service';
+import { DashboardStateService } from '../shared-dashboard/dashboard-state.service';
+export let ResourceSchedulerComponent = class ResourceSchedulerComponent {
     // ==============================================================
-    function ResourceSchedulerComponent(eventService, dashboardState) {
+    constructor(eventService, dashboardState) {
         this.eventService = eventService;
         this.dashboardState = dashboardState;
         this.currentDayIsToday = moment().isSame(this.date, 'day');
@@ -24,135 +23,128 @@ var ResourceSchedulerComponent = (function () {
         this._timeRange = this._defaultTimeRange;
         this._numHoursInRange = this._timeRange[1] - this._timeRange[0];
     }
-    Object.defineProperty(ResourceSchedulerComponent.prototype, "timeSlotHeight", {
-        // allows lazy evaluation
-        get: function () {
-            if (this._hourInPx !== undefined) {
-                return this._hourInPx + 'px';
-            }
-            else {
-                return '40px';
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
+    // allows lazy evaluation
+    get timeSlotHeight() {
+        if (this._hourInPx !== undefined) {
+            return this._hourInPx + 'px';
+        }
+        else {
+            return '40px';
+        }
+    }
     // public methods
     // ----------------------------------------
-    ResourceSchedulerComponent.prototype.isFocusedEvent = function (event) {
+    isFocusedEvent(event) {
         ;
         return this.dashboardState.focusedEvent === event.id;
-    };
-    ResourceSchedulerComponent.prototype.toggleFocusedEvent = function (event) {
+    }
+    toggleFocusedEvent(event) {
         if (this.isFocusedEvent(event) === false) {
             this.dashboardState.focusedEvent = event.id;
         }
         else {
             this.dashboardState.focusedEvent = undefined;
         }
-    };
-    ResourceSchedulerComponent.prototype.getEventsByResource = function (resourceName) {
-        return this._eventsGroupedByResource.find(function (eventGroup) { return eventGroup.key === resourceName; }).flatMap(function (eventGroup) {
+    }
+    getEventsByResource(resourceName) {
+        return this._eventsGroupedByResource.find((eventGroup) => eventGroup.key === resourceName).flatMap((eventGroup) => {
             if (eventGroup === undefined) {
-                return Observable_1.Observable.from([]);
+                return Observable.from([]);
             }
             else {
-                return Observable_1.Observable.from(eventGroup.toArray());
+                return Observable.from(eventGroup.toArray());
             }
         });
-    };
-    ResourceSchedulerComponent.prototype.calculateEventPixelsFromTop = function (event) {
+    }
+    calculateEventPixelsFromTop(event) {
         if (this._viewInitialized && event !== undefined) {
-            var pixelsFromTop = void 0;
-            var eventStartTime = this.minutesFromMidnight(event.start);
-            var minutesFromStart = eventStartTime - this.firstTimeSlotStart;
-            var hoursFromStart = minutesFromStart / 60;
+            let pixelsFromTop;
+            const eventStartTime = this.minutesFromMidnight(event.start);
+            const minutesFromStart = eventStartTime - this.firstTimeSlotStart;
+            const hoursFromStart = minutesFromStart / 60;
             pixelsFromTop = hoursFromStart * this._hourInPx;
             return pixelsFromTop + 'px';
         }
         else {
             return 0 + 'px';
         }
-    };
-    ResourceSchedulerComponent.prototype.calculateEventHeight = function (event) {
+    }
+    calculateEventHeight(event) {
         if (this._viewInitialized && event !== undefined) {
-            var eventLengthInMinutes = event.end.diff(event.start, 'minutes');
-            var eventLengthInHours = eventLengthInMinutes / 60;
-            var eventLengthInPx = eventLengthInHours * this._hourInPx;
+            const eventLengthInMinutes = event.end.diff(event.start, 'minutes');
+            const eventLengthInHours = eventLengthInMinutes / 60;
+            const eventLengthInPx = eventLengthInHours * this._hourInPx;
             return eventLengthInPx + 'px';
         }
         else {
             return 0 + 'px';
         }
-    };
-    ResourceSchedulerComponent.prototype.displayClockTimeFromTimeSlot = function (timeSlotMinutes) {
-        var time = moment().startOf('day');
+    }
+    displayClockTimeFromTimeSlot(timeSlotMinutes) {
+        let time = moment().startOf('day');
         time.add(timeSlotMinutes, 'minutes');
         return time.format('h:mm');
-    };
-    ResourceSchedulerComponent.prototype.ngOnInit = function () {
+    }
+    ngOnInit() {
         this.timeSlotList = this.initializeTimeSlotList();
         this.firstTimeSlotStart = this.timeSlotList[0];
         this.eventList = this.eventService.getEventsByDay(this.date);
         this._eventsGroupedByResource = this.groupEventsByResource();
-    };
-    ResourceSchedulerComponent.prototype.ngAfterViewInit = function () {
+    }
+    ngAfterViewInit() {
         this._viewInitialized = true;
         this._hourInPx = this.measureHourInPixels();
-    };
-    ResourceSchedulerComponent.prototype.ngOnChanges = function () {
+    }
+    ngOnChanges() {
         this.eventList = this.eventService.getEventsByDay(this.date);
         this._eventsGroupedByResource = this.groupEventsByResource();
-    };
+    }
     // --------------------------
     // private methods
     // --------------------------------------
     // 
-    ResourceSchedulerComponent.prototype.groupEventsByResource = function () {
-        return this.eventList.flatMap(function (eventArr) { return Observable_1.Observable.from(eventArr); }).groupBy(function (event) { return event.primaryResource; });
-    };
-    ResourceSchedulerComponent.prototype.measureHourInPixels = function () {
-        var columnHeight = this.timeAxisElement.nativeElement.offsetHeight;
+    groupEventsByResource() {
+        return this.eventList.flatMap((eventArr) => Observable.from(eventArr)).groupBy((event) => event.primaryResource);
+    }
+    measureHourInPixels() {
+        const columnHeight = this.timeAxisElement.nativeElement.offsetHeight;
         return columnHeight / this._numHoursInRange;
-    };
-    ResourceSchedulerComponent.prototype.minutesFromMidnight = function (time) {
-        var midnight = time.clone().startOf('day');
+    }
+    minutesFromMidnight(time) {
+        let midnight = time.clone().startOf('day');
         return time.diff(midnight, 'minutes');
-    };
-    ResourceSchedulerComponent.prototype.initializeTimeSlotList = function () {
-        var timeSlotList = [];
-        var firstTimeSlotMoment = this.date.clone().startOf('day');
-        var start = this._timeRange[0];
-        var end = this._timeRange[1];
-        for (var i = start; i < end; i++) {
-            var timeSlot = firstTimeSlotMoment.clone();
+    }
+    initializeTimeSlotList() {
+        let timeSlotList = [];
+        const firstTimeSlotMoment = this.date.clone().startOf('day');
+        const start = this._timeRange[0];
+        const end = this._timeRange[1];
+        for (let i = start; i < end; i++) {
+            let timeSlot = firstTimeSlotMoment.clone();
             timeSlot.add(i, 'hours');
             timeSlotList.push(this.minutesFromMidnight(timeSlot));
         }
         return timeSlotList;
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], ResourceSchedulerComponent.prototype, "resources", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResourceSchedulerComponent.prototype, "date", void 0);
-    __decorate([
-        core_1.ViewChild('timeAxis'), 
-        __metadata('design:type', core_1.ElementRef)
-    ], ResourceSchedulerComponent.prototype, "timeAxisElement", void 0);
-    ResourceSchedulerComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'em-resource-scheduler',
-            templateUrl: './resource-scheduler.component.html',
-            styleUrls: ['./resource-scheduler.component.css'],
-        }), 
-        __metadata('design:paramtypes', [event_service_1.EventService, dashboard_state_service_1.DashboardStateService])
-    ], ResourceSchedulerComponent);
-    return ResourceSchedulerComponent;
-}());
-exports.ResourceSchedulerComponent = ResourceSchedulerComponent;
+    }
+};
+__decorate([
+    Input(), 
+    __metadata('design:type', Array)
+], ResourceSchedulerComponent.prototype, "resources", void 0);
+__decorate([
+    Input(), 
+    __metadata('design:type', Object)
+], ResourceSchedulerComponent.prototype, "date", void 0);
+__decorate([
+    ViewChild('timeAxis'), 
+    __metadata('design:type', ElementRef)
+], ResourceSchedulerComponent.prototype, "timeAxisElement", void 0);
+ResourceSchedulerComponent = __decorate([
+    Component({
+        selector: 'em-resource-scheduler',
+        templateUrl: './app/dashboard/resource-viewer/resource-scheduler.component.html',
+        styleUrls: ['./app/dashboard/resource-viewer/resource-scheduler.component.css'],
+    }), 
+    __metadata('design:paramtypes', [EventService, DashboardStateService])
+], ResourceSchedulerComponent);
 //# sourceMappingURL=resource-scheduler.component.js.map

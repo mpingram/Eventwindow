@@ -1,10 +1,11 @@
-"use strict";
-require('rxjs/Rx'); //all
-require('rxjs/add/observable/throw');
-require('rxjs/add/observable/from'); // FIXME: might be able to remove
-require('rxjs/add/operator/catch');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/filter');
-require('rxjs/add/operator/groupBy');
-require('rxjs/add/operator/mergeMap');
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/groupBy';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/find';
+import 'rxjs/add/operator/isEmpty';
+import 'rxjs/add/operator/toArray';
 //# sourceMappingURL=rxjs-operators.js.map

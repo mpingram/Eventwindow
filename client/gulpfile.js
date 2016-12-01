@@ -49,6 +49,11 @@ gulp.task('useref', function(){
 		pipe(gulp.dest('../server/dist'));
 });
 
+gulp.task('moveHtml', function(){
+	return gulp.src('./app/**/*.html')
+		.pipe(gulp.dest('../server/dist/app'));
+});
+
 // minify images
 gulp.task('imagemin', function(){
 	return gulp.src('app/images/*').
@@ -67,6 +72,16 @@ gulp.task('moveBowerComponents', function(){
 gulp.task('moveFavicon', function(){
 	return gulp.src('./favicon.ico').
 		pipe(gulp.dest('../server/dist'));
+});
+
+gulp.task('moveAngularCode', function(){
+	return gulp.src('./node_modules/@angular/core/bundles/core.umd.min.js')
+		.pipe(gulp.dest('../server/dist/node_modules/@angular/core/bundles'));
+});
+
+gulp.task('moveRx', function(){
+	return gulp.src('./node_modules/rxjs-es/**/*' )
+		.pipe(gulp.dest('../server/dist/node_modules/rxjs-es' ));
 });
 
 // live reload browser
@@ -88,7 +103,7 @@ gulp.task('browserSync', function(){
 });
 
 gulp.task('clean:dist', function(){
-	return del.sync('../server/dist', {force:true});
+	return del.sync('../server/dist/*', {force:true});
 });
 
 
@@ -108,10 +123,10 @@ gulp.task('watch', ['browserSync','sassCompile'], function(){
 
 // build production dist dir
 gulp.task('build', function(callback){
-	runSequence('clean:dist', ['moveBowerComponents','moveFavicon','sassCompile','imagemin','useref'], callback );
+	runSequence('clean:dist', ['moveBowerComponents', 'moveHtml', 'moveAngularCode', 'moveRx', 'moveFavicon','sassCompile','imagemin','useref'], callback );
 });
 
 // compile sass, launch server, and watch
 gulp.task('default', function(callback){
-	runSequence( ['moveBowerComponents','sassCompile','browserSync','useref','watch'], callback);
+	runSequence( ['moveBowerComponents', 'sassCompile','browserSync','useref','watch'], callback);
 });
