@@ -9,6 +9,10 @@
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
+    "clean": "gulp clean:dist",
+    "build": "npm run clean && npm run tsc",
+    "build:p": "npm run build && browserify -s main ../server/dist/main.js > dist/app-bundle.js && npm run minify" ,
+    "minify": " uglifyjs ../server/dist/bundle.js --screw-ie8 --compress --mangle --output dist/app-bundle.min.js" ,
     "gulp": "gulp",
     "typings": "typings"
   },
@@ -25,7 +29,6 @@
     "angular2-in-memory-web-api": "~0.0.21",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
-    "ng2-page-scroll": "^4.0.0-beta.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.39",
@@ -35,6 +38,7 @@
     "autoprefixer": "^6.3.7",
     "autoprefixer-core": "^5.2.1",
     "browser-sync": "^2.12.10",
+    "browserify": "^13.1.1",
     "concurrently": "^2.2.0",
     "connect-modrewrite": "^0.9.0",
     "del": "^2.2.0",
@@ -55,7 +59,8 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.2",
     "phantomjs-prebuilt": "^2.1.12",
-    "run-sequence": "^1.2.1"
+    "run-sequence": "^1.2.1",
+    "uglify-js": "^2.7.5"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -32,8 +32,8 @@ gulp.task('sassCompile', function(){
 		})
 		// autoprefix css
 		.pipe( postcss ([ autoprefixer ({ browsers: ['> 0.5% in US'] }) ]) )
-		// send back to dev env for now
-		.pipe(gulp.dest('app/'));
+		// send to dist
+		.pipe(gulp.dest('../server/dist/app'));
 });
 
 
@@ -59,13 +59,13 @@ gulp.task('imagemin', function(){
 
 // move bower dependencies over
 gulp.task('moveBowerComponents', function(){
-	return gulp.src('app/bower_components/**/*.*', {base:'./app'}).
+	return gulp.src('app/bower_components/**/*.*', {base:'./'}).
 		pipe(gulp.dest('../server/dist'));
 });
 
 // move the fucking favicon
 gulp.task('moveFavicon', function(){
-	return gulp.src('app/favicon.ico').
+	return gulp.src('./favicon.ico').
 		pipe(gulp.dest('../server/dist'));
 });
 
@@ -76,7 +76,7 @@ gulp.task('browserSync', function(){
 		open: 'ui',
 		server: {
 			// development server
-			baseDir: './',
+			baseDir: '../server/dist',
 			middleware: [
 				modRewrite([
 					'^[^\\.]*$ /index.html [L]'
@@ -113,5 +113,5 @@ gulp.task('build', function(callback){
 
 // compile sass, launch server, and watch
 gulp.task('default', function(callback){
-	runSequence( ['sassCompile','browserSync','watch'], callback);
+	runSequence( ['moveBowerComponents','sassCompile','browserSync','useref','watch'], callback);
 });

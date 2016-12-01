@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width">
 
     <!-- load styles -->
-    <link href="bower_components/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
     <link href="app/shared/styles/resets.css" rel="stylesheet">
     <link href="app/shared/styles/main.css" rel="stylesheet">
     
@@ -17,13 +16,21 @@
       rel="stylesheet">
 
     <!-- load libraries -->
+    <!-- build:js angular-dependencies.min.js -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
+    <script src="bower_components/moment/min/moment.min.js"></script> 
+
+		<!-- endbuild -->
+
     <!-- configure systemJS -->
+    <!-- build:js systemjs.config.min.js -->
     <script src="systemjs.config.js"></script>
+    <!-- endbuild -->
+
     <script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>
@@ -39,19 +46,8 @@
     <![endif]-->
 
   <em-app> Loading... </em-app>
-  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-   <script>
-     !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-     (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-     r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-     }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-     ga('create', 'UA-XXXXX-X');
-     ga('send', 'pageview');
-  </script>
 
-  <script src="bower_components/moment/min/moment.min.js"></script> 
-  <script src="bower_components/pikaday-master/pikaday.js"></script>
 
 </body>
 </html>
