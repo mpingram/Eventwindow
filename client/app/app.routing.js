@@ -12,5 +12,5 @@ const appRoutes = [
     }
 ];
 export const appRoutingProviders = [];
-export const routing = RouterModule.forRoot(appRoutes);
+export const routing = RouterModule.forRoot(appRoutes, { useHash: true });
 //# sourceMappingURL=app.routing.js.map

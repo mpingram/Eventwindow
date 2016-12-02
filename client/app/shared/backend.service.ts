@@ -25,7 +25,7 @@ export class BackendService {
 		} else {
 			let eventArray: EmEvent[] = this.generateEventArray( rangeStart, rangeEnd ); 
 			eventObservable = Observable.from( eventArray );
-			this.logger.log( `Fetched ${ eventArray.length } events` );
+			// this.logger.log( `Fetched ${ eventArray.length } events` );
 		}
 
 		return eventObservable;
