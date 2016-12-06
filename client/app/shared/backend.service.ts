@@ -1,11 +1,11 @@
-import { Injectable, Type } from '@angular/core';
-import { Observable }				from 'rxjs/Observable';
+import { Injectable, Type }	from '@angular/core';
+import { Observable }	from 'rxjs/Observable';
 
-import { Moment }						from 'moment';
+import { Moment }	from 'moment';
 
-import { EmEvent } 						from './event';
+import { EmEvent } from './event';
 
-import { Logger } 					from './logger.service';
+import { Logger } from './logger.service';
 
 
 // FIXME: mock

@@ -21,7 +21,6 @@ export let EventService = class EventService {
         this._eventBufferStartDate = this.today;
         this._eventBufferEndDate = this._eventBufferStartDate.clone().add(this._defaultBufferRange, 'days');
         this.loadEventBuffer(this._eventBufferStartDate, this._eventBufferEndDate);
-        //this.getEventsByDay( this.today );
     }
     getEventsByDay(day) {
         let ISOStringKey = day.clone().startOf('day').toISOString();
@@ -42,27 +41,10 @@ export let EventService = class EventService {
     // private methods
     // ---------------------------
     loadEventBuffer(start, end = start) {
-        // configures eventBuffer with multiple streams ( Observers ), one for
+        // split incoming data ( as Observable<EmEvent> ) into multiple streams, one for
         // each day. Each stream can be selected using parentObservable.flatMap()
         this.eventBuffer = this.backend.getEvents(start, end).groupBy((event) => event.start.clone().startOf('day').toISOString());
     }
-    /*
-    private sortEventIntoBuffer( event:EmEvent ): void {
-
-        // convert the event's start time to an ISO-formatted string representation
-        let eventISODateString = event.start.clone().startOf('day').format();
-
-        // if the property matching the ISO date string doesn't exist
-        // in the eventBuffer, initialize the value as an empty array.
-        // FIXME: no distinction between empty events in range and unloaded events out of range.
-        if ( this._eventBuffer[ eventISODateString ] === undefined ) {
-            this._eventBuffer[ eventISODateString ] = [];
-        }
-
-        // push that event onto the stack of events in that day.
-        this._eventBuffer[ eventISODateString ].push(event);
-    }
-    */
     observableErrorHandler(error) {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';

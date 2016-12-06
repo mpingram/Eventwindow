@@ -42051,7 +42051,6 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._eventBufferStartDate = this.today;
             this._eventBufferEndDate = this._eventBufferStartDate.clone().add(this._defaultBufferRange, 'days');
             this.loadEventBuffer(this._eventBufferStartDate, this._eventBufferEndDate);
-            //this.getEventsByDay( this.today );
         }
         EventService.prototype.getEventsByDay = function (day) {
             var ISOStringKey = day.clone().startOf('day').toISOString();
@@ -42077,27 +42076,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         // ---------------------------
         EventService.prototype.loadEventBuffer = function (start, end) {
             if (end === void 0) { end = start; }
-            // configures eventBuffer with multiple streams ( Observers ), one for
+            // split incoming data ( as Observable<EmEvent> ) into multiple streams, one for
             // each day. Each stream can be selected using parentObservable.flatMap()
             this.eventBuffer = this.backend.getEvents(start, end).groupBy(function (event) { return event.start.clone().startOf('day').toISOString(); });
         };
-        /*
-        private sortEventIntoBuffer( event:EmEvent ): void {
-    
-            // convert the event's start time to an ISO-formatted string representation
-            let eventISODateString = event.start.clone().startOf('day').format();
-    
-            // if the property matching the ISO date string doesn't exist
-            // in the eventBuffer, initialize the value as an empty array.
-            // FIXME: no distinction between empty events in range and unloaded events out of range.
-            if ( this._eventBuffer[ eventISODateString ] === undefined ) {
-                this._eventBuffer[ eventISODateString ] = [];
-            }
-    
-            // push that event onto the stack of events in that day.
-            this._eventBuffer[ eventISODateString ].push(event);
-        }
-        */
         EventService.prototype.observableErrorHandler = function (error) {
             var errMsg = (error.message) ? error.message :
                 error.status ? error.status + " - " + error.statusText : 'Server error';
