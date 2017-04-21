@@ -1,6 +1,6 @@
 # EventWindow: a web app for event management
 
-This project is abandoned for now. Feel free to make use of the UI components! (The scheduler in particular, I'm pretty proud of it.)
+This project is abandoned for now. Feel free to make use of the UI components! (The event-viewer in particular, I'm pretty proud of it.)
 
 EventWindow is an open-source web app designed to help small and non-profit organizations host events (like meetings, lectures, and classes), by providing a system for scheduling events, assigning and managing resources for those events, and visualizing the needs of upcoming events as they approach in time.
  
